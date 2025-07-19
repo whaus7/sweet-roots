@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface IntroTextProps {
   title: string;
   text: string;

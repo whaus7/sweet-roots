@@ -61,12 +61,6 @@ const PLFA: React.FC<PLFAProps> = ({
   const gridSize = 10; // 10x10 grid = 100 squares
   const totalSquares = gridSize * gridSize;
 
-  // Calculate squares for each organism type
-  const bacteriaSquares = Math.round((bacteria / 100) * totalSquares);
-  const fungiSquares = Math.round((fungi / 100) * totalSquares);
-  const protozoaSquares = Math.round((protozoa / 100) * totalSquares);
-  const otherSquares = Math.round((other / 100) * totalSquares);
-
   // Animate values on mount
   useEffect(() => {
     const duration = 2000; // 2 seconds

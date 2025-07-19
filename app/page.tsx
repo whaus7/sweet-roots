@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Tile } from "./components/Tile";
 import { Compaction } from "./components/Compaction";
 import CarbonToNitrogen from "./components/CarbonToNitrogen";

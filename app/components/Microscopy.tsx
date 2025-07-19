@@ -4,15 +4,9 @@ import React, { useState, useRef } from "react";
 
 interface MicroscopyProps {
   videoSrc?: string;
-  size?: number;
-  title?: string;
 }
 
-const Microscopy: React.FC<MicroscopyProps> = ({
-  videoSrc = "",
-  size = 200,
-  title = "Microscopy Sample",
-}) => {
+const Microscopy: React.FC<MicroscopyProps> = ({ videoSrc = "" }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);

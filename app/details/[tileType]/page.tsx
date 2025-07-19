@@ -6,7 +6,6 @@ import {
   NPKData,
   MicroscopyData,
 } from "../../LocalPageData";
-import Link from "next/link";
 import { Compaction } from "../../components/Compaction";
 import CarbonToNitrogen from "../../components/CarbonToNitrogen";
 import BrixMeter from "../../components/BrixMeter";
