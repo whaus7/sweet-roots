@@ -30,7 +30,7 @@ export default function Home() {
           />
         </Tile>
         <Tile type="brix" title="BRIX Score" tileType="brix">
-          <BrixMeter brixValue={9} size={160} />
+          <BrixMeter brixValue={9} />
           <IntroText title="What" text={BrixData.what} maxChars={100} />
           <IntroText title="Why" text={BrixData.why} maxChars={100} />
           <IntroText
@@ -82,7 +82,7 @@ export default function Home() {
           />
         </Tile>
         <Tile type="microscopy" title="Microscopy Sample" tileType="microscopy">
-          <Microscopy size={160} />
+          <Microscopy />
           <IntroText title="What" text={MicroscopyData.what} maxChars={100} />
           <IntroText title="Why" text={MicroscopyData.why} maxChars={100} />
           <IntroText

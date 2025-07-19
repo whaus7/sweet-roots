@@ -48,7 +48,7 @@ const visualComponents = {
     <PLFA bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
   ),
   npk: () => <NPK nitrogen={52} phosphorus={5.2} potassium={175} size={160} />,
-  microscopy: () => <Microscopy size={200} />,
+  microscopy: () => <Microscopy />,
 };
 
 // Image mapping for testing tools
