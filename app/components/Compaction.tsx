@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -36,7 +36,6 @@ const placeholderCompactionData = [
 export const Compaction = ({ value = 0, size = 200 }: CompactionProps) => {
   const [currentValue, setCurrentValue] = useState(0);
   const [showGraph, setShowGraph] = useState(false);
-  const needleRef = useRef<SVGPathElement>(null);
 
   // Reduce SVG size significantly for better fit
   const svgSize = Math.min(size, 180); // Cap at 180px max
@@ -270,7 +269,6 @@ export const Compaction = ({ value = 0, size = 200 }: CompactionProps) => {
               />
               {/* Needle */}
               <path
-                ref={needleRef}
                 d={createNeedlePath(getAngle(currentValue))}
                 fill="#dc3545"
                 filter="url(#shadow)"

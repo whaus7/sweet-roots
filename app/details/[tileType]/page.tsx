@@ -42,16 +42,14 @@ const tileTitles = {
 
 // Component mapping for visual components
 const visualComponents = {
-  compaction: (props: any) => <Compaction value={190} size={200} />,
-  brix: (props: any) => <BrixMeter brixValue={9} size={200} />,
-  cnratio: (props: any) => <CarbonToNitrogen carbon={37} nitrogen={1} />,
-  plfa: (props: any) => (
+  compaction: () => <Compaction value={190} size={200} />,
+  brix: () => <BrixMeter brixValue={9} />,
+  cnratio: () => <CarbonToNitrogen carbon={37} nitrogen={1} />,
+  plfa: () => (
     <PLFA bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
   ),
-  npk: (props: any) => (
-    <NPK nitrogen={52} phosphorus={5.2} potassium={175} size={160} />
-  ),
-  microscopy: (props: any) => <Microscopy size={200} />,
+  npk: () => <NPK nitrogen={52} phosphorus={5.2} potassium={175} size={160} />,
+  microscopy: () => <Microscopy size={200} />,
 };
 
 // Image mapping for testing tools

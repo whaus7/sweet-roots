@@ -14,7 +14,6 @@ import GraphToggleButton from "./GraphToggleButton";
 
 interface BrixMeterProps {
   brixValue: number; // 0-32% Brix
-  size?: number;
 }
 
 // Placeholder data for BRIX history
@@ -33,7 +32,7 @@ const placeholderBrixData = [
   { date: "2024-03-19", brix: 15.1 },
 ];
 
-const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0, size = 200 }) => {
+const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0 }) => {
   const [currentBrix, setCurrentBrix] = useState(0);
   const [showGraph, setShowGraph] = useState(false);
 
@@ -41,25 +40,6 @@ const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0, size = 200 }) => {
   const getSplitPosition = (brix: number) => {
     const normalizedValue = Math.min(Math.max(brix, 0), 15);
     return (normalizedValue / 15) * 100; // Convert to percentage
-  };
-
-  // Calculate specific gravity based on BRIX value
-  const getSpecificGravity = (brix: number) => {
-    // Approximate conversion: SG = 1 + (Brix / 260)
-    return 1.0 + brix / 260;
-  };
-
-  // Get color based on BRIX value
-  const getBrixColor = (brix: number) => {
-    if (brix >= 12) {
-      return "#00a63e"; // Light green for good BRIX
-    } else if (brix >= 8) {
-      return "#ffff00"; // Yellow for moderate BRIX
-    } else if (brix >= 4) {
-      return "#ffc000"; // Orange for low BRIX
-    } else {
-      return "#ff4000"; // Red for very low BRIX
-    }
   };
 
   useEffect(() => {
@@ -89,8 +69,6 @@ const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0, size = 200 }) => {
   }, [brixValue]);
 
   const splitPosition = getSplitPosition(currentBrix);
-  const specificGravity = getSpecificGravity(currentBrix);
-  const brixColor = getBrixColor(currentBrix);
 
   const toggleView = () => {
     setShowGraph(!showGraph);

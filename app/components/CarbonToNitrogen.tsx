@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -39,7 +39,6 @@ const CarbonToNitrogen: React.FC<CarbonToNitrogenProps> = ({
 }) => {
   const [currentRatio, setCurrentRatio] = useState(27.5);
   const [showGraph, setShowGraph] = useState(false);
-  const needleRef = useRef<HTMLDivElement>(null);
 
   // Calculate the C:N ratio
   const ratio = nitrogen > 0 ? carbon / nitrogen : 0;
@@ -200,7 +199,6 @@ const CarbonToNitrogen: React.FC<CarbonToNitrogenProps> = ({
 
               {/* Needle marker */}
               <div
-                ref={needleRef}
                 className="absolute top-0 w-1 h-full transform -translate-x-1/2 transition-all duration-2000 ease-out"
                 style={{
                   left: `${getNeedlePosition(currentRatio)}%`,

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import HeroBanner from "../components/HeroBanner";
 
 export default function AboutPage() {

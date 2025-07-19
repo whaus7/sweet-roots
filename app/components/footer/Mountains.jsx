@@ -1,13 +1,10 @@
 "use client";
 
 import styles from "@/app/components/footer/Mountains.module.css";
-//import { useAppSelector } from "@/lib/hooks";
-//import { selectDarkmode } from "@/lib/features/darkmode/darkmodeSlice";
 import { usePathname } from "next/navigation";
 import Tree from "@/app/components/footer/Tree";
 import trees from "@/app/components/footer/trees";
 import Boop from "@/app/components/Boop";
-//import Sun from "@/app/components/svg_icons/Sun";
 import { useCallback, useMemo } from "react";
 
 const MOUNTAIN_COLORS = {
@@ -26,10 +23,8 @@ const MOUNTAIN_COLORS = {
 };
 
 export default function Mountains() {
-  //const darkmode = useAppSelector(selectDarkmode);
   const darkmode = false;
   const pathname = usePathname();
-  console.log("pathname: " + pathname);
 
   const scrollPos = useCallback((pathname, layer) => {
     let baseScroll = 50;
