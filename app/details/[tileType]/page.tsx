@@ -16,9 +16,9 @@ import { Tile } from "../../components/Tile";
 import Image from "next/image";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     tileType: string;
-  };
+  }>;
 }
 
 const tileDataMap = {
@@ -72,8 +72,8 @@ const deviceDescriptions = {
   },
 };
 
-export default function DetailsPage({ params }: PageProps) {
-  const { tileType } = params;
+export default async function DetailsPage({ params }: PageProps) {
+  const { tileType } = await params;
   const data = tileDataMap[tileType as keyof typeof tileDataMap];
   const title = tileTitles[tileType as keyof typeof tileTitles];
   const VisualComponent =
