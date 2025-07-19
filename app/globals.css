@@ -48,26 +48,28 @@ button:hover {
   margin-bottom: 0;
 }
 
-.details-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "what what what visualization"
-    "why why why testing-tool"
-    "solutions solutions solutions .";
-  gap: 16px;
+/* Ipad layout */
+@media (max-width: 1180px) {
+  #dashboard {
+    grid-template-areas:
+      "compaction compaction brix"
+      "compaction compaction brix"
+      "npk microscopy microscopy"
+      "npk microscopy microscopy"
+      "plfa plfa cnratio";
+  }
 }
 
 /* Mobile responsive layout */
-@media (max-width: 768px) {
-  .details-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 830px) {
+  #dashboard {
     grid-template-areas:
-      "what"
-      "why"
-      "solutions"
-      "visualization"
-      "testing-tool";
+      "compaction"
+      "brix"
+      "npk"
+      "microscopy"
+      "plfa"
+      "cnratio";
   }
 }
 
