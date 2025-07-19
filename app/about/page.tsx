@@ -24,7 +24,8 @@ export default function AboutPage() {
                 highest quality microgreens while maintaining the highest
                 standards of nutrition and safety. Our commitment to nutrition
                 testing sets us apart in the industry, ensuring that every batch
-                of microgreens we produce meets our rigorous quality standards.
+                of microgreens we produce meets our data driven quality
+                standards.
               </p>
             </section>
 
