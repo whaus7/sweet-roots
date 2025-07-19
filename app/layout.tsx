@@ -1,21 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Open_Sans, Faculty_Glyphic, Outfit } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const openSans = Open_Sans({
-  //subsets: ["latin"],
-});
-
-const fac = Faculty_Glyphic({
-  weight: "400",
-});
 
 const outfit = Outfit({
   //weight: "600",
