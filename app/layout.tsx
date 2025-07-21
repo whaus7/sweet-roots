@@ -9,7 +9,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Soil Healh Dashboard",
+  title: "Sweet Roots",
   description:
     "Grade the health of your soil and learn about some tips to improve low scores",
 };

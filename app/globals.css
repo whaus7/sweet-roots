@@ -30,14 +30,37 @@ button:hover {
 }
 
 #dashboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "compaction brix plfa"
-    "compaction brix plfa"
-    "npk microscopy cnratio"
-    "npk microscopy cnratio";
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
+  justify-content: center;
+}
+
+#dashboard > * {
+  flex: 1 1 300px;
+  min-width: 350px;
+}
+
+/* Large screens - 3 columns */
+@media (min-width: 1200px) {
+  #dashboard > * {
+    flex: 1 1 350px;
+  }
+}
+
+/* Medium screens - 2 columns */
+@media (max-width: 1199px) and (min-width: 768px) {
+  #dashboard > * {
+    flex: 1 1 320px;
+  }
+}
+
+/* Small screens - 1 column */
+@media (max-width: 767px) {
+  #dashboard > * {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 .details-page p {
@@ -46,31 +69,6 @@ button:hover {
 
 .details-page p:last-child {
   margin-bottom: 0;
-}
-
-/* Ipad layout */
-@media (max-width: 1180px) {
-  #dashboard {
-    grid-template-areas:
-      "compaction compaction brix"
-      "compaction compaction brix"
-      "npk microscopy microscopy"
-      "npk microscopy microscopy"
-      "plfa plfa cnratio";
-  }
-}
-
-/* Mobile responsive layout */
-@media (max-width: 830px) {
-  #dashboard {
-    grid-template-areas:
-      "compaction"
-      "brix"
-      "npk"
-      "microscopy"
-      "plfa"
-      "cnratio";
-  }
 }
 
 .tileTitle {

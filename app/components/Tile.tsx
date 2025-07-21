@@ -20,7 +20,6 @@ export const Tile = ({
     <div
       className="result-widget shadow-md"
       style={{
-        gridArea: `${type}`,
         ...(altStyle && {
           backgroundColor: "white",
           border: "1px solid #e6f3ff", // Blue border
