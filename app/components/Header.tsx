@@ -26,6 +26,12 @@ export function Header() {
               Dashboard
             </Link>
             <Link
+              href="/brix-logs"
+              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+            >
+              Brix Logs
+            </Link>
+            <Link
               href="/microgreen-store"
               className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
