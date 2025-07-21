@@ -11,7 +11,6 @@ interface TileProps {
 
 export const Tile = ({
   children,
-  type,
   title,
   tileType,
   altStyle = false,
