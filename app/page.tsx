@@ -29,7 +29,7 @@ export default function Home() {
             maxChars={100}
           />
         </Tile>
-        <Tile type="brix" title="BRIX Score" tileType="brix">
+        <Tile type="brix" title="Brix Score" tileType="brix">
           <BrixMeter brixValue={9} />
           <IntroText title="What" text={BrixData.what} maxChars={100} />
           <IntroText title="Why" text={BrixData.why} maxChars={100} />
