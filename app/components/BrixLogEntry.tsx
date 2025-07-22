@@ -77,11 +77,8 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div>
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">
-          Add a New Plant Type
-        </h3>
         <button
           type="button"
           onClick={() => setShowNoteInput(!showNoteInput)}

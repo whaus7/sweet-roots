@@ -20,6 +20,11 @@ interface BrixReading {
   notes?: string;
 }
 
+type GroupedBrixData = Record<
+  string,
+  { date: string; [key: string]: string | number }
+>;
+
 interface BrixLogsChartProps {
   readings: BrixReading[];
   selectedPlant?: string;
@@ -44,7 +49,7 @@ export default function BrixLogsChart({
     }
     acc[date][reading.plantName] = reading.brixValue;
     return acc;
-  }, {} as Record<string, any>);
+  }, {} as GroupedBrixData);
 
   const chartData = Object.values(groupedData).sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -161,7 +166,7 @@ export default function BrixLogsChart({
             <Legend />
 
             {/* Render lines for each plant */}
-            {plants.map((plantName, index) => {
+            {plants.map((plantName, i) => {
               const color = getPlantColor(plantName);
               const threshold = getPlantThreshold(plantName);
 
@@ -169,6 +174,7 @@ export default function BrixLogsChart({
                 <React.Fragment key={plantName}>
                   {/* Threshold line */}
                   <Line
+                    key={`line-${i}`}
                     type="monotone"
                     dataKey={`${plantName}_threshold`}
                     stroke={color}

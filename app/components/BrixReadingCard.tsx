@@ -98,11 +98,8 @@ export default function BrixReadingCard({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">
-          {reading.plantName}
-        </h3>
         <div className="flex items-center space-x-2">
           <span className="text-sm text-gray-500">
             {plantReadings.length} reading
@@ -150,7 +147,7 @@ export default function BrixReadingCard({
                   width={30}
                 />
                 <Tooltip
-                  formatter={(value, name) => [value, "Brix %"]}
+                  formatter={(value) => [value, "Brix %"]}
                   labelFormatter={(label, payload) => {
                     if (payload && payload[0]) {
                       return payload[0].payload.date;

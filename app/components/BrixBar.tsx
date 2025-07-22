@@ -143,7 +143,6 @@ export default function BrixBar({
           {/* Segmented background */}
           {Array.from({ length: Math.ceil(maxBrix / 2) }, (_, i) => {
             const segmentStart = i * 2; // Every 2 Brix units
-            const segmentEnd = segmentStart + 2;
             const segmentMidpoint = segmentStart + 1; // Use midpoint for color
             const color = getSegmentColor(segmentMidpoint);
             const left = (segmentStart / maxBrix) * 100;

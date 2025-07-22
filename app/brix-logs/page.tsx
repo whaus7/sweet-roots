@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react";
 import BrixLogEntry from "../components/BrixLogEntry";
 import BrixReadingCard from "../components/BrixReadingCard";
-import { getPlantByName } from "../data/plantBrixData";
-import { brixApi, BrixReading } from "../services/brixApi";
+import { Tile } from "../components/Tile";
+import HeroBanner from "../components/HeroBanner";
+import { brixApi } from "../services/brixApi";
 
 interface LocalBrixReading {
   id: string;
@@ -45,7 +46,10 @@ export default function BrixLogsPage() {
           return;
         }
       } catch (apiError) {
-        console.log("API not available, using localStorage fallback");
+        console.log(
+          "API not available, using localStorage fallback:",
+          apiError
+        );
       }
 
       // Fallback to localStorage
@@ -98,7 +102,7 @@ export default function BrixLogsPage() {
         return;
       }
     } catch (apiError) {
-      console.log("API not available, using localStorage fallback");
+      console.log("API not available, using localStorage fallback:", apiError);
     }
 
     // Fallback to localStorage
@@ -140,7 +144,7 @@ export default function BrixLogsPage() {
         return;
       }
     } catch (apiError) {
-      console.log("API not available, using localStorage fallback");
+      console.log("API not available, using localStorage fallback:", apiError);
     }
 
     // Fallback to localStorage
@@ -152,7 +156,7 @@ export default function BrixLogsPage() {
     try {
       await brixApi.deleteReading(id);
     } catch (apiError) {
-      console.log("API not available, using localStorage fallback");
+      console.log("API not available, using localStorage fallback:", apiError);
     }
 
     // Remove from local state
@@ -171,78 +175,85 @@ export default function BrixLogsPage() {
   }
 
   return (
-    <div className="flex p-5 justify-center w-full">
-      <div className="w-full max-w-[1100] bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Brix Logs</h1>
-            <p className="text-gray-600">
-              Track your plant Brix readings over time to monitor nutrient
-              density and crop health.
-            </p>
-            {error && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
-                <p className="text-red-800">{error}</p>
-              </div>
-            )}
+    <div className="min-h-screen" style={{ background: "#fcfcfc" }}>
+      {/* Full Width Banner */}
+      <HeroBanner
+        title="Brix Logs"
+        subtitle="Track your plant Brix readings over time to monitor nutrient density and crop health."
+        backgroundImage="/images/brix-banner.png"
+        altText="Brix Logs Banner"
+      />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Error Display */}
+        {error && (
+          <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
+            <p className="text-red-800">{error}</p>
           </div>
+        )}
 
-          {/* Add New Reading */}
+        {/* Add New Reading */}
+        <Tile title="Add a New Plant Type" type="brix" altStyle={false}>
           <BrixLogEntry onSubmit={handleAddReading} />
+        </Tile>
 
-          {/* Brix Reading Cards */}
-          {readings.length > 0 ? (
-            <div className="space-y-6">
-              {(() => {
-                // Group readings by plant name
-                const plantGroups = readings.reduce((groups, reading) => {
-                  if (!groups[reading.plantName]) {
-                    groups[reading.plantName] = [];
-                  }
-                  groups[reading.plantName].push(reading);
-                  return groups;
-                }, {} as Record<string, LocalBrixReading[]>);
+        {/* Brix Reading Cards */}
+        {readings.length > 0 ? (
+          <div className="space-y-6 mt-6">
+            {(() => {
+              // Group readings by plant name
+              const plantGroups = readings.reduce((groups, reading) => {
+                if (!groups[reading.plantName]) {
+                  groups[reading.plantName] = [];
+                }
+                groups[reading.plantName].push(reading);
+                return groups;
+              }, {} as Record<string, LocalBrixReading[]>);
 
-                // Get the latest reading for each plant
-                const latestReadings = Object.entries(plantGroups).map(
-                  ([plantName, plantReadings]) => {
-                    const sortedReadings = plantReadings.sort(
-                      (a, b) =>
-                        new Date(b.date).getTime() - new Date(a.date).getTime()
-                    );
-                    return sortedReadings[0]; // Latest reading
-                  }
-                );
-
-                return latestReadings
-                  .sort(
+              // Get the latest reading for each plant
+              const latestReadings = Object.entries(plantGroups).map(
+                ([plantName, plantReadings]) => {
+                  const sortedReadings = plantReadings.sort(
                     (a, b) =>
                       new Date(b.date).getTime() - new Date(a.date).getTime()
-                  )
-                  .map((reading) => (
+                  );
+                  return sortedReadings[0]; // Latest reading
+                }
+              );
+
+              return latestReadings
+                .sort(
+                  (a, b) =>
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                )
+                .map((reading) => (
+                  <Tile
+                    key={reading.id}
+                    title={reading.plantName}
+                    type="brix"
+                    altStyle={false}
+                  >
                     <BrixReadingCard
-                      key={reading.id}
                       reading={reading}
                       allReadings={readings}
                       onAddReading={handleAddReadingToPlant}
                       onDeleteReading={handleDeleteReading}
                     />
-                  ));
-              })()}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-gray-400 text-6xl mb-4">🌱</div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                No Brix readings yet
-              </h3>
-              <p className="text-gray-600">
-                Add your first Brix reading to get started
-              </p>
-            </div>
-          )}
-        </div>
+                  </Tile>
+                ));
+            })()}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-6xl mb-4">🌱</div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No Brix readings yet
+            </h3>
+            <p className="text-gray-600">
+              Add your first Brix reading to get started
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
