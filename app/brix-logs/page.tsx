@@ -212,7 +212,7 @@ export default function BrixLogsPage() {
 
               // Get the latest reading for each plant
               const latestReadings = Object.entries(plantGroups).map(
-                ([plantName, plantReadings]) => {
+                ([_plantName, plantReadings]) => {
                   const sortedReadings = plantReadings.sort(
                     (a, b) =>
                       new Date(b.date).getTime() - new Date(a.date).getTime()
