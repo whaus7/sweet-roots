@@ -89,6 +89,7 @@ export default function MicrogreenStore() {
         subtitle="Locally grown, nutrient-rich microgreens delivered fresh to your door"
         backgroundImage="/images/microgreens/microgreen-banner.jpg"
         altText="Fresh Microgreens Banner"
+        burnAmount={0.6}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -29,6 +29,17 @@ button:hover {
   cursor: pointer;
 }
 
+/* Make all select and date inputs have pointer cursor on hover */
+select:hover,
+input[type="date"]:hover {
+  cursor: pointer;
+}
+
+/* Make date inputs clickable (not just the calendar icon) */
+input[type="date"] {
+  cursor: pointer;
+}
+
 #dashboard {
   display: flex;
   flex-wrap: wrap;

@@ -39,6 +39,37 @@ export default function Home() {
             maxChars={100}
           />
         </Tile>
+        <Tile type="plfa" title="Polylipids Fatty Acid Profile" tileType="plfa">
+          <PLFA bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
+          <IntroText title="What" text={PlfaData.what} maxChars={100} />
+          <IntroText title="Why" text={PlfaData.why} maxChars={100} />
+          <IntroText
+            title="Solutions"
+            text={PlfaData.solutions}
+            maxChars={100}
+          />
+        </Tile>
+
+        <Tile type="npk" title="NPK Profile" tileType="npk">
+          <NPK nitrogen={52} phosphorus={5.2} potassium={175} size={160} />
+          <IntroText title="What" text={NPKData.what} maxChars={100} />
+          <IntroText title="Why" text={NPKData.why} maxChars={100} />
+          <IntroText
+            title="Solutions"
+            text={NPKData.solutions}
+            maxChars={100}
+          />
+        </Tile>
+        <Tile type="microscopy" title="Microscopy Sample" tileType="microscopy">
+          <Microscopy />
+          <IntroText title="What" text={MicroscopyData.what} maxChars={100} />
+          <IntroText title="Why" text={MicroscopyData.why} maxChars={100} />
+          <IntroText
+            title="Solutions"
+            text={MicroscopyData.solutions}
+            maxChars={100}
+          />
+        </Tile>
         <Tile
           type="cnratio"
           title="Carbon to Nitrogen Ratio"
@@ -58,36 +89,6 @@ export default function Home() {
           <IntroText
             title="Solutions"
             text={CarbonToNitrogenData.solutions}
-            maxChars={100}
-          />
-        </Tile>
-        <Tile type="plfa" title="Polylipids Fatty Acid Profile" tileType="plfa">
-          <PLFA bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
-          <IntroText title="What" text={PlfaData.what} maxChars={100} />
-          <IntroText title="Why" text={PlfaData.why} maxChars={100} />
-          <IntroText
-            title="Solutions"
-            text={PlfaData.solutions}
-            maxChars={100}
-          />
-        </Tile>
-        <Tile type="npk" title="NPK Profile" tileType="npk">
-          <NPK nitrogen={52} phosphorus={5.2} potassium={175} size={160} />
-          <IntroText title="What" text={NPKData.what} maxChars={100} />
-          <IntroText title="Why" text={NPKData.why} maxChars={100} />
-          <IntroText
-            title="Solutions"
-            text={NPKData.solutions}
-            maxChars={100}
-          />
-        </Tile>
-        <Tile type="microscopy" title="Microscopy Sample" tileType="microscopy">
-          <Microscopy />
-          <IntroText title="What" text={MicroscopyData.what} maxChars={100} />
-          <IntroText title="Why" text={MicroscopyData.why} maxChars={100} />
-          <IntroText
-            title="Solutions"
-            text={MicroscopyData.solutions}
             maxChars={100}
           />
         </Tile>

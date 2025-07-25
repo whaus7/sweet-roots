@@ -78,36 +78,11 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <button
-          type="button"
-          onClick={() => setShowNoteInput(!showNoteInput)}
-          className="text-sm text-blue-600 hover:text-blue-800 underline"
-        >
-          Add Note
-        </button>
-      </div>
-
-      {showNoteInput && (
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Notes
-          </label>
-          <textarea
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            placeholder="Add a note..."
-            rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Single Row Layout */}
-        <div className="flex items-end gap-4">
+        {/* Responsive Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:items-end gap-4">
           {/* Plant Selection */}
-          <div className="flex-1">
+          <div className="lg:flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Plant Type *
             </label>
@@ -124,18 +99,18 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
                 </option>
               ))}
             </select>
-            {selectedPlantData && (
+            {/* {selectedPlantData && (
               <div className="mt-1 text-xs text-gray-600">
                 <span>
                   Target: {selectedPlantData.healthyBrixRange.min}-
                   {selectedPlantData.healthyBrixRange.max} Brix
                 </span>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* Date Input */}
-          <div className="flex-1">
+          <div className="lg:flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Date *
             </label>
@@ -149,7 +124,7 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
           </div>
 
           {/* Brix Value */}
-          <div className="flex-1">
+          <div className="lg:flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Brix Reading *
             </label>
@@ -178,8 +153,21 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
             </div>
           </div>
 
-          {/* Submit Button */}
-          <div>
+          {/* Notes Input */}
+          <div className="lg:flex-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Notes
+            </label>
+            <input
+              value={notes}
+              placeholder="Add a note..."
+              onChange={(e) => setNotes(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Submit Button for large screens - inline with form */}
+          <div className="hidden lg:block">
             <button
               type="submit"
               className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -187,6 +175,16 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
               Add
             </button>
           </div>
+        </div>
+
+        {/* Submit Button - Full width on mobile, auto width on medium+ */}
+        <div className="flex justify-start lg:hidden">
+          <button
+            type="submit"
+            className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Add
+          </button>
         </div>
       </form>
     </div>

@@ -110,7 +110,7 @@ export default function BrixBar({
     <div className="flex items-center space-x-4">
       <div className="relative drop-shadow-sm" style={{ width: barWidth }}>
         {/* Threshold indicator */}
-        <div
+        {/* <div
           className="absolute top-4 text-xs font-medium text-gray-600"
           style={{
             left: `${thresholdPosition}%`,
@@ -120,7 +120,7 @@ export default function BrixBar({
         >
           <div className="text-center mt-1">{threshold}</div>
           <div className="text-center w-0 h-0 border-l-4 border-r-4 border-t-6 border-transparent border-t-gray-600 mx-auto"></div>
-        </div>
+        </div> */}
 
         {/* Value indicator */}
         <div
@@ -137,7 +137,7 @@ export default function BrixBar({
 
         {/* Bar container */}
         <div
-          className="relative bg-gray-200 rounded-full"
+          className="relative bg-gray-200 rounded-full shadow-md"
           style={{ height: barHeight }}
         >
           {/* Segmented background */}
@@ -172,7 +172,7 @@ export default function BrixBar({
         </div>
 
         {/* Scale markers */}
-        <div className="absolute inset-0 flex justify-between items-center px-2">
+        <div className="absolute top-8 inset-0 flex justify-between items-center px-2">
           {(() => {
             const markers = [];
             // Always show 0
@@ -206,10 +206,10 @@ export default function BrixBar({
 
       {/* Value display */}
       <div className="text-center" style={{ width: "120px" }}>
+        <div className="text-md text-gray-600">{label}</div>
         <div className="text-2xl font-bold text-gray-800">
-          {currentValue.toFixed(1)}
+          {currentValue.toFixed(1)}%
         </div>
-        <div className="text-xs text-gray-600">{label}</div>
         <div className={`text-xs font-medium ${status.color}`}>
           {status.text}
         </div>

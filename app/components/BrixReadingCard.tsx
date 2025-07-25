@@ -12,6 +12,7 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+import { title } from "process";
 
 interface BrixReading {
   id: string;
@@ -99,36 +100,13 @@ export default function BrixReadingCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-500">
-            {plantReadings.length} reading
-            {plantReadings.length !== 1 ? "s" : ""}
-          </span>
-          {plantReadings.length > 1 && (
-            <button
-              onClick={() => setShowHistory(!showHistory)}
-              className="text-blue-600 hover:text-blue-800 text-sm underline"
-            >
-              {showHistory ? "Hide History" : "Show History"}
-            </button>
-          )}
-          <button
-            onClick={() => onDeleteReading(reading.id)}
-            className="text-red-600 hover:text-red-800 text-sm"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-
-      <div className="flex gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
         {/* Section 1: Gradient Graph with History */}
         <div className="flex-1">
           <h4 className="text-sm font-medium text-gray-700 mb-2">
             Brix History
           </h4>
-          <div className="h-32">
+          <div className="h-32 sm:h-40 lg:h-32">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={plantReadings.map((r, index) => ({
@@ -136,15 +114,32 @@ export default function BrixReadingCard({
                   brix: r.brixValue,
                   date: new Date(r.date).toLocaleDateString(),
                 }))}
-                margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
+                margin={{
+                  top: 5,
+                  right: 20,
+                  left: 0,
+                  bottom: 5,
+                }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" fontSize={10} tick={{ fontSize: 8 }} />
+                <XAxis
+                  dataKey="date"
+                  fontSize={10}
+                  tick={{ fontSize: 8 }}
+                  tickFormatter={(value) => {
+                    const date = new Date(value);
+                    return date.toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    });
+                  }}
+                />
                 <YAxis
                   domain={[0, 20]}
                   fontSize={10}
                   tick={{ fontSize: 8 }}
                   width={30}
+                  tickFormatter={(value) => `${value}%`}
                 />
                 <Tooltip
                   formatter={(value) => [value, "Brix %"]}
@@ -161,7 +156,7 @@ export default function BrixReadingCard({
                   strokeWidth={2}
                   strokeDasharray="3 3"
                   label={{
-                    value: `Target: ${threshold}%`,
+                    value: `${threshold}%`,
                     position: "right",
                     fill: "green",
                     fontSize: 10,
@@ -170,6 +165,28 @@ export default function BrixReadingCard({
                 <Bar dataKey="brix" fill="#3b82f6" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+          <div className="flex gap-2">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500">
+                {plantReadings.length} reading
+                {plantReadings.length !== 1 ? "s" : ""}
+              </span>
+              {plantReadings.length > 1 && (
+                <button
+                  onClick={() => setShowHistory(!showHistory)}
+                  className="text-blue-600 hover:text-blue-800 text-sm underline"
+                >
+                  {showHistory ? "Hide History" : "Show History"}
+                </button>
+              )}
+            </div>
+            <button
+              onClick={() => onDeleteReading(reading.id)}
+              className="text-red-600 hover:text-red-800 text-sm self-start sm:self-auto"
+            >
+              Delete
+            </button>
           </div>
         </div>
 
@@ -188,7 +205,6 @@ export default function BrixReadingCard({
           />
           {latestReading && (
             <div className="mt-2 text-xs text-gray-600">
-              Latest: {latestReading.brixValue}% on{" "}
               {new Date(latestReading.date).toLocaleDateString()}
             </div>
           )}
@@ -197,59 +213,48 @@ export default function BrixReadingCard({
         {/* Section 3: Add New Reading */}
         <div className="flex-1">
           <h4 className="text-sm font-medium text-gray-700 mb-2">
-            Add Reading
+            Add Reading for {reading.plantName}
           </h4>
 
-          {/* Date Input */}
-          <div className="mb-3">
-            <input
-              type="date"
-              value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+          {/* Date and Brix Inputs - Stack on mobile, side by side on larger screens */}
+          <div className="flex flex-col sm:flex-row gap-2 mb-3">
+            <div className="flex-1">
+              <input
+                type="number"
+                step="0.1"
+                min="0"
+                max="30"
+                value={newBrixValue}
+                onChange={(e) => setNewBrixValue(e.target.value)}
+                placeholder="Brix value"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              />
+            </div>
+            <div className="flex-1">
+              <input
+                type="date"
+                value={newDate}
+                onChange={(e) => setNewDate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              />
+            </div>
           </div>
 
-          {/* Brix Input */}
+          {/* Notes Input - Always Visible */}
           <div className="mb-3">
             <input
-              type="number"
-              step="0.1"
-              min="0"
-              max="30"
-              value={newBrixValue}
-              onChange={(e) => setNewBrixValue(e.target.value)}
-              placeholder="Enter Brix value"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              value={newNotes}
+              onChange={(e) => setNewNotes(e.target.value)}
+              placeholder="Add a note..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
-          </div>
-
-          {/* Notes Link */}
-          <div className="mb-3">
-            <button
-              onClick={() => setShowNoteInput(!showNoteInput)}
-              className="text-blue-600 hover:text-blue-800 text-sm underline"
-            >
-              {newNotes ? "Edit Note" : "Add Note"}
-            </button>
-            {showNoteInput && (
-              <div className="mt-2">
-                <textarea
-                  value={newNotes}
-                  onChange={(e) => setNewNotes(e.target.value)}
-                  placeholder="Add a note..."
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            )}
           </div>
 
           {/* Add Button */}
           <button
             onClick={handleAddReading}
             disabled={!newBrixValue}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
           >
             Add Reading
           </button>
@@ -258,12 +263,12 @@ export default function BrixReadingCard({
 
       {/* Display reading history */}
       {plantReadings.length > 1 && showHistory && (
-        <div className="mt-4 p-3 bg-gray-50 rounded-md">
+        <div className="mt-4 rounded-md">
           <h5 className="text-sm font-medium text-gray-800 mb-2">
             Reading History
           </h5>
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
+            <table className="w-full text-xs min-w-full">
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-1 px-2">Date</th>

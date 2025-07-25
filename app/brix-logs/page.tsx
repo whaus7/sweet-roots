@@ -5,6 +5,7 @@ import BrixReadingCard from "../components/BrixReadingCard";
 import { Tile } from "../components/Tile";
 import HeroBanner from "../components/HeroBanner";
 import { brixApi } from "../services/brixApi";
+import styles from "./brix-logs.module.css";
 
 interface LocalBrixReading {
   id: string;
@@ -175,16 +176,20 @@ export default function BrixLogsPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "#fcfcfc" }}>
+    <div
+      className={`min-h-screen ${styles.brixLogsPage}`}
+      style={{ background: "#fcfcfc" }}
+    >
       {/* Full Width Banner */}
       <HeroBanner
         title="Brix Logs"
         subtitle="Track your plant Brix readings over time to monitor nutrient density and crop health."
         backgroundImage="/images/brix-banner.png"
         altText="Brix Logs Banner"
+        burnAmount={1}
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Error Display */}
         {error && (
           <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
