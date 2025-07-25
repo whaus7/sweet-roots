@@ -18,7 +18,6 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
     new Date().toISOString().split("T")[0]
   );
   const [notes, setNotes] = useState<string>("");
-  const [showNoteInput, setShowNoteInput] = useState(false);
 
   const selectedPlantData = plantBrixData.find(
     (plant) => plant.name === selectedPlant

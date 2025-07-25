@@ -12,7 +12,6 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-import { title } from "process";
 
 interface BrixReading {
   id: string;
@@ -40,7 +39,6 @@ export default function BrixReadingCard({
   onAddReading,
   onDeleteReading,
 }: BrixReadingCardProps) {
-  const [showNoteInput, setShowNoteInput] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [newBrixValue, setNewBrixValue] = useState("");
   const [newDate, setNewDate] = useState(
