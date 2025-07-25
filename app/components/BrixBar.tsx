@@ -51,10 +51,6 @@ export default function BrixBar({
     return Math.min((value / maxBrix) * 100, 100);
   };
 
-  const getThresholdPosition = (threshold: number) => {
-    return Math.min((threshold / maxBrix) * 100, 100);
-  };
-
   const position = Math.max(0, Math.min(100, getPosition(currentValue)));
 
   // Get color for each segment based on Brix value and maxBrix
