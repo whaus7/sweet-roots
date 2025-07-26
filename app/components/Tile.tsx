@@ -17,7 +17,7 @@ export const Tile = ({
 }: TileProps) => {
   return (
     <div
-      className="result-widget shadow-md"
+      className="result-widget shadow-md bg-sky-50"
       style={{
         ...(altStyle && {
           backgroundColor: "white",

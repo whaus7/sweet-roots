@@ -99,8 +99,11 @@ export default function BrixBar({
   const status = getStatus();
 
   return (
-    <div className="flex items-center space-x-4">
-      <div className="relative drop-shadow-sm" style={{ width: barWidth }}>
+    <div className="flex items-center">
+      <div
+        className="relative drop-shadow-sm w-full"
+        style={{ width: barWidth }}
+      >
         {/* Threshold indicator */}
         {/* <div
           className="absolute top-4 text-xs font-medium text-gray-600"
@@ -116,7 +119,7 @@ export default function BrixBar({
 
         {/* Value indicator */}
         <div
-          className="absolute -top-6 text-xs font-medium text-gray-800"
+          className="absolute -top-10 text-lg font-medium text-gray-800"
           style={{
             left: `${position}%`,
             transform: "translateX(-50%)",
@@ -124,7 +127,7 @@ export default function BrixBar({
           }}
         >
           <div className="text-center mt-1">{currentValue.toFixed(1)}</div>
-          <div className="text-center w-0 h-0 border-l-6 border-r-6 border-t-8 border-transparent border-t-gray-600 mx-auto"></div>
+          <div className="text-center w-0 h-0 border-l-12 border-r-12 border-t-16 border-transparent border-t-gray-600 mx-auto"></div>
         </div>
 
         {/* Bar container */}
@@ -197,7 +200,7 @@ export default function BrixBar({
       </div>
 
       {/* Value display */}
-      <div className="text-center" style={{ width: "120px" }}>
+      <div className="text-center pl-4 min-w-[120px]">
         <div className="text-md text-gray-600">{label}</div>
         <div className="text-2xl font-bold text-gray-800">
           {currentValue.toFixed(1)}%

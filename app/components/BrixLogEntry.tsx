@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { plantBrixData, PlantBrixData } from "../data/plantBrixData";
 
 interface BrixLogEntryProps {
@@ -9,10 +9,13 @@ interface BrixLogEntryProps {
     date: string;
     notes?: string;
   }) => void;
+  preSelectedPlant?: string;
 }
 
-export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
-  const [selectedPlant, setSelectedPlant] = useState<string>("");
+export default function BrixLogEntry({
+  onSubmit,
+  preSelectedPlant,
+}: BrixLogEntryProps) {
   const [brixValue, setBrixValue] = useState<string>("");
   const [date, setDate] = useState<string>(
     new Date().toISOString().split("T")[0]
@@ -20,13 +23,13 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
   const [notes, setNotes] = useState<string>("");
 
   const selectedPlantData = plantBrixData.find(
-    (plant) => plant.name === selectedPlant
+    (plant) => plant.name === preSelectedPlant
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!selectedPlant || !brixValue || !date) {
+    if (!preSelectedPlant || !brixValue || !date) {
       alert("Please fill in all required fields");
       return;
     }
@@ -38,14 +41,13 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
     }
 
     onSubmit({
-      plantName: selectedPlant,
+      plantName: preSelectedPlant,
       brixValue: brixNum,
       date,
       notes: notes.trim() || undefined,
     });
 
     // Reset form
-    setSelectedPlant("");
     setBrixValue("");
     setNotes("");
   };
@@ -79,32 +81,14 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Responsive Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:items-end gap-4">
-          {/* Plant Selection */}
+          {/* Plant Display (read-only) */}
           <div className="lg:flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Plant Type *
+              Plant Type
             </label>
-            <select
-              value={selectedPlant}
-              onChange={(e) => setSelectedPlant(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            >
-              <option value="">Select a plant...</option>
-              {plantBrixData.map((plant) => (
-                <option key={plant.name} value={plant.name}>
-                  {plant.name} ({plant.category})
-                </option>
-              ))}
-            </select>
-            {/* {selectedPlantData && (
-              <div className="mt-1 text-xs text-gray-600">
-                <span>
-                  Target: {selectedPlantData.healthyBrixRange.min}-
-                  {selectedPlantData.healthyBrixRange.max} Brix
-                </span>
-              </div>
-            )} */}
+            <div className="px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-900">
+              {preSelectedPlant}
+            </div>
           </div>
 
           {/* Date Input */}

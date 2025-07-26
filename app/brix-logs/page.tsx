@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BrixLogEntry from "../components/BrixLogEntry";
 import BrixReadingCard from "../components/BrixReadingCard";
 import { Tile } from "../components/Tile";
 import HeroBanner from "../components/HeroBanner";
 import { brixApi } from "../services/brixApi";
+import { plantBrixData } from "../data/plantBrixData";
 import styles from "./brix-logs.module.css";
 
 interface LocalBrixReading {
@@ -15,10 +16,157 @@ interface LocalBrixReading {
   notes?: string;
 }
 
+// Plant Type Selection Tile Component
+interface PlantTypeTileProps {
+  plantName: string;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+function PlantTypeTile({ plantName, isSelected, onClick }: PlantTypeTileProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`p-3 rounded-xl border-2 transition-all duration-200 text-left ${
+        isSelected
+          ? "border-green-500 bg-green-50 shadow-md"
+          : "border-gray-200 bg-white hover:border-green-300 hover:shadow-sm"
+      }`}
+    >
+      <div className="flex items-center space-x-3">
+        <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+          <span className="text-green-600 text-sm">🌱</span>
+        </div>
+        <span className="font-semibold text-gray-900">{plantName}</span>
+      </div>
+    </button>
+  );
+}
+
+// New Plant Type Select Component
+interface NewPlantTypeSelectProps {
+  onSelect: (plantName: string) => void;
+  existingPlantTypes: string[];
+}
+
+function NewPlantTypeSelect({
+  onSelect,
+  existingPlantTypes,
+}: NewPlantTypeSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Filter out existing plant types and filter by search term
+  const availablePlants = plantBrixData
+    .filter((plant: any) => !existingPlantTypes.includes(plant.name))
+    .filter(
+      (plant: any) =>
+        plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        plant.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+        setSearchTerm("");
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const handleSelect = (plantName: string) => {
+    onSelect(plantName);
+    setIsOpen(false);
+    setSearchTerm("");
+  };
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`p-3 rounded-xl border-2 transition-all duration-200 text-left w-full ${
+          isOpen
+            ? "border-blue-500 bg-blue-50 shadow-md"
+            : "border-gray-200 bg-white hover:border-blue-300 hover:shadow-sm"
+        }`}
+      >
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+            <span className="text-blue-600 text-sm">➕</span>
+          </div>
+          <span className="font-semibold text-gray-900">
+            Add New Plant Type
+          </span>
+        </div>
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-60 overflow-y-auto">
+          <div className="p-3 border-b border-gray-200">
+            <input
+              type="text"
+              placeholder="Search plant types..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              autoFocus
+            />
+          </div>
+          <div className="py-2">
+            {availablePlants.length > 0 ? (
+              availablePlants.map((plant: any) => (
+                <button
+                  key={plant.name}
+                  onClick={() => handleSelect(plant.name)}
+                  className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-150"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                      <span className="text-green-600 text-xs">🌱</span>
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">
+                        {plant.name}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {plant.category}
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))
+            ) : (
+              <div className="px-4 py-3 text-gray-500 text-center">
+                {searchTerm
+                  ? "No matching plant types found"
+                  : "No new plant types available"}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function BrixLogsPage() {
   const [readings, setReadings] = useState<LocalBrixReading[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedPlantType, setSelectedPlantType] = useState<string>("");
 
   // Load readings from API on mount
   useEffect(() => {
@@ -70,6 +218,12 @@ export default function BrixLogsPage() {
   useEffect(() => {
     localStorage.setItem("brixReadings", JSON.stringify(readings));
   }, [readings]);
+
+  // Get unique plant types from existing readings
+  const getUniquePlantTypes = () => {
+    const plantTypes = new Set(readings.map((reading) => reading.plantName));
+    return Array.from(plantTypes).sort();
+  };
 
   const handleAddReading = async (entry: {
     plantName: string;
@@ -152,6 +306,10 @@ export default function BrixLogsPage() {
     setReadings((prev) => [...prev, newReading]);
   };
 
+  const handleSelectPlantType = (plantName: string) => {
+    setSelectedPlantType(plantName);
+  };
+
   const handleDeleteReading = async (id: string) => {
     // Try to delete from API first
     try {
@@ -175,6 +333,8 @@ export default function BrixLogsPage() {
     );
   }
 
+  const uniquePlantTypes = getUniquePlantTypes();
+
   return (
     <div
       className={`min-h-screen ${styles.brixLogsPage}`}
@@ -197,14 +357,77 @@ export default function BrixLogsPage() {
           </div>
         )}
 
-        {/* Add New Reading */}
-        <Tile title="Add a New Plant Type" type="brix" altStyle={false}>
-          <BrixLogEntry onSubmit={handleAddReading} />
-        </Tile>
+        {/* Forms Section */}
+        <div className="mb-8">
+          {/* Add Reading Form */}
+          <Tile title="Add a Reading" type="brix" altStyle={false}>
+            <div className="space-y-6">
+              {/* Option to add new plant type */}
+              {/* <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  Add New Plant Type
+                </h3>
+                <BrixLogEntry onSubmit={handleAddReading} />
+              </div> */}
+
+              {/* Divider */}
+              {/* <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">or</span>
+                </div>
+              </div> */}
+
+              {/* Select existing plant type */}
+              <div>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Select Plant Type
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                      {uniquePlantTypes.map((plantType) => (
+                        <PlantTypeTile
+                          key={plantType}
+                          plantName={plantType}
+                          isSelected={selectedPlantType === plantType}
+                          onClick={() => handleSelectPlantType(plantType)}
+                        />
+                      ))}
+                      <NewPlantTypeSelect
+                        onSelect={handleSelectPlantType}
+                        existingPlantTypes={uniquePlantTypes}
+                      />
+                    </div>
+                  </div>
+
+                  {selectedPlantType && (
+                    <div className="mt-6">
+                      <BrixLogEntry
+                        onSubmit={(entry) => {
+                          handleAddReadingToPlant(
+                            selectedPlantType,
+                            entry.brixValue,
+                            entry.date,
+                            entry.notes
+                          );
+                          setSelectedPlantType(""); // Reset selection after adding
+                        }}
+                        preSelectedPlant={selectedPlantType}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Tile>
+        </div>
 
         {/* Brix Reading Cards */}
         {readings.length > 0 ? (
-          <div className="space-y-6 mt-6">
+          <div className="space-y-6">
             {(() => {
               // Group readings by plant name
               const plantGroups = readings.reduce((groups, reading) => {

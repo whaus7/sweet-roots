@@ -197,7 +197,6 @@ export default function BrixReadingCard({
             threshold={threshold}
             maxBrix={maxBrix}
             label="Brix"
-            barWidth={200}
             barHeight={20}
           />
           {latestReading && (
@@ -205,56 +204,6 @@ export default function BrixReadingCard({
               {new Date(latestReading.date).toLocaleDateString()}
             </div>
           )}
-        </div>
-
-        {/* Section 3: Add New Reading */}
-        <div className="flex-1">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">
-            Add Reading for {reading.plantName}
-          </h4>
-
-          {/* Date and Brix Inputs - Stack on mobile, side by side on larger screens */}
-          <div className="flex flex-col sm:flex-row gap-2 mb-3">
-            <div className="flex-1">
-              <input
-                type="number"
-                step="0.1"
-                min="0"
-                max="30"
-                value={newBrixValue}
-                onChange={(e) => setNewBrixValue(e.target.value)}
-                placeholder="Brix value"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              />
-            </div>
-            <div className="flex-1">
-              <input
-                type="date"
-                value={newDate}
-                onChange={(e) => setNewDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              />
-            </div>
-          </div>
-
-          {/* Notes Input - Always Visible */}
-          <div className="mb-3">
-            <input
-              value={newNotes}
-              onChange={(e) => setNewNotes(e.target.value)}
-              placeholder="Add a note..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            />
-          </div>
-
-          {/* Add Button */}
-          <button
-            onClick={handleAddReading}
-            disabled={!newBrixValue}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-          >
-            Add Reading
-          </button>
         </div>
       </div>
 
