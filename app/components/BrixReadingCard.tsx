@@ -36,15 +36,9 @@ interface BrixReadingCardProps {
 export default function BrixReadingCard({
   reading,
   allReadings,
-  onAddReading,
   onDeleteReading,
 }: BrixReadingCardProps) {
   const [showHistory, setShowHistory] = useState(false);
-  const [newBrixValue, setNewBrixValue] = useState("");
-  const [newDate, setNewDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const [newNotes, setNewNotes] = useState("");
 
   const plantData = getPlantByName(reading.plantName);
   const threshold = plantData?.healthyBrixRange.min || 8;
