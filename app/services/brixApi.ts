@@ -1,5 +1,9 @@
-const API_BASE_URL = "https://sweetroots.app/api";
-//process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+// API Base URL - Update this for different environments:
+// Development: http://localhost:3001/api
+// Production: https://sweet-roots-qhjirkn00-wills-projects-3d5ba734.vercel.app/api
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://sweet-roots-qhjirkn00-wills-projects-3d5ba734.vercel.app/api";
 
 export interface BrixReading {
   id: string;
