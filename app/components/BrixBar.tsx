@@ -6,7 +6,6 @@ interface BrixBarProps {
   threshold: number;
   maxBrix: number;
   label: string;
-  barWidth: number;
   barHeight: number;
 }
 
@@ -15,7 +14,6 @@ export default function BrixBar({
   threshold,
   maxBrix,
   label,
-  barWidth,
   barHeight,
 }: BrixBarProps) {
   const [currentValue, setCurrentValue] = useState(0);
@@ -100,10 +98,7 @@ export default function BrixBar({
 
   return (
     <div className="flex items-center">
-      <div
-        className="relative drop-shadow-sm w-full"
-        style={{ width: barWidth }}
-      >
+      <div className="relative drop-shadow-sm w-full">
         {/* Threshold indicator */}
         {/* <div
           className="absolute top-4 text-xs font-medium text-gray-600"
