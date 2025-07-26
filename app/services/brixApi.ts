@@ -1,12 +1,7 @@
-// API Base URL - Update this for different environments:
-// Development: http://localhost:3001/api
-// How to update URL with latest??
-// Production: Use NEXT_PUBLIC_API_URL environment variable
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  (process.env.NODE_ENV === "production"
-    ? "https://your-new-vercel-deployment-url.vercel.app/api"
-    : "http://localhost:3001/api");
+import { configService } from "./config";
+
+// Get API base URL from configuration service
+const API_BASE_URL = configService.getApiBaseUrl();
 
 export interface BrixReading {
   id: string;
