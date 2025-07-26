@@ -1,4 +1,5 @@
 // API Base URL - Update this for different environments:
+// Base this on current ENV?
 // Development: http://localhost:3001/api
 // Production: https://sweet-roots-qhjirkn00-wills-projects-3d5ba734.vercel.app/api
 const API_BASE_URL =
