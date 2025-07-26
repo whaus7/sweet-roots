@@ -48,7 +48,6 @@ export default function BrixLogEntry({ onSubmit }: BrixLogEntryProps) {
     setSelectedPlant("");
     setBrixValue("");
     setNotes("");
-    setShowNoteInput(false);
   };
 
   const getStatusColor = (brix: number, plantData?: PlantBrixData) => {
