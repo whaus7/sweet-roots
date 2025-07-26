@@ -68,7 +68,6 @@ export default function BrixReadingCard({
     onAddReading(reading.plantName, brixNum, newDate, newNotes);
     setNewBrixValue("");
     setNewNotes("");
-    setShowNoteInput(false);
     setNewDate(new Date().toISOString().split("T")[0]);
   };
 
