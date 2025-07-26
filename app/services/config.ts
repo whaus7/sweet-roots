@@ -19,21 +19,16 @@ class ConfigService {
     let baseUrl: string;
 
     // Priority order for API URL resolution:
-    // 1. Explicitly set NEXT_PUBLIC_API_URL
-    // 2. Vercel's VERCEL_URL (for preview deployments)
-    // 3. Custom API domain (for production)
-    // 4. Development fallback
-
-    // if (process.env.NEXT_PUBLIC_API_URL) {
-    //   baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    // } else
+    // 1. Vercel's VERCEL_URL (for preview deployments - auto-detected)
+    // 2. Stable API domain (for production - set manually)
+    // 3. Development fallback
 
     if (isProduction) {
-      // For Vercel preview deployments
+      // For Vercel preview deployments - URL changes every deployment
       if (process.env.VERCEL_URL) {
         baseUrl = `https://${process.env.VERCEL_URL}/api`;
       } else if (process.env.NEXT_PUBLIC_API_DOMAIN) {
-        // For production, use a stable API domain
+        // For production - use a stable API domain you set manually
         baseUrl = `https://${process.env.NEXT_PUBLIC_API_DOMAIN}/api`;
       } else {
         // Fallback - you should set NEXT_PUBLIC_API_DOMAIN in production
