@@ -24,9 +24,11 @@ class ConfigService {
     // 3. Custom API domain (for production)
     // 4. Development fallback
 
-    if (process.env.NEXT_PUBLIC_API_URL) {
-      baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    } else if (isProduction) {
+    // if (process.env.NEXT_PUBLIC_API_URL) {
+    //   baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    // } else
+
+    if (isProduction) {
       // For Vercel preview deployments
       if (process.env.VERCEL_URL) {
         baseUrl = `https://${process.env.VERCEL_URL}/api`;
