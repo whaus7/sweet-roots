@@ -1,10 +1,11 @@
 // API Base URL - Update this for different environments:
-// Base this on current ENV?
 // Development: http://localhost:3001/api
-// Production: https://sweet-roots-qhjirkn00-wills-projects-3d5ba734.vercel.app/api
+// Production: Use NEXT_PUBLIC_API_URL environment variable
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://sweet-roots-qhjirkn00-wills-projects-3d5ba734.vercel.app/api";
+  (process.env.NODE_ENV === "production"
+    ? "https://your-new-vercel-deployment-url.vercel.app/api"
+    : "http://localhost:3001/api");
 
 export interface BrixReading {
   id: string;

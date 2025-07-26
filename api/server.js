@@ -14,6 +14,8 @@ const allowedOrigins = [
   "http://localhost:3001",
   process.env.CORS_ORIGIN,
   process.env.FRONTEND_URL,
+  // Allow Vercel deployments
+  /^https:\/\/.*\.vercel\.app$/,
 ].filter(Boolean);
 
 app.use(
@@ -22,9 +24,21 @@ app.use(
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      // Check if origin is in allowed list
+      if (
+        allowedOrigins.some((allowed) => {
+          if (typeof allowed === "string") {
+            return allowed === origin;
+          }
+          if (allowed instanceof RegExp) {
+            return allowed.test(origin);
+          }
+          return false;
+        })
+      ) {
         callback(null, true);
       } else {
+        console.log("CORS blocked origin:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
