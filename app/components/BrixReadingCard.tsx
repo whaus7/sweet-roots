@@ -58,19 +58,6 @@ export default function BrixReadingCard({
   // Get the latest reading for this plant
   const latestReading = plantReadings[plantReadings.length - 1];
 
-  const handleAddReading = () => {
-    const brixNum = parseFloat(newBrixValue);
-    if (isNaN(brixNum) || brixNum < 0 || brixNum > 30) {
-      alert("Please enter a valid Brix value between 0 and 30");
-      return;
-    }
-
-    onAddReading(reading.plantName, brixNum, newDate, newNotes);
-    setNewBrixValue("");
-    setNewNotes("");
-    setNewDate(new Date().toISOString().split("T")[0]);
-  };
-
   const getStatusColor = (brix: number) => {
     if (brix >= threshold) {
       return "text-green-600";

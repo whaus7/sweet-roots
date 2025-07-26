@@ -5,7 +5,7 @@ import BrixReadingCard from "../components/BrixReadingCard";
 import { Tile } from "../components/Tile";
 import HeroBanner from "../components/HeroBanner";
 import { brixApi } from "../services/brixApi";
-import { plantBrixData } from "../data/plantBrixData";
+import { plantBrixData, PlantBrixData } from "../data/plantBrixData";
 import styles from "./brix-logs.module.css";
 
 interface LocalBrixReading {
@@ -59,9 +59,9 @@ function NewPlantTypeSelect({
 
   // Filter out existing plant types and filter by search term
   const availablePlants = plantBrixData
-    .filter((plant: any) => !existingPlantTypes.includes(plant.name))
+    .filter((plant: PlantBrixData) => !existingPlantTypes.includes(plant.name))
     .filter(
-      (plant: any) =>
+      (plant: PlantBrixData) =>
         plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         plant.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -127,7 +127,7 @@ function NewPlantTypeSelect({
           </div>
           <div className="py-2">
             {availablePlants.length > 0 ? (
-              availablePlants.map((plant: any) => (
+              availablePlants.map((plant: PlantBrixData) => (
                 <button
                   key={plant.name}
                   onClick={() => handleSelect(plant.name)}
@@ -223,45 +223,6 @@ export default function BrixLogsPage() {
   const getUniquePlantTypes = () => {
     const plantTypes = new Set(readings.map((reading) => reading.plantName));
     return Array.from(plantTypes).sort();
-  };
-
-  const handleAddReading = async (entry: {
-    plantName: string;
-    brixValue: number;
-    date: string;
-    notes?: string;
-  }) => {
-    const newReading: LocalBrixReading = {
-      id: Date.now().toString(),
-      ...entry,
-    };
-
-    // Try to save to API first
-    try {
-      const response = await brixApi.createReading({
-        plant_name: entry.plantName,
-        brix_value: entry.brixValue,
-        reading_date: entry.date,
-        notes: entry.notes,
-      });
-
-      if (response.success) {
-        const apiReading: LocalBrixReading = {
-          id: response.data.id,
-          plantName: response.data.plant_name,
-          brixValue: response.data.brix_value,
-          date: response.data.reading_date,
-          notes: response.data.notes,
-        };
-        setReadings((prev) => [...prev, apiReading]);
-        return;
-      }
-    } catch (apiError) {
-      console.log("API not available, using localStorage fallback:", apiError);
-    }
-
-    // Fallback to localStorage
-    setReadings((prev) => [...prev, newReading]);
   };
 
   const handleAddReadingToPlant = async (
