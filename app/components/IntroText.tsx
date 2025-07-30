@@ -1,5 +1,5 @@
 interface IntroTextProps {
-  title: string;
+  title?: string;
   text: string;
   maxChars?: number;
 }
@@ -12,7 +12,7 @@ const IntroText = ({ title, text, maxChars }: IntroTextProps) => {
 
   return (
     <div className="mb-4">
-      <div className="tileTitle mb-1">{title}</div>
+      {title && <div className="tileTitle mb-1">{title}</div>}
       <div
         className="text-sm"
         dangerouslySetInnerHTML={{ __html: displayText }}

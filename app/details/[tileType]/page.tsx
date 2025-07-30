@@ -6,12 +6,12 @@ import {
   NPKData,
   MicroscopyData,
 } from "../../LocalPageData";
-import { Compaction } from "../../components/Compaction";
-import CarbonToNitrogen from "../../components/CarbonToNitrogen";
+import { CompactionMeter } from "../../components/CompactionMeter";
+import CarbonToNitrogenMeter from "../../components/CarbonToNitrogenMeter";
 import BrixMeter from "../../components/BrixMeter";
 import Microscopy from "../../components/Microscopy";
-import PLFA from "../../components/PLFA";
-import NPK from "../../components/NPK";
+import PLFAMeter from "../../components/PLFAMeter";
+import NPKMeter from "../../components/NPKMeter";
 import { Tile } from "../../components/Tile";
 import Image from "next/image";
 
@@ -41,13 +41,15 @@ const tileTitles = {
 
 // Component mapping for visual components
 const visualComponents = {
-  compaction: () => <Compaction value={190} size={200} />,
+  compaction: () => <CompactionMeter value={190} size={160} />,
   brix: () => <BrixMeter brixValue={9} />,
-  cnratio: () => <CarbonToNitrogen carbon={37} nitrogen={1} />,
+  cnratio: () => <CarbonToNitrogenMeter carbon={37} nitrogen={1} />,
   plfa: () => (
-    <PLFA bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
+    <PLFAMeter bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
   ),
-  npk: () => <NPK nitrogen={52} phosphorus={5.2} potassium={175} size={160} />,
+  npk: () => (
+    <NPKMeter nitrogen={52} phosphorus={5.2} potassium={175} size={160} />
+  ),
   microscopy: () => <Microscopy />,
 };
 

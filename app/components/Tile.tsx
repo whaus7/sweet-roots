@@ -28,16 +28,22 @@ export const Tile = ({
     >
       <div className="tileTitle text-center text-lg mb-4">{title}</div>
       {children}
-      {tileType && (
-        <div className="flex justify-end mt-4">
+      {/* {tileType && (
+        <div className="flex justify-end gap-4 mt-4">
+          <Link
+            href={`/history/${tileType}`}
+            className="text-blue-600 hover:text-blue-800 underline text-sm"
+          >
+            Log Readings
+          </Link>
           <Link
             href={`/details/${tileType}`}
             className="text-blue-600 hover:text-blue-800 underline text-sm"
           >
-            Read more
+            Learn more
           </Link>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

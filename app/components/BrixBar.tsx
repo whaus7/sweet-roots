@@ -56,16 +56,26 @@ export default function BrixBar({
     // Calculate color based on percentage of maxBrix
     const percentage = (brixValue / maxBrix) * 100;
 
+    // Dynamic color generation based on percentage
+    // Create a smooth gradient from red to green
     if (percentage >= 80) {
       return "#22c55e"; // Green for excellent (80-100% of max)
+    } else if (percentage >= 70) {
+      return "#4ade80"; // Light green for very good (70-79% of max)
     } else if (percentage >= 60) {
-      return "#84cc16"; // Light green for very good (60-79% of max)
+      return "#84cc16"; // Lime green for good (60-69% of max)
+    } else if (percentage >= 50) {
+      return "#eab308"; // Yellow for fair (50-59% of max)
     } else if (percentage >= 40) {
-      return "#eab308"; // Yellow for good (40-59% of max)
+      return "#f59e0b"; // Amber for below average (40-49% of max)
+    } else if (percentage >= 30) {
+      return "#f97316"; // Orange for poor (30-39% of max)
     } else if (percentage >= 20) {
-      return "#f97316"; // Orange for fair (20-39% of max)
+      return "#ea580c"; // Dark orange for very poor (20-29% of max)
+    } else if (percentage >= 10) {
+      return "#dc2626"; // Red for very poor (10-19% of max)
     } else {
-      return "#ef4444"; // Red for poor (0-19% of max)
+      return "#991b1b"; // Dark red for extremely poor (0-9% of max)
     }
   };
 
