@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
 
 interface TileProps {
   readonly children: ReactNode;
@@ -9,12 +8,7 @@ interface TileProps {
   altStyle?: boolean;
 }
 
-export const Tile = ({
-  children,
-  title,
-  tileType,
-  altStyle = false,
-}: TileProps) => {
+export const Tile = ({ children, title, altStyle = false }: TileProps) => {
   return (
     <div
       className="result-widget shadow-md bg-sky-50"

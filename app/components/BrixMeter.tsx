@@ -7,7 +7,7 @@ interface BrixMeterProps {
   size?: number;
 }
 
-const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0, size = 200 }) => {
+const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0 }) => {
   const [currentBrix, setCurrentBrix] = useState(0);
 
   // Calculate the split position based on BRIX value (0-15% maps to 0-100%)

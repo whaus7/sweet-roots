@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { CompactionGraph } from "../../components/CompactionGraph";
 import CarbonToNitrogenGraph from "../../components/CarbonToNitrogenGraph";
 import BrixGraph from "../../components/BrixGraph";
@@ -84,12 +85,12 @@ export default function HistoryPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto p-6">
         <div className="mb-6">
-          <a
+          <Link
             href="/"
             className="text-blue-600 hover:text-blue-800 underline text-sm mb-4 inline-block"
           >
             ← Back to Dashboard
-          </a>
+          </Link>
           <h1 className="text-3xl font-bold text-gray-800 mt-2">
             {tileData.title}
           </h1>
