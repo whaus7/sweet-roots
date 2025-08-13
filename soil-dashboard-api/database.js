@@ -14,10 +14,26 @@ const initializeDatabase = async () => {
   try {
     const client = await pool.connect();
 
-    // Create brix_readings table
+    // Create users table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        email VARCHAR(255) UNIQUE NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        provider VARCHAR(50) NOT NULL,
+        provider_id VARCHAR(255) NOT NULL,
+        avatar_url TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(provider, provider_id)
+      );
+    `);
+
+    // Create brix_readings table with user_id
     await client.query(`
       CREATE TABLE IF NOT EXISTS brix_readings (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID REFERENCES users(id) ON DELETE CASCADE,
         plant_name VARCHAR(100) NOT NULL,
         brix_value DECIMAL(4,1) NOT NULL CHECK (brix_value >= 0 AND brix_value <= 30),
         reading_date DATE NOT NULL,

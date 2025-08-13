@@ -4,14 +4,15 @@ const { v4: uuidv4 } = require("uuid");
 
 const router = express.Router();
 
-// GET /api/brix/readings - Get all Brix readings
+// GET /api/brix/readings - Get all Brix readings for a user
 router.get("/readings", async (req, res) => {
   try {
-    const { plant_name, limit = 100, offset = 0 } = req.query;
+    const { plant_name, limit = 100, offset = 0, user_id } = req.query;
 
     let query = `
       SELECT 
         id, 
+        user_id,
         plant_name, 
         brix_value, 
         reading_date, 
@@ -22,10 +23,20 @@ router.get("/readings", async (req, res) => {
     `;
 
     const params = [];
+    let whereConditions = [];
+
+    if (user_id) {
+      whereConditions.push(`user_id = $${params.length + 1}`);
+      params.push(user_id);
+    }
 
     if (plant_name) {
-      query += " WHERE plant_name = $1";
+      whereConditions.push(`plant_name = $${params.length + 1}`);
       params.push(plant_name);
+    }
+
+    if (whereConditions.length > 0) {
+      query += " WHERE " + whereConditions.join(" AND ");
     }
 
     query +=
@@ -84,13 +95,14 @@ router.get("/readings/:id", async (req, res) => {
 // POST /api/brix/readings - Create a new Brix reading
 router.post("/readings", async (req, res) => {
   try {
-    const { plant_name, brix_value, reading_date, notes } = req.body;
+    const { plant_name, brix_value, reading_date, notes, user_id } = req.body;
 
     // Validation
-    if (!plant_name || !brix_value || !reading_date) {
+    if (!plant_name || !brix_value || !reading_date || !user_id) {
       return res.status(400).json({
         success: false,
-        error: "Missing required fields: plant_name, brix_value, reading_date",
+        error:
+          "Missing required fields: plant_name, brix_value, reading_date, user_id",
       });
     }
 
@@ -101,11 +113,23 @@ router.post("/readings", async (req, res) => {
       });
     }
 
+    // Verify user exists
+    const userCheck = await pool.query("SELECT id FROM users WHERE id = $1", [
+      user_id,
+    ]);
+
+    if (userCheck.rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: "User not found",
+      });
+    }
+
     const result = await pool.query(
-      `INSERT INTO brix_readings (plant_name, brix_value, reading_date, notes)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO brix_readings (user_id, plant_name, brix_value, reading_date, notes)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [plant_name, brix_value, reading_date, notes || null]
+      [user_id, plant_name, brix_value, reading_date, notes || null]
     );
 
     res.status(201).json({
@@ -256,7 +280,7 @@ router.get("/plants/:name", async (req, res) => {
 // GET /api/brix/stats - Get statistics
 router.get("/stats", async (req, res) => {
   try {
-    const { plant_name } = req.query;
+    const { plant_name, user_id } = req.query;
 
     let query = `
       SELECT 
@@ -269,10 +293,20 @@ router.get("/stats", async (req, res) => {
     `;
 
     const params = [];
+    let whereConditions = [];
+
+    if (user_id) {
+      whereConditions.push(`user_id = $${params.length + 1}`);
+      params.push(user_id);
+    }
 
     if (plant_name) {
-      query += " WHERE plant_name = $1";
+      whereConditions.push(`plant_name = $${params.length + 1}`);
       params.push(plant_name);
+    }
+
+    if (whereConditions.length > 0) {
+      query += " WHERE " + whereConditions.join(" AND ");
     }
 
     const result = await pool.query(query, params);
