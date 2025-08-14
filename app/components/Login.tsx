@@ -1,12 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { authApi, User, LoginData } from "../services/authApi";
-
-interface GoogleCredentialResponse {
-  credential: string;
-  select_by: string;
-}
 
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
@@ -21,9 +16,15 @@ export default function Login({ onLoginSuccess, onLoginError }: LoginProps) {
   }, []);
 
   const handleGoogleSuccess = async (
-    credentialResponse: GoogleCredentialResponse
+    credentialResponse: CredentialResponse
   ) => {
     try {
+      // Check if credential exists
+      if (!credentialResponse.credential) {
+        onLoginError("No credential received from Google");
+        return;
+      }
+
       // Decode the JWT token to get user information
       const decoded = JSON.parse(
         atob(credentialResponse.credential.split(".")[1])
