@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import Link from "next/link";
 import { CompactionGraph } from "../../components/CompactionGraph";
 import CarbonToNitrogenGraph from "../../components/CarbonToNitrogenGraph";
 import BrixGraph from "../../components/BrixGraph";

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import BrixLogEntry from "../components/BrixLogEntry";
 import BrixReadingCard from "../components/BrixReadingCard";
 import { Tile } from "../components/Tile";
@@ -171,14 +171,7 @@ export default function BrixLogsPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedPlantType, setSelectedPlantType] = useState<string>("");
 
-  // Load readings from API on mount
-  useEffect(() => {
-    if (user) {
-      loadReadings();
-    }
-  }, [user]);
-
-  const loadReadings = async () => {
+  const loadReadings = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -217,7 +210,14 @@ export default function BrixLogsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  // Load readings from API on mount
+  useEffect(() => {
+    if (user) {
+      loadReadings();
+    }
+  }, [user, loadReadings]);
 
   // Save readings to localStorage whenever they change (fallback)
   useEffect(() => {

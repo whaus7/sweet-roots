@@ -3,6 +3,11 @@ import React, { useState, useEffect } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { authApi, User, LoginData } from "../services/authApi";
 
+interface GoogleCredentialResponse {
+  credential: string;
+  select_by: string;
+}
+
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
   onLoginError: (error: string) => void;
@@ -15,7 +20,9 @@ export default function Login({ onLoginSuccess, onLoginError }: LoginProps) {
     setIsClient(true);
   }, []);
 
-  const handleGoogleSuccess = async (credentialResponse: any) => {
+  const handleGoogleSuccess = async (
+    credentialResponse: GoogleCredentialResponse
+  ) => {
     try {
       // Decode the JWT token to get user information
       const decoded = JSON.parse(

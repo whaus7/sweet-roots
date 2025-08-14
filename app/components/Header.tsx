@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { useUser } from "../contexts/UserContext";
 
@@ -54,9 +55,11 @@ export function Header() {
               <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
                   {user.avatarUrl ? (
-                    <img
+                    <Image
                       src={user.avatarUrl}
                       alt={user.name}
+                      width={32}
+                      height={32}
                       className="w-8 h-8 rounded-full"
                     />
                   ) : (
@@ -155,9 +158,11 @@ export function Header() {
                 <div className="border-t border-gray-200 pt-4 mt-4">
                   <div className="flex items-center space-x-3 px-3 py-2">
                     {user.avatarUrl ? (
-                      <img
+                      <Image
                         src={user.avatarUrl}
                         alt={user.name}
+                        width={32}
+                        height={32}
                         className="w-8 h-8 rounded-full"
                       />
                     ) : (
