@@ -19,13 +19,14 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-bold">SR</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">
-                Sweet Roots Farm
-              </span>
+            <Link href="/" className="flex items-center space-x-3">
+              <Image
+                src="/images/sweet-roots-logo.svg"
+                alt="Sweet Roots Farm Logo"
+                width={300}
+                height={34}
+                priority
+              />
             </Link>
           </div>
 
