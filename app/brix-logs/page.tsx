@@ -353,11 +353,11 @@ export default function BrixLogsPage() {
                       Sweet Roots Farm Demo
                     </h3>
                     <p className="text-gray-700 mb-4">
-                      You're currently viewing Brix readings from Sweet Roots
-                      Farm. This is a demonstration of how the Brix tracking
-                      system works. Sign in with your Google account to start
-                      tracking your own Brix readings and monitor your crop
-                      health.
+                      You&apos;re currently viewing Brix readings from Sweet
+                      Roots Farm. This is a demonstration of how the Brix
+                      tracking system works. Sign in with your Google account to
+                      start tracking your own Brix readings and monitor your
+                      crop health.
                     </p>
                     <button
                       onClick={() => (window.location.href = "/details/brix")}
@@ -456,6 +456,7 @@ export default function BrixLogsPage() {
               // Get the latest reading for each plant
               const latestReadings = Object.entries(plantGroups).map(
                 ([_plantName, plantReadings]) => {
+                  console.log(_plantName);
                   const sortedReadings = plantReadings.sort(
                     (a, b) =>
                       new Date(b.date).getTime() - new Date(a.date).getTime()
