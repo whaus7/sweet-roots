@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const { initializeDatabase, pool } = require("./database");
+const { initializeDatabase } = require("./database");
 const brixRoutes = require("./routes/brix");
 const authRoutes = require("./routes/auth");
 
@@ -62,42 +62,6 @@ app.get("/health", (req, res) => {
 // API Routes
 app.use("/api/brix", brixRoutes);
 app.use("/api/auth", authRoutes);
-
-// Database migration endpoint
-app.post("/api/migrate", async (req, res) => {
-  try {
-    console.log("🔄 Starting database migration...");
-
-    const client = await pool.connect();
-
-    // Drop existing tables in correct order (respecting foreign keys)
-    console.log("🗑️ Dropping existing tables...");
-    await client.query("DROP TABLE IF EXISTS brix_readings CASCADE");
-    await client.query("DROP TABLE IF EXISTS plant_reference CASCADE");
-    await client.query("DROP TABLE IF EXISTS users CASCADE");
-
-    console.log("✅ Tables dropped successfully");
-
-    // Re-run the initialization
-    await initializeDatabase();
-
-    client.release();
-
-    console.log("✅ Database migration completed successfully!");
-    res.json({
-      success: true,
-      message: "Database migrated successfully",
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    console.error("❌ Migration error:", error);
-    res.status(500).json({
-      success: false,
-      error: "Migration failed",
-      details: error.message,
-    });
-  }
-});
 
 // Root endpoint
 app.get("/", (req, res) => {

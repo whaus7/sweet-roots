@@ -73,12 +73,12 @@ export default function Home() {
             maxChars={140}
           />
           <div className="flex justify-end gap-4 mt-4">
-            {/* <Link
-              href={"/brix-logs"}
+            <Link
+              href={"/history/plfa"}
               className="text-blue-600 hover:text-blue-800 underline text-sm"
             >
               Log Readings
-            </Link> */}
+            </Link>
             <Link
               href={`/details/plfa`}
               className="text-blue-600 hover:text-blue-800 underline text-sm"
@@ -90,23 +90,44 @@ export default function Home() {
 
         <Tile type="npk" title="NPK Profile" tileType="npk">
           <NPKMeter nitrogen={52} phosphorus={5.2} potassium={175} size={160} />
-          <IntroText title="What" text={NPKData.what} maxChars={100} />
-          <IntroText title="Why" text={NPKData.why} maxChars={100} />
-          <IntroText
-            title="Solutions"
-            text={NPKData.solutions}
-            maxChars={100}
-          />
+          <div className="py-2"></div>
+          <IntroText title="What is NPK?" text={NPKData.what} maxChars={90} />
+          <div className="flex justify-end gap-4 mt-4">
+            {/* <Link
+              href={"/history/plfa"}
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              Log Readings
+            </Link> */}
+            <Link
+              href={`/details/npk`}
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              Learn more
+            </Link>
+          </div>
         </Tile>
         <Tile type="microscopy" title="Microscopy Sample" tileType="microscopy">
           <Microscopy />
-          <IntroText title="What" text={MicroscopyData.what} maxChars={100} />
-          <IntroText title="Why" text={MicroscopyData.why} maxChars={100} />
           <IntroText
-            title="Solutions"
-            text={MicroscopyData.solutions}
+            title="What is Microscopy"
+            text={MicroscopyData.what}
             maxChars={100}
           />
+          <div className="flex justify-end gap-4 mt-4">
+            {/* <Link
+              href={"/history/plfa"}
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              Log Readings
+            </Link> */}
+            <Link
+              href={`/details/microscopy`}
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              Learn more
+            </Link>
+          </div>
         </Tile>
         <Tile
           type="cnratio"
@@ -114,21 +135,26 @@ export default function Home() {
           tileType="cnratio"
         >
           <CarbonToNitrogenMeter carbon={37} nitrogen={1} />
+          <div className="py-2"></div>
           <IntroText
-            title="What"
+            title="Why is Ratio Important?"
             text={CarbonToNitrogenData.what}
-            maxChars={100}
+            maxChars={155}
           />
-          <IntroText
-            title="Why"
-            text={CarbonToNitrogenData.why}
-            maxChars={100}
-          />
-          <IntroText
-            title="Solutions"
-            text={CarbonToNitrogenData.solutions}
-            maxChars={100}
-          />
+          <div className="flex justify-end gap-4 mt-4">
+            {/* <Link
+              href={"/history/plfa"}
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              Log Readings
+            </Link> */}
+            <Link
+              href={`/details/cnratio`}
+              className="text-blue-600 hover:text-blue-800 underline text-sm"
+            >
+              Learn more
+            </Link>
+          </div>
         </Tile>
       </div>
     </div>

@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import BrixLogEntry from "../components/BrixLogEntry";
 import BrixReadingCard from "../components/BrixReadingCard";
 import { Tile } from "../components/Tile";
-import HeroBanner from "../components/HeroBanner";
+import HeroBanner from "../components/HeroBannerNew";
 import { brixApi } from "../services/brixApi";
 import { plantBrixData, PlantBrixData } from "../data/plantBrixData";
 import styles from "./brix-logs.module.css";
+import ProtectedRoute from "../components/ProtectedRoute";
+import { useUser } from "../contexts/UserContext";
 
 interface LocalBrixReading {
   id: string;
@@ -163,6 +165,7 @@ function NewPlantTypeSelect({
 }
 
 export default function BrixLogsPage() {
+  const { user } = useUser();
   const [readings, setReadings] = useState<LocalBrixReading[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -170,8 +173,10 @@ export default function BrixLogsPage() {
 
   // Load readings from API on mount
   useEffect(() => {
-    loadReadings();
-  }, []);
+    if (user) {
+      loadReadings();
+    }
+  }, [user]);
 
   const loadReadings = async () => {
     try {
@@ -180,7 +185,7 @@ export default function BrixLogsPage() {
 
       // Try to load from API first
       try {
-        const response = await brixApi.getReadings();
+        const response = await brixApi.getReadings({ user_id: user!.id });
         if (response.success) {
           const localReadings: LocalBrixReading[] = response.data.map(
             (reading) => ({
@@ -246,6 +251,7 @@ export default function BrixLogsPage() {
         brix_value: brixValue,
         reading_date: date,
         notes,
+        user_id: user!.id,
       });
 
       if (response.success) {
@@ -297,154 +303,155 @@ export default function BrixLogsPage() {
   const uniquePlantTypes = getUniquePlantTypes();
 
   return (
-    <div
-      className={`min-h-screen ${styles.brixLogsPage}`}
-      style={{ background: "#fcfcfc" }}
-    >
-      {/* Full Width Banner */}
-      <HeroBanner
-        title="Brix Logs"
-        subtitle="Track your plant Brix readings over time to monitor nutrient density and crop health."
-        backgroundImage="/images/brix-banner.png"
-        altText="Brix Logs Banner"
-        burnAmount={1}
-      />
+    <ProtectedRoute>
+      <div
+        className={`min-h-screen ${styles.brixLogsPage}`}
+        style={{ background: "#fcfcfc" }}
+      >
+        {/* Full Width Banner */}
+        <HeroBanner
+          title="Brix Logs"
+          subtitle="Track your plant Brix readings over time to monitor nutrient density and crop health."
+          backgroundImage="/images/brix-banner.png"
+          altText="Brix Logs Banner"
+        />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Error Display */}
-        {error && (
-          <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
-            <p className="text-red-800">{error}</p>
-          </div>
-        )}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* Error Display */}
+          {error && (
+            <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-red-800">{error}</p>
+            </div>
+          )}
 
-        {/* Forms Section */}
-        <div className="mb-8">
-          {/* Add Reading Form */}
-          <Tile title="Add a Reading" type="brix" altStyle={false}>
-            <div className="space-y-6">
-              {/* Option to add new plant type */}
-              {/* <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
-                  Add New Plant Type
-                </h3>
-                <BrixLogEntry onSubmit={handleAddReading} />
-              </div> */}
+          {/* Forms Section */}
+          <div className="mb-8">
+            {/* Add Reading Form */}
+            <Tile title="Add a Reading" type="brix" altStyle={false}>
+              <div className="space-y-6">
+                {/* Option to add new plant type */}
+                {/* <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">
+                    Add New Plant Type
+                  </h3>
+                  <BrixLogEntry onSubmit={handleAddReading} />
+                </div> */}
 
-              {/* Divider */}
-              {/* <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">or</span>
-                </div>
-              </div> */}
-
-              {/* Select existing plant type */}
-              <div>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Select Plant Type
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                      {uniquePlantTypes.map((plantType) => (
-                        <PlantTypeTile
-                          key={plantType}
-                          plantName={plantType}
-                          isSelected={selectedPlantType === plantType}
-                          onClick={() => handleSelectPlantType(plantType)}
-                        />
-                      ))}
-                      <NewPlantTypeSelect
-                        onSelect={handleSelectPlantType}
-                        existingPlantTypes={uniquePlantTypes}
-                      />
-                    </div>
+                {/* Divider */}
+                {/* <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300" />
                   </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">or</span>
+                  </div>
+                </div> */}
 
-                  {selectedPlantType && (
-                    <div className="mt-6">
-                      <BrixLogEntry
-                        onSubmit={(entry) => {
-                          handleAddReadingToPlant(
-                            selectedPlantType,
-                            entry.brixValue,
-                            entry.date,
-                            entry.notes
-                          );
-                          setSelectedPlantType(""); // Reset selection after adding
-                        }}
-                        preSelectedPlant={selectedPlantType}
-                      />
+                {/* Select existing plant type */}
+                <div>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                        Select Plant Type
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        {uniquePlantTypes.map((plantType) => (
+                          <PlantTypeTile
+                            key={plantType}
+                            plantName={plantType}
+                            isSelected={selectedPlantType === plantType}
+                            onClick={() => handleSelectPlantType(plantType)}
+                          />
+                        ))}
+                        <NewPlantTypeSelect
+                          onSelect={handleSelectPlantType}
+                          existingPlantTypes={uniquePlantTypes}
+                        />
+                      </div>
                     </div>
-                  )}
+
+                    {selectedPlantType && (
+                      <div className="mt-6">
+                        <BrixLogEntry
+                          onSubmit={(entry) => {
+                            handleAddReadingToPlant(
+                              selectedPlantType,
+                              entry.brixValue,
+                              entry.date,
+                              entry.notes
+                            );
+                            setSelectedPlantType(""); // Reset selection after adding
+                          }}
+                          preSelectedPlant={selectedPlantType}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Tile>
-        </div>
+            </Tile>
+          </div>
 
-        {/* Brix Reading Cards */}
-        {readings.length > 0 ? (
-          <div className="space-y-6">
-            {(() => {
-              // Group readings by plant name
-              const plantGroups = readings.reduce((groups, reading) => {
-                if (!groups[reading.plantName]) {
-                  groups[reading.plantName] = [];
-                }
-                groups[reading.plantName].push(reading);
-                return groups;
-              }, {} as Record<string, LocalBrixReading[]>);
+          {/* Brix Reading Cards */}
+          {readings.length > 0 ? (
+            <div className="space-y-6">
+              {(() => {
+                // Group readings by plant name
+                const plantGroups = readings.reduce((groups, reading) => {
+                  if (!groups[reading.plantName]) {
+                    groups[reading.plantName] = [];
+                  }
+                  groups[reading.plantName].push(reading);
+                  return groups;
+                }, {} as Record<string, LocalBrixReading[]>);
 
-              // Get the latest reading for each plant
-              const latestReadings = Object.entries(plantGroups).map(
-                ([_plantName, plantReadings]) => {
-                  console.log(_plantName);
-                  const sortedReadings = plantReadings.sort(
+                // Get the latest reading for each plant
+                const latestReadings = Object.entries(plantGroups).map(
+                  ([_plantName, plantReadings]) => {
+                    console.log(_plantName);
+                    const sortedReadings = plantReadings.sort(
+                      (a, b) =>
+                        new Date(b.date).getTime() - new Date(a.date).getTime()
+                    );
+                    return sortedReadings[0]; // Latest reading
+                  }
+                );
+
+                return latestReadings
+                  .sort(
                     (a, b) =>
                       new Date(b.date).getTime() - new Date(a.date).getTime()
-                  );
-                  return sortedReadings[0]; // Latest reading
-                }
-              );
-
-              return latestReadings
-                .sort(
-                  (a, b) =>
-                    new Date(b.date).getTime() - new Date(a.date).getTime()
-                )
-                .map((reading) => (
-                  <Tile
-                    key={reading.id}
-                    title={reading.plantName}
-                    type="brix"
-                    altStyle={false}
-                  >
-                    <BrixReadingCard
-                      reading={reading}
-                      allReadings={readings}
-                      onAddReading={handleAddReadingToPlant}
-                      onDeleteReading={handleDeleteReading}
-                    />
-                  </Tile>
-                ));
-            })()}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <div className="text-gray-400 text-6xl mb-4">🌱</div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              No Brix readings yet
-            </h3>
-            <p className="text-gray-600">
-              Add your first Brix reading to get started
-            </p>
-          </div>
-        )}
+                  )
+                  .map((reading) => (
+                    <Tile
+                      key={reading.id}
+                      title={reading.plantName}
+                      type="brix"
+                      altStyle={false}
+                    >
+                      <BrixReadingCard
+                        reading={reading}
+                        allReadings={readings}
+                        onAddReading={handleAddReadingToPlant}
+                        onDeleteReading={handleDeleteReading}
+                      />
+                    </Tile>
+                  ));
+              })()}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="text-gray-400 text-6xl mb-4">🌱</div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                No Brix readings yet
+              </h3>
+              <p className="text-gray-600">
+                Add your first Brix reading to get started
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }

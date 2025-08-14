@@ -8,6 +8,7 @@ import BrixGraph from "../../components/BrixGraph";
 import Microscopy from "../../components/Microscopy";
 import PLFAGraph from "../../components/PLFAGraph";
 import NPKGraph from "../../components/NPKGraph";
+import { Tile } from "../../components/Tile";
 import {
   CompactionData,
   CarbonToNitrogenData,
@@ -85,12 +86,6 @@ export default function HistoryPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto p-6">
         <div className="mb-6">
-          <Link
-            href="/"
-            className="text-blue-600 hover:text-blue-800 underline text-sm mb-4 inline-block"
-          >
-            ← Back to Dashboard
-          </Link>
           <h1 className="text-3xl font-bold text-gray-800 mt-2">
             {tileData.title}
           </h1>
@@ -99,47 +94,21 @@ export default function HistoryPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main History Component */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <Tile title={tileData.title} type="history">
               {tileData.component}
-            </div>
+            </Tile>
           </div>
 
-          {/* Information Panel */}
+          {/* Add Reading Panel */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                About This Test
-              </h2>
-
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
-                    What is this?
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {tileData.data.what}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
-                    Why is it important?
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {tileData.data.why}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-medium text-gray-800 mb-2">
-                    Solutions & Recommendations
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {tileData.data.solutions}
-                  </p>
-                </div>
+            <Tile title="Add Reading" type="add-reading">
+              <div className="p-4">
+                <p className="text-gray-600 text-sm">
+                  Add new readings and track your soil health data over time.
+                </p>
+                {/* Add your form or input components here */}
               </div>
-            </div>
+            </Tile>
           </div>
         </div>
       </div>

@@ -53,12 +53,12 @@ const Microscopy: React.FC<MicroscopyProps> = ({ videoSrc = "" }) => {
   return (
     <div className="w-full">
       {/* Video Player - Full Space */}
-      <div className="relative bg-gray-100 rounded-lg overflow-hidden border border-gray-300 w-full h-[300px] mb-3">
+      <div className="relative bg-gray-100 rounded-lg overflow-hidden border border-gray-300 w-full h-[230px] mb-3">
         {videoSrc ? (
           <>
             <video
               ref={videoRef}
-              className="w-full h-full object-cover"
+              className="w-full h-12 object-cover"
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onPlay={() => setIsPlaying(true)}
@@ -160,7 +160,7 @@ const Microscopy: React.FC<MicroscopyProps> = ({ videoSrc = "" }) => {
             </div>
           </>
         ) : (
-          <div className="w-full h-[300px] flex items-center justify-center bg-gray-200">
+          <div className="w-full h-[230px] flex items-center justify-center bg-gray-200">
             <div className="text-center text-gray-500">
               <svg
                 className="w-16 h-16 mx-auto mb-2"

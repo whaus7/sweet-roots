@@ -3,6 +3,8 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { UserProvider } from "./contexts/UserContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -19,12 +21,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
   return (
     <html lang="en">
       <body className={`${outfit.className} antialiased`}>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <GoogleOAuthProvider clientId={googleClientId || ""}>
+          <UserProvider>
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+          </UserProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ const API_BASE_URL = configService.getApiBaseUrl();
 
 export interface BrixReading {
   id: string;
+  user_id?: string;
   plant_name: string;
   brix_value: number;
   reading_date: string;
@@ -69,12 +70,14 @@ class BrixApiService {
     plant_name?: string;
     limit?: number;
     offset?: number;
+    user_id?: string;
   }): Promise<{ success: boolean; data: BrixReading[]; count: number }> {
     const searchParams = new URLSearchParams();
     if (params?.plant_name)
       searchParams.append("plant_name", params.plant_name);
     if (params?.limit) searchParams.append("limit", params.limit.toString());
     if (params?.offset) searchParams.append("offset", params.offset.toString());
+    if (params?.user_id) searchParams.append("user_id", params.user_id);
 
     const queryString = searchParams.toString();
     const endpoint = `/brix/readings${queryString ? `?${queryString}` : ""}`;
@@ -93,6 +96,7 @@ class BrixApiService {
     brix_value: number;
     reading_date: string;
     notes?: string;
+    user_id: string;
   }): Promise<{ success: boolean; data: BrixReading }> {
     return this.request("/brix/readings", {
       method: "POST",
@@ -137,10 +141,12 @@ class BrixApiService {
   // Statistics
   async getStats(params?: {
     plant_name?: string;
+    user_id?: string;
   }): Promise<{ success: boolean; data: BrixStats }> {
     const searchParams = new URLSearchParams();
     if (params?.plant_name)
       searchParams.append("plant_name", params.plant_name);
+    if (params?.user_id) searchParams.append("user_id", params.user_id);
 
     const queryString = searchParams.toString();
     const endpoint = `/brix/stats${queryString ? `?${queryString}` : ""}`;
