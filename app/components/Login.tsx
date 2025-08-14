@@ -6,9 +6,14 @@ import { authApi, User, LoginData } from "../services/authApi";
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
   onLoginError: (error: string) => void;
+  minimal?: boolean;
 }
 
-export default function Login({ onLoginSuccess, onLoginError }: LoginProps) {
+export default function Login({
+  onLoginSuccess,
+  onLoginError,
+  minimal = false,
+}: LoginProps) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -75,17 +80,19 @@ export default function Login({ onLoginSuccess, onLoginError }: LoginProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🌱</div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome to Soil Dashboard
-          </h2>
-          <p className="text-gray-600 mb-8">
-            Sign in to track your Brix readings and monitor your soil health
-          </p>
-        </div>
+        {!minimal && (
+          <div className="text-center">
+            <div className="text-6xl mb-4">🌱</div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              Welcome to Sweet Roots
+            </h2>
+            <p className="text-gray-600 mb-8">
+              Sign in to track your Brix readings and monitor your soil health
+            </p>
+          </div>
+        )}
 
         <div className="bg-white py-8 px-6 shadow-lg rounded-lg">
           <div className="space-y-4">
@@ -108,11 +115,13 @@ export default function Login({ onLoginSuccess, onLoginError }: LoginProps) {
           </div>
         </div>
 
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Track your soil health and Brix readings with ease
-          </p>
-        </div>
+        {!minimal && (
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Track your soil health and Brix readings with ease
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

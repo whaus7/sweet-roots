@@ -57,7 +57,11 @@ export function Header() {
                   {user.avatarUrl ? (
                     <Image
                       src={user.avatarUrl}
-                      alt={user.name}
+                      alt={
+                        user.name === "William Hausman"
+                          ? "Sweet Roots Farm"
+                          : user.name
+                      }
                       width={32}
                       height={32}
                       className="w-8 h-8 rounded-full"
@@ -65,12 +69,16 @@ export function Header() {
                   ) : (
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                       <span className="text-green-600 text-sm font-medium">
-                        {user.name.charAt(0).toUpperCase()}
+                        {user.name === "William Hausman"
+                          ? "Sweet Roots Farm"
+                          : user.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                   <span className="text-sm text-gray-700 hidden lg:block">
-                    {user.name}
+                    {user.name === "William Hausman"
+                      ? "Sweet Roots Farm"
+                      : user.name}
                   </span>
                 </div>
                 <button

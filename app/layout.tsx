@@ -29,7 +29,7 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId={googleClientId || ""}>
           <UserProvider>
             <Header />
-            <main className="min-h-screen">{children}</main>
+            <main>{children}</main>
             <Footer />
           </UserProvider>
         </GoogleOAuthProvider>

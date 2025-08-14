@@ -21,9 +21,11 @@ export default function LoginPage() {
   };
 
   return (
-    <Login
-      onLoginSuccess={handleLoginSuccess}
-      onLoginError={handleLoginError}
-    />
+    <div className="mt-10">
+      <Login
+        onLoginSuccess={handleLoginSuccess}
+        onLoginError={handleLoginError}
+      />
+    </div>
   );
 }

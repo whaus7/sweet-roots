@@ -31,12 +31,14 @@ interface BrixReadingCardProps {
     notes?: string
   ) => void;
   onDeleteReading: (id: string) => void;
+  isDemo?: boolean; // Optional prop for demo mode
 }
 
 export default function BrixReadingCard({
   reading,
   allReadings,
   onDeleteReading,
+  isDemo = false,
 }: BrixReadingCardProps) {
   const [showHistory, setShowHistory] = useState(false);
 
@@ -51,6 +53,10 @@ export default function BrixReadingCard({
 
   // Get the latest reading for this plant
   const latestReading = plantReadings[plantReadings.length - 1];
+
+  // Calculate dynamic y-axis maximum: highest brix value + 1%
+  //const maxBrixValue = Math.max(...plantReadings.map((r) => r.brixValue));
+  const dynamicYAxisMax = maxBrix;
 
   const getStatusColor = (brix: number) => {
     if (brix >= threshold) {
@@ -113,7 +119,7 @@ export default function BrixReadingCard({
                   }}
                 />
                 <YAxis
-                  domain={[0, 20]}
+                  domain={[0, dynamicYAxisMax]}
                   fontSize={10}
                   tick={{ fontSize: 8 }}
                   width={30}
@@ -128,6 +134,7 @@ export default function BrixReadingCard({
                     return label;
                   }}
                 />
+                <Bar dataKey="brix" fill="#3b82f6" radius={[2, 2, 0, 0]} />
                 <ReferenceLine
                   y={threshold}
                   stroke="green"
@@ -140,7 +147,6 @@ export default function BrixReadingCard({
                     fontSize: 10,
                   }}
                 />
-                <Bar dataKey="brix" fill="#3b82f6" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -159,12 +165,14 @@ export default function BrixReadingCard({
                 </button>
               )}
             </div>
-            <button
-              onClick={() => onDeleteReading(reading.id)}
-              className="text-red-600 hover:text-red-800 text-sm self-start sm:self-auto"
-            >
-              Delete
-            </button>
+            {!isDemo && (
+              <button
+                onClick={() => onDeleteReading(reading.id)}
+                className="text-red-600 hover:text-red-800 text-sm self-start sm:self-auto"
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
 

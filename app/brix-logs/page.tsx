@@ -7,8 +7,11 @@ import HeroBanner from "../components/HeroBannerNew";
 import { brixApi } from "../services/brixApi";
 import { plantBrixData, PlantBrixData } from "../data/plantBrixData";
 import styles from "./brix-logs.module.css";
-import ProtectedRoute from "../components/ProtectedRoute";
 import { useUser } from "../contexts/UserContext";
+import Login from "../components/Login";
+
+// Sweet Roots Farm master user ID
+const SWEET_ROOTS_FARM_USER_ID = "a7e21794-c0aa-4933-84a6-0b03a41d8ef0";
 
 interface LocalBrixReading {
   id: string;
@@ -165,64 +168,75 @@ function NewPlantTypeSelect({
 }
 
 export default function BrixLogsPage() {
-  const { user } = useUser();
+  const { user, loading, login } = useUser();
   const [readings, setReadings] = useState<LocalBrixReading[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingReadings, setLoadingReadings] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPlantType, setSelectedPlantType] = useState<string>("");
 
-  const loadReadings = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Try to load from API first
+  const loadReadings = useCallback(
+    async (userId: string) => {
       try {
-        const response = await brixApi.getReadings({ user_id: user!.id });
-        if (response.success) {
-          const localReadings: LocalBrixReading[] = response.data.map(
-            (reading) => ({
-              id: reading.id,
-              plantName: reading.plant_name,
-              brixValue: reading.brix_value,
-              date: reading.reading_date,
-              notes: reading.notes,
-            })
+        setLoadingReadings(true);
+        setError(null);
+
+        // Try to load from API first
+        try {
+          const response = await brixApi.getReadings({ user_id: userId });
+          if (response.success) {
+            const localReadings: LocalBrixReading[] = response.data.map(
+              (reading) => ({
+                id: reading.id,
+                plantName: reading.plant_name,
+                brixValue: reading.brix_value,
+                date: reading.reading_date,
+                notes: reading.notes,
+              })
+            );
+            setReadings(localReadings);
+            return;
+          }
+        } catch (apiError) {
+          console.log(
+            "API not available, using localStorage fallback:",
+            apiError
           );
-          setReadings(localReadings);
-          return;
         }
-      } catch (apiError) {
-        console.log(
-          "API not available, using localStorage fallback:",
-          apiError
-        );
-      }
 
-      // Fallback to localStorage
-      const savedReadings = localStorage.getItem("brixReadings");
-      if (savedReadings) {
-        setReadings(JSON.parse(savedReadings));
+        // Fallback to localStorage only for logged-in users
+        if (user) {
+          const savedReadings = localStorage.getItem("brixReadings");
+          if (savedReadings) {
+            setReadings(JSON.parse(savedReadings));
+          }
+        }
+      } catch (error) {
+        setError("Failed to load readings");
+        console.error("Error loading readings:", error);
+      } finally {
+        setLoadingReadings(false);
       }
-    } catch (error) {
-      setError("Failed to load readings");
-      console.error("Error loading readings:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [user]);
+    },
+    [user]
+  );
 
-  // Load readings from API on mount
+  // Load readings on mount
   useEffect(() => {
     if (user) {
-      loadReadings();
+      // Load user's own readings
+      loadReadings(user.id);
+    } else if (!loading) {
+      // Load Sweet Roots Farm demo readings
+      loadReadings(SWEET_ROOTS_FARM_USER_ID);
     }
-  }, [user, loadReadings]);
+  }, [user, loading, loadReadings]);
 
-  // Save readings to localStorage whenever they change (fallback)
+  // Save readings to localStorage whenever they change (fallback for logged-in users only)
   useEffect(() => {
-    localStorage.setItem("brixReadings", JSON.stringify(readings));
-  }, [readings]);
+    if (user) {
+      localStorage.setItem("brixReadings", JSON.stringify(readings));
+    }
+  }, [readings, user]);
 
   // Get unique plant types from existing readings
   const getUniquePlantTypes = () => {
@@ -236,6 +250,8 @@ export default function BrixLogsPage() {
     date: string,
     notes?: string
   ) => {
+    if (!user) return; // Only allow adding readings when logged in
+
     const newReading: LocalBrixReading = {
       id: Date.now().toString(),
       plantName,
@@ -251,7 +267,7 @@ export default function BrixLogsPage() {
         brix_value: brixValue,
         reading_date: date,
         notes,
-        user_id: user!.id,
+        user_id: user.id,
       });
 
       if (response.success) {
@@ -278,6 +294,8 @@ export default function BrixLogsPage() {
   };
 
   const handleDeleteReading = async (id: string) => {
+    if (!user) return; // Only allow deleting readings when logged in
+
     // Try to delete from API first
     try {
       await brixApi.deleteReading(id);
@@ -289,7 +307,8 @@ export default function BrixLogsPage() {
     setReadings((prev) => prev.filter((reading) => reading.id !== id));
   };
 
-  if (loading) {
+  // Show loading state
+  if (loading || loadingReadings) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -301,52 +320,80 @@ export default function BrixLogsPage() {
   }
 
   const uniquePlantTypes = getUniquePlantTypes();
+  const isDemoMode = !user;
 
   return (
-    <ProtectedRoute>
-      <div
-        className={`min-h-screen ${styles.brixLogsPage}`}
-        style={{ background: "#fcfcfc" }}
-      >
-        {/* Full Width Banner */}
-        <HeroBanner
-          title="Brix Logs"
-          subtitle="Track your plant Brix readings over time to monitor nutrient density and crop health."
-          backgroundImage="/images/brix-banner.png"
-          altText="Brix Logs Banner"
-        />
+    <div
+      className={`min-h-screen ${styles.brixLogsPage}`}
+      style={{ background: "#fcfcfc" }}
+    >
+      {/* Full Width Banner */}
+      <HeroBanner
+        title="Brix Logs"
+        subtitle="Track your plant Brix readings over time to monitor nutrient density and crop health."
+        backgroundImage="/images/brix-banner.png"
+        altText="Brix Logs Banner"
+      />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* Error Display */}
-          {error && (
-            <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
-              <p className="text-red-800">{error}</p>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Demo Notice for Non-Logged-In Users */}
+        {isDemoMode && (
+          <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl">
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Left Column - Demo Text and Learn More Button */}
+              <div className="flex-1">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 text-xl">🌾</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Sweet Roots Farm Demo
+                    </h3>
+                    <p className="text-gray-700 mb-4">
+                      You're currently viewing Brix readings from Sweet Roots
+                      Farm. This is a demonstration of how the Brix tracking
+                      system works. Sign in with your Google account to start
+                      tracking your own Brix readings and monitor your crop
+                      health.
+                    </p>
+                    <button
+                      onClick={() => (window.location.href = "/details/brix")}
+                      className="px-4 py-2 text-green-700 bg-white border border-green-300 rounded-md hover:bg-green-50 transition-colors duration-200"
+                    >
+                      Learn More About Brix
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Login Component */}
+              <div className="flex-shrink-0">
+                <Login
+                  onLoginSuccess={login}
+                  onLoginError={(error) => console.error(error)}
+                  minimal
+                />
+              </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Forms Section */}
+        {/* Error Display */}
+        {error && (
+          <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
+            <p className="text-red-800">{error}</p>
+          </div>
+        )}
+
+        {/* Forms Section - Only show for logged-in users */}
+        {!isDemoMode && (
           <div className="mb-8">
             {/* Add Reading Form */}
             <Tile title="Add a Reading" type="brix" altStyle={false}>
               <div className="space-y-6">
-                {/* Option to add new plant type */}
-                {/* <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
-                    Add New Plant Type
-                  </h3>
-                  <BrixLogEntry onSubmit={handleAddReading} />
-                </div> */}
-
-                {/* Divider */}
-                {/* <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300" />
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">or</span>
-                  </div>
-                </div> */}
-
                 {/* Select existing plant type */}
                 <div>
                   <div className="space-y-4">
@@ -391,67 +438,71 @@ export default function BrixLogsPage() {
               </div>
             </Tile>
           </div>
+        )}
 
-          {/* Brix Reading Cards */}
-          {readings.length > 0 ? (
-            <div className="space-y-6">
-              {(() => {
-                // Group readings by plant name
-                const plantGroups = readings.reduce((groups, reading) => {
-                  if (!groups[reading.plantName]) {
-                    groups[reading.plantName] = [];
-                  }
-                  groups[reading.plantName].push(reading);
-                  return groups;
-                }, {} as Record<string, LocalBrixReading[]>);
+        {/* Brix Reading Cards */}
+        {readings.length > 0 ? (
+          <div className="space-y-6">
+            {(() => {
+              // Group readings by plant name
+              const plantGroups = readings.reduce((groups, reading) => {
+                if (!groups[reading.plantName]) {
+                  groups[reading.plantName] = [];
+                }
+                groups[reading.plantName].push(reading);
+                return groups;
+              }, {} as Record<string, LocalBrixReading[]>);
 
-                // Get the latest reading for each plant
-                const latestReadings = Object.entries(plantGroups).map(
-                  ([_plantName, plantReadings]) => {
-                    console.log(_plantName);
-                    const sortedReadings = plantReadings.sort(
-                      (a, b) =>
-                        new Date(b.date).getTime() - new Date(a.date).getTime()
-                    );
-                    return sortedReadings[0]; // Latest reading
-                  }
-                );
-
-                return latestReadings
-                  .sort(
+              // Get the latest reading for each plant
+              const latestReadings = Object.entries(plantGroups).map(
+                ([_plantName, plantReadings]) => {
+                  const sortedReadings = plantReadings.sort(
                     (a, b) =>
                       new Date(b.date).getTime() - new Date(a.date).getTime()
-                  )
-                  .map((reading) => (
-                    <Tile
-                      key={reading.id}
-                      title={reading.plantName}
-                      type="brix"
-                      altStyle={false}
-                    >
-                      <BrixReadingCard
-                        reading={reading}
-                        allReadings={readings}
-                        onAddReading={handleAddReadingToPlant}
-                        onDeleteReading={handleDeleteReading}
-                      />
-                    </Tile>
-                  ));
-              })()}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-gray-400 text-6xl mb-4">🌱</div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                No Brix readings yet
-              </h3>
-              <p className="text-gray-600">
-                Add your first Brix reading to get started
-              </p>
-            </div>
-          )}
-        </div>
+                  );
+                  return sortedReadings[0]; // Latest reading
+                }
+              );
+
+              return latestReadings
+                .sort(
+                  (a, b) =>
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                )
+                .map((reading) => (
+                  <Tile
+                    key={reading.id}
+                    title={reading.plantName}
+                    type="brix"
+                    altStyle={false}
+                  >
+                    <BrixReadingCard
+                      reading={reading}
+                      allReadings={readings}
+                      onAddReading={handleAddReadingToPlant}
+                      onDeleteReading={handleDeleteReading}
+                      isDemo={isDemoMode}
+                    />
+                  </Tile>
+                ));
+            })()}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-6xl mb-4">🌱</div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              {isDemoMode
+                ? "No Brix readings available"
+                : "No Brix readings yet"}
+            </h3>
+            <p className="text-gray-600">
+              {isDemoMode
+                ? "Sweet Roots Farm hasn't added any Brix readings yet"
+                : "Add your first Brix reading to get started"}
+            </p>
+          </div>
+        )}
       </div>
-    </ProtectedRoute>
+    </div>
   );
 }
