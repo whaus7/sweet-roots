@@ -90,7 +90,7 @@ export default function HeroBannerNew({
         </div>
       </div> */}
       </div>
-      <div className="max-w-[1100px] mx-auto h-full px-4 relative">
+      <div className="max-w-[1100px] mx-auto h-full px-4 relative mb-4">
         <p className="text-md text-gray-600 leading-relaxed">{subtitle}</p>
       </div>
     </>

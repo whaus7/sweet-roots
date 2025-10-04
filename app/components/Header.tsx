@@ -45,6 +45,12 @@ export function Header() {
               Brix Logs
             </Link>
             <Link
+              href="/land-survey"
+              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+            >
+              Land Survey
+            </Link>
+            <Link
               href="/microgreen-store"
               className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
@@ -152,6 +158,13 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Brix Logs
+            </Link>
+            <Link
+              href="/land-survey"
+              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Land Survey
             </Link>
             <Link
               href="/microgreen-store"

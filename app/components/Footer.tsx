@@ -50,6 +50,18 @@ export function Footer() {
                   Dashboard
                 </Link>
                 <Link
+                  href="/brix-logs"
+                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
+                >
+                  Brix Logs
+                </Link>
+                <Link
+                  href="/land-survey"
+                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
+                >
+                  Land Survey
+                </Link>
+                <Link
                   href="/microgreen-store"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >
