@@ -24,6 +24,7 @@ export default function MapComponent({
   onAreaCreated,
   onAreaUpdated,
 }: MapComponentProps) {
+  console.log(onAreaUpdated);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
   const drawingManagerRef = useRef<google.maps.drawing.DrawingManager | null>(
@@ -37,7 +38,7 @@ export default function MapComponent({
   );
 
   const [areas, setAreas] = useState<PropertyArea[]>([]);
-  const [isDrawing, setIsDrawing] = useState(false);
+  // const [isDrawing, setIsDrawing] = useState(false);
   const [selectedArea, setSelectedArea] = useState<PropertyArea | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -387,21 +388,21 @@ export default function MapComponent({
     }
   };
 
-  const startDrawing = () => {
-    if (drawingManagerRef.current) {
-      drawingManagerRef.current.setDrawingMode(
-        google.maps.drawing.OverlayType.POLYGON
-      );
-      setIsDrawing(true);
-    }
-  };
+  // const startDrawing = () => {
+  //   if (drawingManagerRef.current) {
+  //     drawingManagerRef.current.setDrawingMode(
+  //       google.maps.drawing.OverlayType.POLYGON
+  //     );
+  //     setIsDrawing(true);
+  //   }
+  // };
 
-  const stopDrawing = () => {
-    if (drawingManagerRef.current) {
-      drawingManagerRef.current.setDrawingMode(null);
-      setIsDrawing(false);
-    }
-  };
+  // const stopDrawing = () => {
+  //   if (drawingManagerRef.current) {
+  //     drawingManagerRef.current.setDrawingMode(null);
+  //     setIsDrawing(false);
+  //   }
+  // };
 
   const formatArea = (area: number): string => {
     const acres = area * 0.000247105; // Convert square meters to acres
@@ -441,27 +442,6 @@ export default function MapComponent({
 
   const handleCloseContextMenu = () => {
     setContextMenu({ isVisible: false, position: { x: 0, y: 0 }, area: null });
-  };
-
-  const toggleElevationView = async () => {
-    if (mapInstanceRef.current && elevationAlgorithmRef.current) {
-      const newElevationView = !isElevationView;
-      setIsElevationView(newElevationView);
-
-      if (newElevationView) {
-        // Switch to terrain view for elevation
-        mapInstanceRef.current.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-        try {
-          await elevationAlgorithmRef.current.generateElevationVisualization();
-        } catch (error) {
-          console.error("Error generating elevation visualization:", error);
-        }
-      } else {
-        // Switch back to satellite view
-        mapInstanceRef.current.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-        elevationAlgorithmRef.current.clearElevationData();
-      }
-    }
   };
 
   const toggleWaterFlowView = async () => {
@@ -509,58 +489,10 @@ export default function MapComponent({
     }
   };
 
-  const toggleTerrainView = async () => {
-    const newTerrainView = !isTerrainView;
-    console.log("Toggle terrain view:", newTerrainView);
-    setIsTerrainView(newTerrainView);
-
-    if (newTerrainView && terrainAlgorithmRef.current) {
-      try {
-        console.log("Generating terrain visualization...");
-        await terrainAlgorithmRef.current.generateTerrainVisualization(
-          undefined,
-          500,
-          terraceCount
-        );
-        setShowTerrainMarkers(terrainAlgorithmRef.current.areMarkersVisible());
-        console.log("Terrain visualization generated successfully");
-      } catch (error) {
-        console.error("Error generating terrain visualization:", error);
-      }
-    } else if (!newTerrainView && terrainAlgorithmRef.current) {
-      console.log("Clearing terrain data...");
-      terrainAlgorithmRef.current.clearTerrainData();
-      setShowTerrainMarkers(false);
-    }
-  };
-
   const toggleTerrainMarkers = () => {
     if (terrainAlgorithmRef.current) {
       terrainAlgorithmRef.current.toggleMarkersVisibility();
       setShowTerrainMarkers(terrainAlgorithmRef.current.areMarkersVisible());
-    }
-  };
-
-  const refreshTerrain = async () => {
-    if (terrainAlgorithmRef.current && isTerrainView) {
-      try {
-        // Clear existing terrain data first
-        terrainAlgorithmRef.current.clearTerrainData();
-        // Regenerate with current settings
-        await terrainAlgorithmRef.current.generateTerrainVisualization(
-          undefined,
-          500,
-          terraceCount
-        );
-        // Sync terrain markers visibility state after regeneration
-        if (terrainAlgorithmRef.current) {
-          setShowTerrainMarkers(
-            terrainAlgorithmRef.current.areMarkersVisible()
-          );
-        }
-      } catch (error) {
-        console.error("Error refreshing terrain visualization:", error);
-      }
     }
   };
 
@@ -648,26 +580,6 @@ export default function MapComponent({
         }, 2000);
       }
     }
-  };
-
-  // Restore map state from localStorage
-  const restoreMapState = () => {
-    const savedState = localStorage.getItem("mapState");
-    if (savedState && mapInstanceRef.current) {
-      try {
-        const mapState = JSON.parse(savedState);
-        mapInstanceRef.current.setCenter({
-          lat: mapState.center.lat,
-          lng: mapState.center.lng,
-        });
-        mapInstanceRef.current.setZoom(mapState.zoom);
-        return true;
-      } catch (error) {
-        console.error("Error restoring map state:", error);
-        return false;
-      }
-    }
-    return false;
   };
 
   if (error) {

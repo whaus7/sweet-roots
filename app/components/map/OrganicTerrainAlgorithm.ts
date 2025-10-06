@@ -107,9 +107,7 @@ export class OrganicTerrainAlgorithm {
       const lngRange = 0.009 / Math.cos((center.lat() * Math.PI) / 180);
 
       const startLat = center.lat() - latRange / 2;
-      const endLat = center.lat() + latRange / 2;
       const startLng = center.lng() - lngRange / 2;
-      const endLng = center.lng() + lngRange / 2;
 
       const latStep = latRange / gridSize;
       const lngStep = lngRange / gridSize;
@@ -259,7 +257,6 @@ export class OrganicTerrainAlgorithm {
   ): ContourLine[] {
     console.log("OrganicTerrainAlgorithm: Generating contour lines");
 
-    const gridSize = elevationGrid.length;
     const elevations = elevationGrid.flat().map((p) => p.elevation);
     const minElevation = Math.min(...elevations);
     const maxElevation = Math.max(...elevations);
@@ -337,7 +334,6 @@ export class OrganicTerrainAlgorithm {
     );
 
     const contourPoints: ContourPoint[] = [];
-    const gridSize = elevationGrid.length;
 
     // Create concentric circles with some organic variation
     const baseRadius = 0.001; // Base radius in degrees
@@ -566,6 +562,7 @@ export class OrganicTerrainAlgorithm {
     terraceCount: number
   ): OrganicTerrainVisualization {
     console.log("OrganicTerrainAlgorithm: Creating organic visualization");
+    console.log("Terrace count: " + terraceCount);
     console.log(
       "OrganicTerrainAlgorithm: Contour data received:",
       contourData.length,
