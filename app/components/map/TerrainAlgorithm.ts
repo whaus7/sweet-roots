@@ -3,15 +3,6 @@
  * Handles elevation mapping with concentric circles and terraces visualization
  */
 
-export interface TerrainGrid {
-  elevation: number;
-  lat: number;
-  lng: number;
-  terraceLevel: number;
-  depth: number;
-  isCenter: boolean;
-}
-
 export interface TerrainVisualization {
   terraceCircles: google.maps.Circle[];
   elevationMarkers: google.maps.Marker[];
@@ -30,7 +21,6 @@ export class TerrainAlgorithm {
   private terraceCircles: google.maps.Circle[] = [];
   private elevationMarkers: google.maps.Marker[] = [];
   private contourLines: google.maps.Polyline[] = [];
-  private grid: TerrainGrid[][] = [];
   private centerPoint: google.maps.LatLng | null = null;
   private terraceLevels: TerraceLevel[] = [];
   private markersVisible: boolean = false;
@@ -569,54 +559,9 @@ export class TerrainAlgorithm {
   }
 
   /**
-   * Set markers visibility
-   */
-  setMarkersVisibility(visible: boolean): void {
-    this.markersVisible = visible;
-    this.elevationMarkers.forEach((marker) => {
-      marker.setVisible(this.markersVisible);
-    });
-  }
-
-  /**
    * Check if markers are visible
    */
   areMarkersVisible(): boolean {
     return this.markersVisible;
-  }
-
-  /**
-   * Get current terrace levels
-   */
-  getTerraceLevels(): TerraceLevel[] {
-    return this.terraceLevels;
-  }
-
-  /**
-   * Get current center point
-   */
-  getCenterPoint(): google.maps.LatLng | null {
-    return this.centerPoint;
-  }
-
-  /**
-   * Get current terrace circles
-   */
-  getTerraceCircles(): google.maps.Circle[] {
-    return this.terraceCircles;
-  }
-
-  /**
-   * Get current elevation markers
-   */
-  getElevationMarkers(): google.maps.Marker[] {
-    return this.elevationMarkers;
-  }
-
-  /**
-   * Get current contour lines
-   */
-  getContourLines(): google.maps.Polyline[] {
-    return this.contourLines;
   }
 }

@@ -2,34 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
-import ContextMenu from "./ContextMenu";
 import { ElevationAlgorithm } from "./ElevationAlgorithm";
 import { WaterFlowAlgorithm } from "./WaterFlowAlgorithm";
 import { TerrainAlgorithm } from "./TerrainAlgorithm";
 import { OrganicTerrainAlgorithm } from "./OrganicTerrainAlgorithm";
 
-interface PropertyArea {
-  id: string;
-  name: string;
-  polygon: google.maps.Polygon;
-  area: number;
-}
-
 interface MapComponentProps {
-  onAreaCreated?: (area: PropertyArea) => void;
-  onAreaUpdated?: (area: PropertyArea) => void;
+  onAreaCreated?: (area: any) => void;
 }
 
-export default function MapComponent({
-  onAreaCreated,
-  onAreaUpdated,
-}: MapComponentProps) {
-  console.log(onAreaUpdated);
+export default function MapComponent({ onAreaCreated }: MapComponentProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
-  const drawingManagerRef = useRef<google.maps.drawing.DrawingManager | null>(
-    null
-  );
+
   const elevationAlgorithmRef = useRef<ElevationAlgorithm | null>(null);
   const waterFlowAlgorithmRef = useRef<WaterFlowAlgorithm | null>(null);
   const terrainAlgorithmRef = useRef<TerrainAlgorithm | null>(null);
@@ -37,25 +22,11 @@ export default function MapComponent({
     null
   );
 
-  const [areas, setAreas] = useState<PropertyArea[]>([]);
-  // const [isDrawing, setIsDrawing] = useState(false);
-  const [selectedArea, setSelectedArea] = useState<PropertyArea | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [contextMenu, setContextMenu] = useState<{
-    isVisible: boolean;
-    position: { x: number; y: number };
-    area: PropertyArea | null;
-  }>({
-    isVisible: false,
-    position: { x: 0, y: 0 },
-    area: null,
-  });
-  const [isElevationView, setIsElevationView] = useState(false);
   const [isWaterFlowView, setIsWaterFlowView] = useState(false);
   const [isTerrainView, setIsTerrainView] = useState(false);
   const [isOrganicTerrainView, setIsOrganicTerrainView] = useState(false);
-  const [showPoolMarkers, setShowPoolMarkers] = useState(false);
   const [showTerrainMarkers, setShowTerrainMarkers] = useState(false);
   const [showOrganicTerrainMarkers, setShowOrganicTerrainMarkers] =
     useState(false);
@@ -71,30 +42,7 @@ export default function MapComponent({
     google.maps.places.AutocompletePrediction[]
   >([]);
   const [showPredictions, setShowPredictions] = useState(false);
-
-  // Function to highlight a polygon
-  const highlightPolygon = (
-    polygon: google.maps.Polygon,
-    isHighlighted: boolean
-  ) => {
-    if (isHighlighted) {
-      polygon.setOptions({
-        fillColor: "#FF0000",
-        fillOpacity: 0.4,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 4,
-      });
-    } else {
-      polygon.setOptions({
-        fillColor: "#FF0000",
-        fillOpacity: 0.3,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.8,
-        strokeWeight: 3,
-      });
-    }
-  };
+  const [showPoolMarkers, setShowPoolMarkers] = useState(false);
 
   useEffect(() => {
     const initMap = async () => {
@@ -164,93 +112,6 @@ export default function MapComponent({
           terrainAlgorithmRef.current = new TerrainAlgorithm(map);
           organicTerrainAlgorithmRef.current = new OrganicTerrainAlgorithm(map);
 
-          // Initialize drawing manager
-          // const drawingManager = new google.maps.drawing.DrawingManager({
-          //   drawingMode: null,
-          //   drawingControl: true,
-          //   drawingControlOptions: {
-          //     position: google.maps.ControlPosition.TOP_CENTER,
-          //     drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-          //   },
-          //   polygonOptions: {
-          //     fillColor: "#FF0000",
-          //     fillOpacity: 0.3,
-          //     strokeColor: "#FF0000",
-          //     strokeOpacity: 0.8,
-          //     strokeWeight: 2,
-          //     clickable: true,
-          //     editable: true,
-          //     draggable: true,
-          //   },
-          // });
-
-          // drawingManager.setMap(map);
-          // drawingManagerRef.current = drawingManager;
-
-          // Listen for polygon completion
-          // google.maps.event.addListener(
-          //   drawingManager,
-          //   "polygoncomplete",
-          //   (polygon: google.maps.Polygon) => {
-          //     const areaId = `area_${Date.now()}`;
-          //     const area = calculatePolygonArea(polygon);
-
-          //     // Set polygon styling to maintain visibility after completion
-          //     polygon.setOptions({
-          //       fillColor: "#FF0000",
-          //       fillOpacity: 0.3,
-          //       strokeColor: "#FF0000",
-          //       strokeOpacity: 0.8,
-          //       strokeWeight: 3,
-          //       clickable: true,
-          //       editable: true,
-          //       draggable: true,
-          //     });
-
-          //     const newArea: PropertyArea = {
-          //       id: areaId,
-          //       name: `Property ${areas.length + 1}`,
-          //       polygon,
-          //       area,
-          //     };
-
-          //     setAreas((prev) => [...prev, newArea]);
-          //     onAreaCreated?.(newArea);
-
-          //     // Add click listener to polygon for editing
-          //     polygon.addListener("click", () => {
-          //       // Unhighlight previously selected area
-          //       if (selectedArea) {
-          //         highlightPolygon(selectedArea.polygon, false);
-          //       }
-          //       // Highlight the newly selected area
-          //       highlightPolygon(polygon, true);
-          //       setSelectedArea(newArea);
-          //     });
-
-          //     // Add right-click listener for context menu
-          //     polygon.addListener(
-          //       "rightclick",
-          //       (event: google.maps.MapMouseEvent) => {
-          //         if (event.domEvent) {
-          //           event.domEvent.preventDefault();
-          //           showContextMenu(event, newArea);
-          //         }
-          //       }
-          //     );
-          //   }
-          // );
-
-          // Reset drawing mode after polygon completion (without zoom reset)
-          // google.maps.event.addListener(
-          //   drawingManager,
-          //   "overlaycomplete",
-          //   () => {
-          //     drawingManager.setDrawingMode(null);
-          //     // Note: Removed automatic zoom reset to maintain current view
-          //   }
-          // );
-
           setIsLoading(false);
         }
       } catch (error) {
@@ -264,25 +125,7 @@ export default function MapComponent({
 
     initMap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onAreaCreated]);
-
-  // Effect to maintain highlighting of selected area
-  useEffect(() => {
-    if (selectedArea && selectedArea.polygon) {
-      highlightPolygon(selectedArea.polygon, true);
-    }
-  }, [selectedArea]);
-
-  // Effect to handle elevation view changes
-  useEffect(() => {
-    if (mapInstanceRef.current) {
-      if (isElevationView) {
-        mapInstanceRef.current.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-      } else {
-        mapInstanceRef.current.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-      }
-    }
-  }, [isElevationView]);
+  }, []);
 
   // Effect to handle water flow view changes
   useEffect(() => {
@@ -385,95 +228,6 @@ export default function MapComponent({
       }
     };
   }, []);
-
-  const calculatePolygonArea = (polygon: google.maps.Polygon): number => {
-    const path = polygon.getPath();
-    return google.maps.geometry.spherical.computeArea(path);
-  };
-
-  const showContextMenu = (
-    event: google.maps.MapMouseEvent,
-    area: PropertyArea
-  ) => {
-    if (mapInstanceRef.current && mapRef.current) {
-      // Get the map container's position
-      const mapContainer = mapRef.current;
-      const mapRect = mapContainer.getBoundingClientRect();
-
-      // Convert lat/lng to pixel coordinates using the map's projection
-      const projection = mapInstanceRef.current.getProjection();
-      if (projection && event.latLng) {
-        const pixel = projection.fromLatLngToPoint(event.latLng);
-        if (pixel) {
-          const scale = Math.pow(2, mapInstanceRef.current.getZoom()!);
-          const x = mapRect.left + pixel.x * scale;
-          const y = mapRect.top + pixel.y * scale;
-
-          setContextMenu({
-            isVisible: true,
-            position: { x, y },
-            area,
-          });
-        }
-      }
-    }
-  };
-
-  // const startDrawing = () => {
-  //   if (drawingManagerRef.current) {
-  //     drawingManagerRef.current.setDrawingMode(
-  //       google.maps.drawing.OverlayType.POLYGON
-  //     );
-  //     setIsDrawing(true);
-  //   }
-  // };
-
-  // const stopDrawing = () => {
-  //   if (drawingManagerRef.current) {
-  //     drawingManagerRef.current.setDrawingMode(null);
-  //     setIsDrawing(false);
-  //   }
-  // };
-
-  const formatArea = (area: number): string => {
-    const acres = area * 0.000247105; // Convert square meters to acres
-    return `${acres.toFixed(2)} acres`;
-  };
-
-  const handleRenameArea = () => {
-    if (!contextMenu.area) return;
-    const newName = prompt("Enter new name:", contextMenu.area.name);
-    if (newName) {
-      setAreas((prev) =>
-        prev.map((area) =>
-          area.id === contextMenu.area!.id ? { ...area, name: newName } : area
-        )
-      );
-      if (selectedArea?.id === contextMenu.area.id) {
-        setSelectedArea({ ...selectedArea, name: newName });
-      }
-    }
-    setContextMenu({ isVisible: false, position: { x: 0, y: 0 }, area: null });
-  };
-
-  const handleDeleteArea = () => {
-    if (!contextMenu.area) return;
-    if (confirm("Are you sure you want to delete this area?")) {
-      setAreas((prev) => {
-        const updated = prev.filter((area) => area.id !== contextMenu.area!.id);
-        contextMenu.area!.polygon.setMap(null);
-        return updated;
-      });
-      if (selectedArea?.id === contextMenu.area.id) {
-        setSelectedArea(null);
-      }
-    }
-    setContextMenu({ isVisible: false, position: { x: 0, y: 0 }, area: null });
-  };
-
-  const handleCloseContextMenu = () => {
-    setContextMenu({ isVisible: false, position: { x: 0, y: 0 }, area: null });
-  };
 
   const toggleWaterFlowView = async () => {
     const newWaterFlowView = !isWaterFlowView;
@@ -907,137 +661,6 @@ export default function MapComponent({
             </div>
           )}
 
-          {/* Pool Markers Toggle - Only show when water flow is active */}
-          {/* {isWaterFlowView && (
-            <button
-              onClick={togglePoolMarkers}
-              className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                showPoolMarkers
-                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
-              }`}
-              title={
-                showPoolMarkers ? "Hide Pool Markers" : "Show Pool Markers"
-              }
-            >
-              <svg
-                className={`w-5 h-5 transition-colors duration-200 ${
-                  showPoolMarkers ? "text-white" : "text-blue-600"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <circle cx="12" cy="12" r="10" opacity="0.7" />
-                <circle cx="12" cy="12" r="6" />
-                <circle cx="12" cy="12" r="2" />
-              </svg>
-
-              <span className="font-medium text-sm">Pools</span>
-
-
-              <div
-                className={`ml-1 w-4 h-4 rounded border-2 transition-all duration-200 ${
-                  showPoolMarkers
-                    ? "bg-white border-white"
-                    : "border-gray-400 group-hover:border-blue-500"
-                }`}
-              >
-                {showPoolMarkers && (
-                  <svg
-                    className="w-3 h-3 text-blue-500 mt-0.5 ml-0.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </div>
-            </button>
-          )} */}
-
-          {/* Organic Terrain Toggle Button */}
-          {/* <div className="flex items-center gap-2">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("Organic terrain button clicked!");
-                toggleOrganicTerrainView();
-              }}
-              className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                isOrganicTerrainView
-                  ? "bg-green-500 text-white shadow-lg shadow-green-500/25"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
-              }`}
-              title={
-                isOrganicTerrainView
-                  ? "Hide Organic Terrain"
-                  : "Show Organic Terrain"
-              }
-            >
-              <svg
-                className={`w-5 h-5 transition-colors duration-200 ${
-                  isOrganicTerrainView ? "text-white" : "text-green-600"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L3 9l9 7 9-7-9-7zM3 15l9 7 9-7M12 2v7M3 9l9 7" />
-                <circle cx="12" cy="9" r="2" opacity="0.7" />
-                <path d="M6 12c0-2 2-4 6-4s6 2 6 4" opacity="0.5" />
-              </svg>
-
-              <span className="font-medium text-sm">Organic Terrain</span>
-
-              <div
-                className={`ml-1 w-4 h-4 rounded border-2 transition-all duration-200 ${
-                  isOrganicTerrainView
-                    ? "bg-white border-white"
-                    : "border-gray-400 group-hover:border-green-500"
-                }`}
-              >
-                {isOrganicTerrainView && (
-                  <svg
-                    className="w-3 h-3 text-green-500 mt-0.5 ml-0.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </div>
-            </button>
-
-            {isOrganicTerrainView && (
-              <button
-                onClick={refreshOrganicTerrain}
-                className="group relative flex items-center gap-1 px-2.5 py-2.5 rounded-lg transition-all duration-200 bg-white text-green-600 hover:bg-green-50 border border-green-200 hover:border-green-300 shadow-sm"
-                title="Refresh organic terrain visualization"
-              >
-                <svg
-                  className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
-              </button>
-            )}
-          </div> */}
-
           {/* Terrace Count Slider - Show when any terrain is active */}
           {(isTerrainView || isOrganicTerrainView) && (
             <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
@@ -1193,104 +816,9 @@ export default function MapComponent({
                 {hasSavedState ? "Saved!" : "Save Position"}
               </span>
             </button>
-
-            {/* <button
-              onClick={isDrawing ? stopDrawing : startDrawing}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                isDrawing
-                  ? "bg-red-500 text-white shadow-lg shadow-red-500/25"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
-              }`}
-              title={isDrawing ? "Stop Drawing" : "Draw Property"}
-            >
-              {isDrawing ? "Stop" : "Draw"}
-            </button> */}
-
-            {/* <button
-              onClick={toggleElevationView}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                isElevationView
-                  ? "bg-green-500 text-white shadow-lg shadow-green-500/25"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
-              }`}
-              title={isElevationView ? "Hide Elevation" : "Show Elevation"}
-            >
-              {isElevationView ? "Elevation On" : "Elevation"}
-            </button> */}
           </div>
         </div>
       </div>
-
-      {/* Areas List */}
-      {/* <div className="absolute top-4 right-4 bg-white p-4 rounded-lg shadow-lg max-w-sm">
-        <h3 className="text-lg font-semibold mb-2">Property Areas</h3>
-        <div className="space-y-2 max-h-64 overflow-y-auto">
-          {areas.map((area) => (
-            <div
-              key={area.id}
-              className={`p-2 border rounded cursor-pointer ${
-                selectedArea?.id === area.id
-                  ? "bg-blue-100 border-blue-500"
-                  : "border-gray-300"
-              }`}
-              onClick={() => {
-                // Unhighlight previously selected area
-                if (selectedArea) {
-                  highlightPolygon(selectedArea.polygon, false);
-                }
-                // Highlight the newly selected area
-                highlightPolygon(area.polygon, true);
-                setSelectedArea(area);
-              }}
-            >
-              <div className="font-medium">{area.name}</div>
-              <div className="text-sm text-gray-600">
-                {formatArea(area.area)}
-              </div>
-            </div>
-          ))}
-          {areas.length === 0 && (
-            <div className="text-gray-500 text-sm">No areas drawn yet</div>
-          )}
-        </div>
-      </div> */}
-
-      {/* Selected Area Details */}
-      {selectedArea && (
-        <div className="absolute bottom-4 left-4 bg-white p-4 rounded-lg shadow-lg">
-          <h4 className="font-semibold">{selectedArea.name}</h4>
-          <p className="text-sm text-gray-600">
-            Area: {formatArea(selectedArea.area)}
-          </p>
-          <button
-            onClick={() => {
-              const newName = prompt("Enter new name:", selectedArea.name);
-              if (newName) {
-                setAreas((prev) =>
-                  prev.map((area) =>
-                    area.id === selectedArea.id
-                      ? { ...area, name: newName }
-                      : area
-                  )
-                );
-                setSelectedArea({ ...selectedArea, name: newName });
-              }
-            }}
-            className="mt-2 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
-          >
-            Rename
-          </button>
-        </div>
-      )}
-
-      {/* Context Menu */}
-      <ContextMenu
-        isVisible={contextMenu.isVisible}
-        position={contextMenu.position}
-        onRename={handleRenameArea}
-        onDelete={handleDeleteArea}
-        onClose={handleCloseContextMenu}
-      />
     </div>
   );
 }
