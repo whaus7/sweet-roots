@@ -302,6 +302,60 @@ export class TerrainAlgorithm {
   }
 
   /**
+   * Create concentric terrace circles
+   */
+  private createTerraceCircles(maxRadius: number): google.maps.Circle[] {
+    const circles: google.maps.Circle[] = [];
+
+    console.log(
+      "TerrainAlgorithm: createTerraceCircles - centerPoint:",
+      this.centerPoint
+    );
+    console.log(
+      "TerrainAlgorithm: createTerraceCircles - terraceLevels length:",
+      this.terraceLevels.length
+    );
+
+    if (!this.centerPoint || this.terraceLevels.length === 0) {
+      console.log(
+        "TerrainAlgorithm: createTerraceCircles - Early return due to missing data"
+      );
+      return circles;
+    }
+
+    // Create concentric circles for each terrace level
+    for (let i = 0; i < this.terraceLevels.length; i++) {
+      const level = this.terraceLevels[i];
+
+      // Convert radius from meters to degrees (approximate)
+      const radiusInDegrees = level.radius / 111000; // Rough conversion: 1 degree ≈ 111km
+
+      const circle = new google.maps.Circle({
+        center: this.centerPoint,
+        radius: level.radius, // radius in meters
+        fillColor: level.color,
+        fillOpacity: 0.2,
+        strokeColor: level.color,
+        strokeOpacity: 0.6,
+        strokeWeight: 2,
+        map: this.map,
+        clickable: true,
+        zIndex: 1,
+      });
+
+      circles.push(circle);
+    }
+
+    console.log(
+      "TerrainAlgorithm: createTerraceCircles - created",
+      circles.length,
+      "circles"
+    );
+
+    return circles;
+  }
+
+  /**
    * Create elevation markers at key points
    */
   private createElevationMarkers(): google.maps.Marker[] {
