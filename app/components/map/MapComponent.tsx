@@ -138,31 +138,6 @@ export default function MapComponent({}: MapComponentProps) {
     }
   }, [isWaterFlowView, rainfallAmount]);
 
-  // Effect to handle organic terrain view changes
-  useEffect(() => {
-    if (isOrganicTerrainView && organicTerrainAlgorithmRef.current) {
-      organicTerrainAlgorithmRef.current
-        .generateOrganicTerrainVisualization(undefined, 22, terraceCount)
-        .then(() => {
-          // Sync organic terrain markers visibility state after generation
-          if (organicTerrainAlgorithmRef.current) {
-            setShowOrganicTerrainMarkers(
-              organicTerrainAlgorithmRef.current.areMarkersVisible()
-            );
-          }
-        })
-        .catch((error) =>
-          console.error(
-            "Error generating organic terrain visualization:",
-            error
-          )
-        );
-    } else if (!isOrganicTerrainView && organicTerrainAlgorithmRef.current) {
-      organicTerrainAlgorithmRef.current.clearOrganicTerrainData();
-      setShowOrganicTerrainMarkers(false); // Reset to default when clearing
-    }
-  }, [isOrganicTerrainView, terraceCount]);
-
   // Close predictions dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -556,60 +531,6 @@ export default function MapComponent({}: MapComponentProps) {
                 title="Adjust rainfall amount"
               />
             </div>
-          )}
-
-          {/* Organic Terrain Markers Toggle - Only show when organic terrain is active */}
-          {isOrganicTerrainView && (
-            <button
-              onClick={toggleOrganicTerrainMarkers}
-              className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                showOrganicTerrainMarkers
-                  ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
-              }`}
-              title={
-                showOrganicTerrainMarkers
-                  ? "Hide Organic Terrain Markers"
-                  : "Show Organic Terrain Markers"
-              }
-            >
-              {/* Marker Icon */}
-              <svg
-                className={`w-5 h-5 transition-colors duration-200 ${
-                  showOrganicTerrainMarkers ? "text-white" : "text-orange-600"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-              </svg>
-
-              {/* Button Text */}
-              <span className="font-medium text-sm">Markers</span>
-
-              {/* Checkbox Indicator */}
-              <div
-                className={`ml-1 w-4 h-4 rounded border-2 transition-all duration-200 ${
-                  showOrganicTerrainMarkers
-                    ? "bg-white border-white"
-                    : "border-gray-400 group-hover:border-orange-500"
-                }`}
-              >
-                {showOrganicTerrainMarkers && (
-                  <svg
-                    className="w-3 h-3 text-orange-500 mt-0.5 ml-0.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </div>
-            </button>
           )}
 
           {/* Other Controls */}
