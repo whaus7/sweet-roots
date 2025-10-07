@@ -201,7 +201,7 @@ const PLFADonutChart: React.FC<PLFADonutChartProps> = ({
           />
 
           {/* Chart segments */}
-          {segments.map((segment, index) => (
+          {segments.map((segment) => (
             <path
               key={segment.name}
               d={createArcPath(
