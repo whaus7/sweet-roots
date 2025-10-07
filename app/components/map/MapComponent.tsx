@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { ElevationAlgorithm } from "./ElevationAlgorithm";
 import { WaterFlowAlgorithm } from "./WaterFlowAlgorithm";
-import { OrganicTerrainAlgorithm } from "./OrganicTerrainAlgorithm";
 import { PropertyArea } from "@/types/PropertyArea";
 
 interface MapComponentProps {
