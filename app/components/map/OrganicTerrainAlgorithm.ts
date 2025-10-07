@@ -180,9 +180,14 @@ export class OrganicTerrainAlgorithm {
               ) {
                 errorMessage +=
                   " (API key may be invalid or elevation service not enabled)";
-              } else if (status === google.maps.ElevationStatus.ZERO_RESULTS) {
-                errorMessage +=
-                  " (No elevation data available for this location)";
+              } else if (
+                status === google.maps.ElevationStatus.OVER_QUERY_LIMIT
+              ) {
+                errorMessage += " (API quota exceeded)";
+              } else if (
+                status === google.maps.ElevationStatus.INVALID_REQUEST
+              ) {
+                errorMessage += " (Invalid request parameters)";
               }
 
               reject(new Error(errorMessage));
