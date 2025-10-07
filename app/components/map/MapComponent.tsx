@@ -59,9 +59,18 @@ export default function MapComponent({
   const [showTerrainMarkers, setShowTerrainMarkers] = useState(false);
   const [showOrganicTerrainMarkers, setShowOrganicTerrainMarkers] =
     useState(false);
-  const [rainfallAmount, setRainfallAmount] = useState(2); // inches
+  const [rainfallAmount, setRainfallAmount] = useState(1); // inches
   const [terraceCount, setTerraceCount] = useState(8);
   const [hasSavedState, setHasSavedState] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [autocompleteService, setAutocompleteService] =
+    useState<google.maps.places.AutocompleteService | null>(null);
+  const [placesService, setPlacesService] =
+    useState<google.maps.places.PlacesService | null>(null);
+  const [predictions, setPredictions] = useState<
+    google.maps.places.AutocompletePrediction[]
+  >([]);
+  const [showPredictions, setShowPredictions] = useState(false);
 
   // Function to highlight a polygon
   const highlightPolygon = (
@@ -108,7 +117,7 @@ export default function MapComponent({
       const loader = new Loader({
         apiKey,
         version: "weekly",
-        libraries: ["drawing", "geometry", "elevation"],
+        libraries: ["drawing", "geometry", "elevation", "places"],
       });
 
       try {
@@ -142,6 +151,13 @@ export default function MapComponent({
 
           mapInstanceRef.current = map;
 
+          // Initialize Places services
+          const autocompleteService =
+            new google.maps.places.AutocompleteService();
+          const placesService = new google.maps.places.PlacesService(map);
+          setAutocompleteService(autocompleteService);
+          setPlacesService(placesService);
+
           // Initialize algorithm instances
           elevationAlgorithmRef.current = new ElevationAlgorithm(map);
           waterFlowAlgorithmRef.current = new WaterFlowAlgorithm(map);
@@ -149,91 +165,91 @@ export default function MapComponent({
           organicTerrainAlgorithmRef.current = new OrganicTerrainAlgorithm(map);
 
           // Initialize drawing manager
-          const drawingManager = new google.maps.drawing.DrawingManager({
-            drawingMode: null,
-            drawingControl: true,
-            drawingControlOptions: {
-              position: google.maps.ControlPosition.TOP_CENTER,
-              drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-            },
-            polygonOptions: {
-              fillColor: "#FF0000",
-              fillOpacity: 0.3,
-              strokeColor: "#FF0000",
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              clickable: true,
-              editable: true,
-              draggable: true,
-            },
-          });
+          // const drawingManager = new google.maps.drawing.DrawingManager({
+          //   drawingMode: null,
+          //   drawingControl: true,
+          //   drawingControlOptions: {
+          //     position: google.maps.ControlPosition.TOP_CENTER,
+          //     drawingModes: [google.maps.drawing.OverlayType.POLYGON],
+          //   },
+          //   polygonOptions: {
+          //     fillColor: "#FF0000",
+          //     fillOpacity: 0.3,
+          //     strokeColor: "#FF0000",
+          //     strokeOpacity: 0.8,
+          //     strokeWeight: 2,
+          //     clickable: true,
+          //     editable: true,
+          //     draggable: true,
+          //   },
+          // });
 
-          drawingManager.setMap(map);
-          drawingManagerRef.current = drawingManager;
+          // drawingManager.setMap(map);
+          // drawingManagerRef.current = drawingManager;
 
           // Listen for polygon completion
-          google.maps.event.addListener(
-            drawingManager,
-            "polygoncomplete",
-            (polygon: google.maps.Polygon) => {
-              const areaId = `area_${Date.now()}`;
-              const area = calculatePolygonArea(polygon);
+          // google.maps.event.addListener(
+          //   drawingManager,
+          //   "polygoncomplete",
+          //   (polygon: google.maps.Polygon) => {
+          //     const areaId = `area_${Date.now()}`;
+          //     const area = calculatePolygonArea(polygon);
 
-              // Set polygon styling to maintain visibility after completion
-              polygon.setOptions({
-                fillColor: "#FF0000",
-                fillOpacity: 0.3,
-                strokeColor: "#FF0000",
-                strokeOpacity: 0.8,
-                strokeWeight: 3,
-                clickable: true,
-                editable: true,
-                draggable: true,
-              });
+          //     // Set polygon styling to maintain visibility after completion
+          //     polygon.setOptions({
+          //       fillColor: "#FF0000",
+          //       fillOpacity: 0.3,
+          //       strokeColor: "#FF0000",
+          //       strokeOpacity: 0.8,
+          //       strokeWeight: 3,
+          //       clickable: true,
+          //       editable: true,
+          //       draggable: true,
+          //     });
 
-              const newArea: PropertyArea = {
-                id: areaId,
-                name: `Property ${areas.length + 1}`,
-                polygon,
-                area,
-              };
+          //     const newArea: PropertyArea = {
+          //       id: areaId,
+          //       name: `Property ${areas.length + 1}`,
+          //       polygon,
+          //       area,
+          //     };
 
-              setAreas((prev) => [...prev, newArea]);
-              onAreaCreated?.(newArea);
+          //     setAreas((prev) => [...prev, newArea]);
+          //     onAreaCreated?.(newArea);
 
-              // Add click listener to polygon for editing
-              polygon.addListener("click", () => {
-                // Unhighlight previously selected area
-                if (selectedArea) {
-                  highlightPolygon(selectedArea.polygon, false);
-                }
-                // Highlight the newly selected area
-                highlightPolygon(polygon, true);
-                setSelectedArea(newArea);
-              });
+          //     // Add click listener to polygon for editing
+          //     polygon.addListener("click", () => {
+          //       // Unhighlight previously selected area
+          //       if (selectedArea) {
+          //         highlightPolygon(selectedArea.polygon, false);
+          //       }
+          //       // Highlight the newly selected area
+          //       highlightPolygon(polygon, true);
+          //       setSelectedArea(newArea);
+          //     });
 
-              // Add right-click listener for context menu
-              polygon.addListener(
-                "rightclick",
-                (event: google.maps.MapMouseEvent) => {
-                  if (event.domEvent) {
-                    event.domEvent.preventDefault();
-                    showContextMenu(event, newArea);
-                  }
-                }
-              );
-            }
-          );
+          //     // Add right-click listener for context menu
+          //     polygon.addListener(
+          //       "rightclick",
+          //       (event: google.maps.MapMouseEvent) => {
+          //         if (event.domEvent) {
+          //           event.domEvent.preventDefault();
+          //           showContextMenu(event, newArea);
+          //         }
+          //       }
+          //     );
+          //   }
+          // );
 
           // Reset drawing mode after polygon completion (without zoom reset)
-          google.maps.event.addListener(
-            drawingManager,
-            "overlaycomplete",
-            () => {
-              drawingManager.setDrawingMode(null);
-              // Note: Removed automatic zoom reset to maintain current view
-            }
-          );
+          // google.maps.event.addListener(
+          //   drawingManager,
+          //   "overlaycomplete",
+          //   () => {
+          //     drawingManager.setDrawingMode(null);
+          //     // Note: Removed automatic zoom reset to maintain current view
+          //   }
+          // );
 
           setIsLoading(false);
         }
@@ -336,6 +352,21 @@ export default function MapComponent({
       setShowOrganicTerrainMarkers(false); // Reset to default when clearing
     }
   }, [isOrganicTerrainView, terraceCount]);
+
+  // Close predictions dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest(".address-search-container")) {
+        setShowPredictions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Cleanup effect
   useEffect(() => {
@@ -555,6 +586,78 @@ export default function MapComponent({
     }
   };
 
+  // Handle address search autocomplete
+  const handleSearchInput = (query: string) => {
+    setSearchQuery(query);
+
+    if (query.length > 2 && autocompleteService) {
+      autocompleteService.getPlacePredictions(
+        {
+          input: query,
+          types: ["geocode"],
+        },
+        (predictions, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            predictions
+          ) {
+            setPredictions(predictions);
+            setShowPredictions(true);
+          } else {
+            setPredictions([]);
+            setShowPredictions(false);
+          }
+        }
+      );
+    } else {
+      setPredictions([]);
+      setShowPredictions(false);
+    }
+  };
+
+  // Handle address selection and navigation
+  const handleAddressSelect = (
+    prediction: google.maps.places.AutocompletePrediction
+  ) => {
+    if (placesService && mapInstanceRef.current) {
+      placesService.getDetails(
+        {
+          placeId: prediction.place_id,
+          fields: ["geometry", "name", "formatted_address"],
+        },
+        (place, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            place?.geometry?.location
+          ) {
+            // Navigate to the selected location
+            mapInstanceRef.current?.panTo(place.geometry.location);
+            mapInstanceRef.current?.setZoom(15);
+
+            // Set the search query to the selected address
+            setSearchQuery(place.formatted_address || prediction.description);
+            setShowPredictions(false);
+
+            // Add a marker at the location
+            new google.maps.Marker({
+              position: place.geometry.location,
+              map: mapInstanceRef.current,
+              title: place.name || prediction.description,
+              animation: google.maps.Animation.DROP,
+            });
+          }
+        }
+      );
+    }
+  };
+
+  // Clear search and predictions
+  const clearSearch = () => {
+    setSearchQuery("");
+    setPredictions([]);
+    setShowPredictions(false);
+  };
+
   // Save map state to localStorage
   const saveMapState = () => {
     if (mapInstanceRef.current) {
@@ -613,6 +716,99 @@ export default function MapComponent({
         className="h-[600px]"
         style={{ width: "100%", maxWidth: "100vw" }}
       />
+
+      {/* Address Search */}
+      <div className="absolute bottom-4 left-4 z-20">
+        <div className="relative address-search-container">
+          <div className="flex items-center bg-white rounded-lg border border-gray-200 shadow-lg min-w-80">
+            {/* Search Icon */}
+            <div className="pl-3 pr-2">
+              <svg
+                className="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+
+            {/* Search Input */}
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearchInput(e.target.value)}
+              onFocus={() => setShowPredictions(predictions.length > 0)}
+              placeholder="Search for an address..."
+              className="flex-1 px-2 py-3 text-sm border-none outline-none bg-transparent"
+            />
+
+            {/* Clear Button */}
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="pr-3 pl-2 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* Autocomplete Dropdown */}
+          {showPredictions && predictions.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
+              {predictions.map((prediction, index) => (
+                <button
+                  key={prediction.place_id}
+                  onClick={() => handleAddressSelect(prediction)}
+                  className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors"
+                >
+                  <div className="flex items-start gap-3">
+                    {/* Location Icon */}
+                    <svg
+                      className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                    </svg>
+
+                    {/* Prediction Text */}
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-gray-900 truncate">
+                        {prediction.structured_formatting?.main_text ||
+                          prediction.description}
+                      </div>
+                      {prediction.structured_formatting?.secondary_text && (
+                        <div className="text-xs text-gray-500 truncate">
+                          {prediction.structured_formatting.secondary_text}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* Modern Toolbar */}
       <div className="absolute top-4 left-1/4">
@@ -695,7 +891,7 @@ export default function MapComponent({
           {/* Rainfall Slider - Compact inline version */}
           {isWaterFlowView && (
             <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
-              <span className="text-sm font-medium text-gray-700 whitespace-nowrap">
+              <span className="text-sm font-medium text-gray-700 whitespace-nowrap w-[55]">
                 Rain: {rainfallAmount}"
               </span>
               <input
@@ -712,7 +908,7 @@ export default function MapComponent({
           )}
 
           {/* Pool Markers Toggle - Only show when water flow is active */}
-          {isWaterFlowView && (
+          {/* {isWaterFlowView && (
             <button
               onClick={togglePoolMarkers}
               className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
@@ -724,7 +920,6 @@ export default function MapComponent({
                 showPoolMarkers ? "Hide Pool Markers" : "Show Pool Markers"
               }
             >
-              {/* Pool Icon */}
               <svg
                 className={`w-5 h-5 transition-colors duration-200 ${
                   showPoolMarkers ? "text-white" : "text-blue-600"
@@ -737,10 +932,9 @@ export default function MapComponent({
                 <circle cx="12" cy="12" r="2" />
               </svg>
 
-              {/* Button Text */}
               <span className="font-medium text-sm">Pools</span>
 
-              {/* Checkbox Indicator */}
+
               <div
                 className={`ml-1 w-4 h-4 rounded border-2 transition-all duration-200 ${
                   showPoolMarkers
@@ -763,10 +957,10 @@ export default function MapComponent({
                 )}
               </div>
             </button>
-          )}
+          )} */}
 
           {/* Organic Terrain Toggle Button */}
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -784,7 +978,6 @@ export default function MapComponent({
                   : "Show Organic Terrain"
               }
             >
-              {/* Organic Terrain Icon */}
               <svg
                 className={`w-5 h-5 transition-colors duration-200 ${
                   isOrganicTerrainView ? "text-white" : "text-green-600"
@@ -797,10 +990,8 @@ export default function MapComponent({
                 <path d="M6 12c0-2 2-4 6-4s6 2 6 4" opacity="0.5" />
               </svg>
 
-              {/* Button Text */}
               <span className="font-medium text-sm">Organic Terrain</span>
 
-              {/* Checkbox Indicator */}
               <div
                 className={`ml-1 w-4 h-4 rounded border-2 transition-all duration-200 ${
                   isOrganicTerrainView
@@ -824,14 +1015,12 @@ export default function MapComponent({
               </div>
             </button>
 
-            {/* Refresh Button - Only show when organic terrain is active */}
             {isOrganicTerrainView && (
               <button
                 onClick={refreshOrganicTerrain}
                 className="group relative flex items-center gap-1 px-2.5 py-2.5 rounded-lg transition-all duration-200 bg-white text-green-600 hover:bg-green-50 border border-green-200 hover:border-green-300 shadow-sm"
                 title="Refresh organic terrain visualization"
               >
-                {/* Refresh Icon */}
                 <svg
                   className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
                   fill="none"
@@ -847,7 +1036,7 @@ export default function MapComponent({
                 </svg>
               </button>
             )}
-          </div>
+          </div> */}
 
           {/* Terrace Count Slider - Show when any terrain is active */}
           {(isTerrainView || isOrganicTerrainView) && (

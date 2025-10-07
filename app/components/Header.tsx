@@ -36,7 +36,7 @@ export function Header() {
               href="/"
               className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              Dashboard
+              Soil Tests
             </Link>
             <Link
               href="/brix-logs"
@@ -48,14 +48,14 @@ export function Header() {
               href="/land-survey"
               className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
-              Land Survey
+              Water Flow
             </Link>
-            <Link
+            {/* <Link
               href="/microgreen-store"
               className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
             >
               Microgreen Store
-            </Link>
+            </Link> */}
 
             {/* User Menu */}
             {user ? (

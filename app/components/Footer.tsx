@@ -47,7 +47,7 @@ export function Footer() {
                   href="/"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >
-                  Dashboard
+                  Soil Tests
                 </Link>
                 <Link
                   href="/brix-logs"
@@ -59,7 +59,7 @@ export function Footer() {
                   href="/land-survey"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >
-                  Land Survey
+                  Water Flow
                 </Link>
                 <Link
                   href="/microgreen-store"

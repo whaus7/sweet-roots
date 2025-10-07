@@ -13,8 +13,6 @@ export interface WaterFlowGrid {
 
 export interface WaterFlowVisualization {
   flowLines: google.maps.Polyline[];
-  poolMarkers: google.maps.Circle[];
-  depthMarkers: google.maps.Marker[];
 }
 
 export class WaterFlowAlgorithm {
@@ -37,7 +35,7 @@ export class WaterFlowAlgorithm {
   ): Promise<WaterFlowVisualization> {
     const bounds = this.map.getBounds();
     if (!bounds) {
-      return { flowLines: [], poolMarkers: [], depthMarkers: [] };
+      return { flowLines: [] };
     }
 
     const ne = bounds.getNorthEast();
@@ -67,7 +65,7 @@ export class WaterFlowAlgorithm {
       );
     } catch (error) {
       console.error("Error generating water flow simulation:", error);
-      return { flowLines: [], poolMarkers: [], depthMarkers: [] };
+      return { flowLines: [] };
     }
   }
 
@@ -155,17 +153,10 @@ export class WaterFlowAlgorithm {
       }
     }
 
-    // Create water depth markers for accumulated water (no circles, just labels)
-    const { poolMarkers, depthMarkers } = this.createWaterPoolMarkers(gridSize);
-
     this.flowLines = flowLines;
-    this.poolMarkers = poolMarkers;
-    this.depthMarkers = depthMarkers;
 
     return {
       flowLines,
-      poolMarkers,
-      depthMarkers,
     };
   }
 
@@ -236,16 +227,28 @@ export class WaterFlowAlgorithm {
     toJ: number,
     flowAmount: number
   ): google.maps.Polyline {
+    // Calculate the direction vector from source to destination
+    const fromLat = this.grid[fromI][fromJ].lat;
+    const fromLng = this.grid[fromI][fromJ].lng;
+    const toLat = this.grid[toI][toJ].lat;
+    const toLng = this.grid[toI][toJ].lng;
+
+    // Calculate the distance and direction
+    const latDiff = toLat - fromLat;
+    const lngDiff = toLng - fromLng;
+    const distance = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
+
+    // Make the arrow 80% of the full distance to avoid overlap at convergence points
+    const arrowLength = distance * 0.9;
+
+    // Calculate the end point of the arrow (80% of the way to the destination)
+    const endLat = fromLat + (latDiff * arrowLength) / distance;
+    const endLng = fromLng + (lngDiff * arrowLength) / distance;
+
     return new google.maps.Polyline({
       path: [
-        new google.maps.LatLng(
-          this.grid[fromI][fromJ].lat,
-          this.grid[fromI][fromJ].lng
-        ),
-        new google.maps.LatLng(
-          this.grid[toI][toJ].lat,
-          this.grid[toI][toJ].lng
-        ),
+        new google.maps.LatLng(fromLat, fromLng),
+        new google.maps.LatLng(endLat, endLng),
       ],
       strokeColor: "#00BFFF",
       strokeOpacity: Math.min(0.6, flowAmount * 100),
@@ -267,59 +270,6 @@ export class WaterFlowAlgorithm {
         },
       ],
     });
-  }
-
-  /**
-   * Create water depth markers for accumulated water (no circles, just labels)
-   */
-  private createWaterPoolMarkers(gridSize: number): {
-    poolMarkers: google.maps.Circle[];
-    depthMarkers: google.maps.Marker[];
-  } {
-    const poolMarkers: google.maps.Circle[] = []; // Keep empty array for compatibility
-    const depthMarkers: google.maps.Marker[] = [];
-
-    for (let i = 0; i <= gridSize; i++) {
-      for (let j = 0; j <= gridSize; j++) {
-        if (this.grid[i][j].waterDepth > 0.01) {
-          // Threshold for showing pools (1cm)
-          const waterDepthMeters = this.grid[i][j].waterDepth;
-
-          // Only create depth markers (no circles)
-          if (waterDepthMeters > 0.02) {
-            // Lower threshold since we're only showing labels
-            const depthMarker = new google.maps.Marker({
-              position: new google.maps.LatLng(
-                this.grid[i][j].lat,
-                this.grid[i][j].lng
-              ),
-              map: this.map,
-              visible: this.poolMarkersVisible,
-              icon: {
-                url:
-                  "data:image/svg+xml;charset=UTF-8," +
-                  encodeURIComponent(`
-                  <svg width="60" height="20" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="60" height="20" fill="white" stroke="#0000CD" stroke-width="1" rx="3"/>
-                    <text x="30" y="14" text-anchor="middle" font-family="Arial" font-size="10" fill="#0000CD">${(
-                      waterDepthMeters * 39.37
-                    ).toFixed(1)}"</text>
-                  </svg>
-                `),
-                scaledSize: new google.maps.Size(60, 20),
-                anchor: new google.maps.Point(30, 10),
-              },
-              title: `Water depth: ${(waterDepthMeters * 39.37).toFixed(
-                2
-              )} inches`,
-            });
-            depthMarkers.push(depthMarker);
-          }
-        }
-      }
-    }
-
-    return { poolMarkers, depthMarkers };
   }
 
   /**
