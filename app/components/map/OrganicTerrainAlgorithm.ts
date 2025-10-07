@@ -172,13 +172,15 @@ export class OrganicTerrainAlgorithm {
 
               // Provide more specific error information
               let errorMessage = `Failed to get elevation grid data: ${status}`;
-              if (status === "UNKNOWN_ERROR") {
+              if (status === google.maps.ElevationStatus.UNKNOWN_ERROR) {
                 errorMessage +=
                   " (This usually means API quota exceeded or invalid request)";
-              } else if (status === "REQUEST_DENIED") {
+              } else if (
+                status === google.maps.ElevationStatus.REQUEST_DENIED
+              ) {
                 errorMessage +=
                   " (API key may be invalid or elevation service not enabled)";
-              } else if (status === "ZERO_RESULTS") {
+              } else if (status === google.maps.ElevationStatus.ZERO_RESULTS) {
                 errorMessage +=
                   " (No elevation data available for this location)";
               }
