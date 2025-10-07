@@ -45,8 +45,7 @@ export default function MapComponent({}: MapComponentProps) {
       const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
       if (!apiKey) {
-        const errorMsg =
-          "Google Maps API key is not configured. Please add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to your .env.local file";
+        const errorMsg = "Google Maps API key is not configured.";
         console.error(errorMsg);
         setError(errorMsg);
         setIsLoading(false);
