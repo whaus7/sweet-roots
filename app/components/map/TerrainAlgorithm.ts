@@ -88,7 +88,7 @@ export class TerrainAlgorithm {
   private getElevationDataForTerrain(
     center: google.maps.LatLng,
     maxRadius: number,
-    terraceCount: number
+    _terraceCount: number
   ): Promise<google.maps.ElevationResult[]> {
     return new Promise((resolve, reject) => {
       const points: google.maps.LatLng[] = [];
@@ -306,7 +306,7 @@ export class TerrainAlgorithm {
   /**
    * Create concentric terrace circles
    */
-  private createTerraceCircles(maxRadius: number): google.maps.Circle[] {
+  private createTerraceCircles(_maxRadius: number): google.maps.Circle[] {
     const circles: google.maps.Circle[] = [];
 
     console.log(

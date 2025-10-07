@@ -6,12 +6,17 @@ import { ElevationAlgorithm } from "./ElevationAlgorithm";
 import { WaterFlowAlgorithm } from "./WaterFlowAlgorithm";
 import { TerrainAlgorithm } from "./TerrainAlgorithm";
 import { OrganicTerrainAlgorithm } from "./OrganicTerrainAlgorithm";
+import { PropertyArea } from "@/types/PropertyArea";
 
 interface MapComponentProps {
-  onAreaCreated?: (area: any) => void;
+  onAreaCreated?: (area: PropertyArea) => void;
+  onAreaUpdated?: (area: PropertyArea) => void;
 }
 
-export default function MapComponent({ onAreaCreated }: MapComponentProps) {
+export default function MapComponent({
+  onAreaCreated: _onAreaCreated,
+  onAreaUpdated: _onAreaUpdated,
+}: MapComponentProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
 
@@ -25,7 +30,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isWaterFlowView, setIsWaterFlowView] = useState(false);
-  const [isTerrainView, setIsTerrainView] = useState(false);
+  const [isTerrainView, _setIsTerrainView] = useState(false);
   const [isOrganicTerrainView, setIsOrganicTerrainView] = useState(false);
   const [showTerrainMarkers, setShowTerrainMarkers] = useState(false);
   const [showOrganicTerrainMarkers, setShowOrganicTerrainMarkers] =
@@ -42,7 +47,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
     google.maps.places.AutocompletePrediction[]
   >([]);
   const [showPredictions, setShowPredictions] = useState(false);
-  const [showPoolMarkers, setShowPoolMarkers] = useState(false);
+  const [showPoolMarkers, _setShowPoolMarkers] = useState(false);
 
   useEffect(() => {
     const initMap = async () => {
@@ -124,7 +129,6 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
     };
 
     initMap();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Effect to handle water flow view changes
@@ -135,7 +139,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
         .then(() => {
           // Sync pool markers visibility state after generation
           if (waterFlowAlgorithmRef.current) {
-            setShowPoolMarkers(
+            _setShowPoolMarkers(
               waterFlowAlgorithmRef.current.arePoolMarkersVisible()
             );
           }
@@ -145,7 +149,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
         );
     } else if (!isWaterFlowView && waterFlowAlgorithmRef.current) {
       waterFlowAlgorithmRef.current.clearWaterFlowData();
-      setShowPoolMarkers(false); // Reset to default when clearing
+      _setShowPoolMarkers(false); // Reset to default when clearing
     }
   }, [isWaterFlowView, rainfallAmount]);
 
@@ -257,7 +261,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
         );
         // Sync pool markers visibility state after regeneration
         if (waterFlowAlgorithmRef.current) {
-          setShowPoolMarkers(
+          _setShowPoolMarkers(
             waterFlowAlgorithmRef.current.arePoolMarkersVisible()
           );
         }
@@ -267,10 +271,12 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
     }
   };
 
-  const togglePoolMarkers = () => {
+  const _togglePoolMarkers = () => {
     if (waterFlowAlgorithmRef.current) {
       waterFlowAlgorithmRef.current.togglePoolMarkersVisibility();
-      setShowPoolMarkers(waterFlowAlgorithmRef.current.arePoolMarkersVisible());
+      _setShowPoolMarkers(
+        waterFlowAlgorithmRef.current.arePoolMarkersVisible()
+      );
     }
   };
 
@@ -281,7 +287,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
     }
   };
 
-  const toggleOrganicTerrainView = async () => {
+  const _toggleOrganicTerrainView = async () => {
     const newOrganicTerrainView = !isOrganicTerrainView;
     console.log("Toggle organic terrain view:", newOrganicTerrainView);
     setIsOrganicTerrainView(newOrganicTerrainView);
@@ -317,7 +323,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
     }
   };
 
-  const refreshOrganicTerrain = async () => {
+  const _refreshOrganicTerrain = async () => {
     if (organicTerrainAlgorithmRef.current && isOrganicTerrainView) {
       try {
         // Clear existing organic terrain data first
@@ -528,7 +534,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
           {/* Autocomplete Dropdown */}
           {showPredictions && predictions.length > 0 && (
             <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
-              {predictions.map((prediction, index) => (
+              {predictions.map((prediction) => (
                 <button
                   key={prediction.place_id}
                   onClick={() => handleAddressSelect(prediction)}
@@ -646,7 +652,7 @@ export default function MapComponent({ onAreaCreated }: MapComponentProps) {
           {isWaterFlowView && (
             <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
               <span className="text-sm font-medium text-gray-700 whitespace-nowrap w-[55]">
-                Rain: {rainfallAmount}"
+                Rain: {rainfallAmount}&quot;
               </span>
               <input
                 type="range"

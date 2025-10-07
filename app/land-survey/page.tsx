@@ -2,13 +2,7 @@
 import React from "react";
 import MapComponent from "@/app/components/map/MapComponent";
 import HeroBanner from "@/app/components/HeroBannerNew";
-
-interface PropertyArea {
-  id: string;
-  name: string;
-  polygon: google.maps.Polygon;
-  area: number;
-}
+import { PropertyArea } from "@/types/PropertyArea";
 
 export default function LandSurveyPage() {
   const handleAreaCreated = (area: PropertyArea) => {
