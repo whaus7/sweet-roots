@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { ElevationAlgorithm } from "./ElevationAlgorithm";
 import { WaterFlowAlgorithm } from "./WaterFlowAlgorithm";
-import { TerrainAlgorithm } from "./TerrainAlgorithm";
 import { OrganicTerrainAlgorithm } from "./OrganicTerrainAlgorithm";
 import { PropertyArea } from "@/types/PropertyArea";
 
@@ -19,10 +18,6 @@ export default function MapComponent({}: MapComponentProps) {
 
   const elevationAlgorithmRef = useRef<ElevationAlgorithm | null>(null);
   const waterFlowAlgorithmRef = useRef<WaterFlowAlgorithm | null>(null);
-  const terrainAlgorithmRef = useRef<TerrainAlgorithm | null>(null);
-  const organicTerrainAlgorithmRef = useRef<OrganicTerrainAlgorithm | null>(
-    null
-  );
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -106,8 +101,6 @@ export default function MapComponent({}: MapComponentProps) {
           // Initialize algorithm instances
           elevationAlgorithmRef.current = new ElevationAlgorithm(map);
           waterFlowAlgorithmRef.current = new WaterFlowAlgorithm(map);
-          terrainAlgorithmRef.current = new TerrainAlgorithm(map);
-          organicTerrainAlgorithmRef.current = new OrganicTerrainAlgorithm(map);
 
           setIsLoading(false);
         }
@@ -159,12 +152,6 @@ export default function MapComponent({}: MapComponentProps) {
       }
       if (waterFlowAlgorithmRef.current) {
         waterFlowAlgorithmRef.current.clearWaterFlowData();
-      }
-      if (terrainAlgorithmRef.current) {
-        terrainAlgorithmRef.current.clearTerrainData();
-      }
-      if (organicTerrainAlgorithmRef.current) {
-        organicTerrainAlgorithmRef.current.clearOrganicTerrainData();
       }
     };
   }, []);
