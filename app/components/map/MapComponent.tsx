@@ -17,6 +17,8 @@ export default function MapComponent({
   onAreaCreated: _onAreaCreated,
   onAreaUpdated: _onAreaUpdated,
 }: MapComponentProps) {
+  console.log("_onAreaCreated: " + _onAreaCreated);
+  console.log("_onAreaUpdated: " + _onAreaCreated);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
 
@@ -30,7 +32,7 @@ export default function MapComponent({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isWaterFlowView, setIsWaterFlowView] = useState(false);
-  const [isTerrainView, _setIsTerrainView] = useState(false);
+
   const [isOrganicTerrainView, setIsOrganicTerrainView] = useState(false);
   const [showTerrainMarkers, setShowTerrainMarkers] = useState(false);
   const [showOrganicTerrainMarkers, setShowOrganicTerrainMarkers] =
@@ -47,7 +49,6 @@ export default function MapComponent({
     google.maps.places.AutocompletePrediction[]
   >([]);
   const [showPredictions, setShowPredictions] = useState(false);
-  const [showPoolMarkers, _setShowPoolMarkers] = useState(false);
 
   useEffect(() => {
     const initMap = async () => {
@@ -136,44 +137,13 @@ export default function MapComponent({
     if (isWaterFlowView && waterFlowAlgorithmRef.current) {
       waterFlowAlgorithmRef.current
         .generateWaterFlowSimulation(rainfallAmount)
-        .then(() => {
-          // Sync pool markers visibility state after generation
-          if (waterFlowAlgorithmRef.current) {
-            _setShowPoolMarkers(
-              waterFlowAlgorithmRef.current.arePoolMarkersVisible()
-            );
-          }
-        })
         .catch((error) =>
           console.error("Error generating water flow simulation:", error)
         );
     } else if (!isWaterFlowView && waterFlowAlgorithmRef.current) {
       waterFlowAlgorithmRef.current.clearWaterFlowData();
-      _setShowPoolMarkers(false); // Reset to default when clearing
     }
   }, [isWaterFlowView, rainfallAmount]);
-
-  // Effect to handle terrain view changes
-  useEffect(() => {
-    if (isTerrainView && terrainAlgorithmRef.current) {
-      terrainAlgorithmRef.current
-        .generateTerrainVisualization(undefined, 500, terraceCount)
-        .then(() => {
-          // Sync terrain markers visibility state after generation
-          if (terrainAlgorithmRef.current) {
-            setShowTerrainMarkers(
-              terrainAlgorithmRef.current.areMarkersVisible()
-            );
-          }
-        })
-        .catch((error) =>
-          console.error("Error generating terrain visualization:", error)
-        );
-    } else if (!isTerrainView && terrainAlgorithmRef.current) {
-      terrainAlgorithmRef.current.clearTerrainData();
-      setShowTerrainMarkers(false); // Reset to default when clearing
-    }
-  }, [isTerrainView, terraceCount]);
 
   // Effect to handle organic terrain view changes
   useEffect(() => {
@@ -271,46 +241,10 @@ export default function MapComponent({
     }
   };
 
-  const _togglePoolMarkers = () => {
-    if (waterFlowAlgorithmRef.current) {
-      waterFlowAlgorithmRef.current.togglePoolMarkersVisibility();
-      _setShowPoolMarkers(
-        waterFlowAlgorithmRef.current.arePoolMarkersVisible()
-      );
-    }
-  };
-
   const toggleTerrainMarkers = () => {
     if (terrainAlgorithmRef.current) {
       terrainAlgorithmRef.current.toggleMarkersVisibility();
       setShowTerrainMarkers(terrainAlgorithmRef.current.areMarkersVisible());
-    }
-  };
-
-  const _toggleOrganicTerrainView = async () => {
-    const newOrganicTerrainView = !isOrganicTerrainView;
-    console.log("Toggle organic terrain view:", newOrganicTerrainView);
-    setIsOrganicTerrainView(newOrganicTerrainView);
-
-    if (newOrganicTerrainView && organicTerrainAlgorithmRef.current) {
-      try {
-        console.log("Generating organic terrain visualization...");
-        await organicTerrainAlgorithmRef.current.generateOrganicTerrainVisualization(
-          undefined,
-          22,
-          terraceCount
-        );
-        setShowOrganicTerrainMarkers(
-          organicTerrainAlgorithmRef.current.areMarkersVisible()
-        );
-        console.log("Organic terrain visualization generated successfully");
-      } catch (error) {
-        console.error("Error generating organic terrain visualization:", error);
-      }
-    } else if (!newOrganicTerrainView && organicTerrainAlgorithmRef.current) {
-      console.log("Clearing organic terrain data...");
-      organicTerrainAlgorithmRef.current.clearOrganicTerrainData();
-      setShowOrganicTerrainMarkers(false);
     }
   };
 
@@ -320,29 +254,6 @@ export default function MapComponent({
       setShowOrganicTerrainMarkers(
         organicTerrainAlgorithmRef.current.areMarkersVisible()
       );
-    }
-  };
-
-  const _refreshOrganicTerrain = async () => {
-    if (organicTerrainAlgorithmRef.current && isOrganicTerrainView) {
-      try {
-        // Clear existing organic terrain data first
-        organicTerrainAlgorithmRef.current.clearOrganicTerrainData();
-        // Regenerate with current settings
-        await organicTerrainAlgorithmRef.current.generateOrganicTerrainVisualization(
-          undefined,
-          22,
-          terraceCount
-        );
-        // Sync organic terrain markers visibility state after regeneration
-        if (organicTerrainAlgorithmRef.current) {
-          setShowOrganicTerrainMarkers(
-            organicTerrainAlgorithmRef.current.areMarkersVisible()
-          );
-        }
-      } catch (error) {
-        console.error("Error refreshing organic terrain visualization:", error);
-      }
     }
   };
 
@@ -665,79 +576,6 @@ export default function MapComponent({
                 title="Adjust rainfall amount"
               />
             </div>
-          )}
-
-          {/* Terrace Count Slider - Show when any terrain is active */}
-          {(isTerrainView || isOrganicTerrainView) && (
-            <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
-              <span className="text-sm font-medium text-gray-700 whitespace-nowrap">
-                Terraces: {terraceCount}
-              </span>
-              <input
-                type="range"
-                min="4"
-                max="12"
-                step="1"
-                value={terraceCount}
-                onChange={(e) => setTerraceCount(parseInt(e.target.value))}
-                className="w-20 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-500"
-                title="Adjust number of terrace levels"
-              />
-            </div>
-          )}
-
-          {/* Terrain Markers Toggle - Only show when terrain is active */}
-          {isTerrainView && (
-            <button
-              onClick={toggleTerrainMarkers}
-              className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                showTerrainMarkers
-                  ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
-              }`}
-              title={
-                showTerrainMarkers
-                  ? "Hide Terrain Markers"
-                  : "Show Terrain Markers"
-              }
-            >
-              {/* Marker Icon */}
-              <svg
-                className={`w-5 h-5 transition-colors duration-200 ${
-                  showTerrainMarkers ? "text-white" : "text-orange-600"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-              </svg>
-
-              {/* Button Text */}
-              <span className="font-medium text-sm">Markers</span>
-
-              {/* Checkbox Indicator */}
-              <div
-                className={`ml-1 w-4 h-4 rounded border-2 transition-all duration-200 ${
-                  showTerrainMarkers
-                    ? "bg-white border-white"
-                    : "border-gray-400 group-hover:border-orange-500"
-                }`}
-              >
-                {showTerrainMarkers && (
-                  <svg
-                    className="w-3 h-3 text-orange-500 mt-0.5 ml-0.5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </div>
-            </button>
           )}
 
           {/* Organic Terrain Markers Toggle - Only show when organic terrain is active */}

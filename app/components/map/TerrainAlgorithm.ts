@@ -56,8 +56,7 @@ export class TerrainAlgorithm {
       console.log("TerrainAlgorithm: Getting elevation data...");
       const elevationData = await this.getElevationDataForTerrain(
         this.centerPoint,
-        maxRadius,
-        terraceCount
+        maxRadius
       );
       console.log(
         "TerrainAlgorithm: Elevation data received:",
@@ -87,8 +86,7 @@ export class TerrainAlgorithm {
    */
   private getElevationDataForTerrain(
     center: google.maps.LatLng,
-    maxRadius: number,
-    _terraceCount: number
+    maxRadius: number
   ): Promise<google.maps.ElevationResult[]> {
     return new Promise((resolve, reject) => {
       const points: google.maps.LatLng[] = [];
@@ -301,77 +299,6 @@ export class TerrainAlgorithm {
       "terrace levels"
     );
     return terraceLevels;
-  }
-
-  /**
-   * Create concentric terrace circles
-   */
-  private createTerraceCircles(_maxRadius: number): google.maps.Circle[] {
-    const circles: google.maps.Circle[] = [];
-
-    console.log(
-      "TerrainAlgorithm: createTerraceCircles - centerPoint:",
-      this.centerPoint
-    );
-    console.log(
-      "TerrainAlgorithm: createTerraceCircles - terraceLevels length:",
-      this.terraceLevels.length
-    );
-
-    if (!this.centerPoint || this.terraceLevels.length === 0) {
-      console.log(
-        "TerrainAlgorithm: createTerraceCircles - Early return due to missing data"
-      );
-      return circles;
-    }
-
-    for (let i = 0; i < this.terraceLevels.length; i++) {
-      const level = this.terraceLevels[i];
-
-      const circle = new google.maps.Circle({
-        center: this.centerPoint,
-        radius: level.radius,
-        fillColor: level.color,
-        fillOpacity: 0.3,
-        strokeColor: level.color,
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        map: this.map,
-        zIndex: 1,
-        clickable: true,
-      });
-
-      console.log(
-        `TerrainAlgorithm: Created terrace circle ${i + 1} with radius ${
-          level.radius
-        }m and color ${level.color}`
-      );
-
-      // Add info window with terrace details
-      const infoWindow = new google.maps.InfoWindow({
-        content: `
-          <div style="padding: 8px;">
-            <h4 style="margin: 0 0 8px 0; color: ${
-              level.color
-            };">Terrace Level ${i + 1}</h4>
-            <p style="margin: 0; font-size: 12px;">
-              <strong>Elevation:</strong> ${level.elevation.toFixed(1)}m<br>
-              <strong>Radius:</strong> ${level.radius.toFixed(0)}m<br>
-              <strong>Depth:</strong> ${level.depth.toFixed(1)}m
-            </p>
-          </div>
-        `,
-      });
-
-      circle.addListener("click", () => {
-        infoWindow.setPosition(this.centerPoint);
-        infoWindow.open(this.map);
-      });
-
-      circles.push(circle);
-    }
-
-    return circles;
   }
 
   /**
