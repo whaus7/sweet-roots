@@ -10,7 +10,7 @@ import { CompactionMeter } from "../../components/CompactionMeter";
 import CarbonToNitrogenMeter from "../../components/CarbonToNitrogenMeter";
 import BrixMeter from "../../components/BrixMeter";
 import Microscopy from "../../components/Microscopy";
-import PLFAMeter from "../../components/PLFAMeter";
+import PLFADonutChart from "../../components/PLFADonutChart";
 import NPKMeter from "../../components/NPKMeter";
 import { Tile } from "../../components/Tile";
 import Image from "next/image";
@@ -45,7 +45,13 @@ const visualComponents = {
   brix: () => <BrixMeter brixValue={9} />,
   cnratio: () => <CarbonToNitrogenMeter carbon={37} nitrogen={1} />,
   plfa: () => (
-    <PLFAMeter bacteria={45} fungi={30} protozoa={15} other={10} size={160} />
+    <PLFADonutChart
+      bacteria={45}
+      fungi={30}
+      protozoa={15}
+      other={10}
+      size={160}
+    />
   ),
   npk: () => (
     <NPKMeter nitrogen={52} phosphorus={5.2} potassium={175} size={160} />

@@ -28,8 +28,6 @@ export default function MapComponent({}: MapComponentProps) {
   const [error, setError] = useState<string | null>(null);
   const [isWaterFlowView, setIsWaterFlowView] = useState(false);
 
-  const [showOrganicTerrainMarkers, setShowOrganicTerrainMarkers] =
-    useState(false);
   const [rainfallAmount, setRainfallAmount] = useState(1); // inches
 
   const [hasSavedState, setHasSavedState] = useState(false);
@@ -200,15 +198,6 @@ export default function MapComponent({}: MapComponentProps) {
       } catch (error) {
         console.error("Error refreshing water flow simulation:", error);
       }
-    }
-  };
-
-  const toggleOrganicTerrainMarkers = () => {
-    if (organicTerrainAlgorithmRef.current) {
-      organicTerrainAlgorithmRef.current.toggleMarkersVisibility();
-      setShowOrganicTerrainMarkers(
-        organicTerrainAlgorithmRef.current.areMarkersVisible()
-      );
     }
   };
 

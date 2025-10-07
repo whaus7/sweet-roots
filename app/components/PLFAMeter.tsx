@@ -10,7 +10,7 @@ interface PLFAMeterProps {
   size?: number;
 }
 
-const PLFAMeter: React.FC<PLFAMeterProps> = ({
+const PLFAMeterOLD: React.FC<PLFAMeterProps> = ({
   bacteria = 0,
   fungi = 0,
   protozoa = 0,
@@ -192,4 +192,4 @@ const PLFAMeter: React.FC<PLFAMeterProps> = ({
   );
 };
 
-export default PLFAMeter;
+export default PLFAMeterOLD;

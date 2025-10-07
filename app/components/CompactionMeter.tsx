@@ -28,14 +28,14 @@ export const CompactionMeter = ({
   // Get color based on value
   const getColor = (val: number) => {
     if (val <= 200) {
-      // Green to yellow segments (0-200)
+      // Vibrant saturated pastel green to yellow segments (0-200)
       const segment = Math.floor(val / 50);
-      const colors = ["#00ff00", "#40ff00", "#80ff00", "#c0ff00", "#ffff00"];
+      const colors = ["#66d9a8", "#7ae6b3", "#8ef3be", "#a2ffc9", "#fff59d"];
       return colors[Math.min(segment, 4)];
     } else {
-      // Yellow to red segments (200-400)
+      // Vibrant saturated pastel yellow to pink segments (200-400)
       const segment = Math.floor((val - 200) / 50);
-      const colors = ["#ffff00", "#ffc000", "#ff8000", "#ff4000", "#ff0000"];
+      const colors = ["#fff59d", "#ffb3ba", "#ff9aab", "#ff81a3", "#ff6b9d"];
       return colors[Math.min(segment, 4)];
     }
   };
@@ -124,8 +124,8 @@ export const CompactionMeter = ({
             cx={centerX}
             cy={centerY}
             r={radius + 15}
-            fill="#f8f9fa"
-            stroke="#e9ecef"
+            fill="#f0f9ff"
+            stroke="#dbeafe"
             strokeWidth="2"
           />
           {/* Meter segments with discrete colors */}

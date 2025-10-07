@@ -2,7 +2,6 @@
 import React from "react";
 import MapComponent from "@/app/components/map/MapComponent";
 import HeroBanner from "@/app/components/HeroBannerNew";
-import { PropertyArea } from "@/types/PropertyArea";
 
 export default function LandSurveyPage() {
   return (

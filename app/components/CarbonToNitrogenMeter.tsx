@@ -24,17 +24,17 @@ const CarbonToNitrogenMeter: React.FC<CarbonToNitrogenMeterProps> = ({
   // Get color based on ratio value (5-50 range)
   const getColor = (val: number) => {
     if (val >= 25 && val <= 30) {
-      return "#00ff00"; // Green for ideal range
+      return "#66d9a8"; // Vibrant pastel green for ideal range
     } else if ((val >= 20 && val < 25) || (val > 30 && val <= 35)) {
-      return "#80ff00"; // Light green for moderate
+      return "#7ae6b3"; // Light vibrant pastel green for moderate
     } else if ((val >= 15 && val < 20) || (val > 35 && val <= 40)) {
-      return "#ffff00"; // Yellow-green for moderate extremes
+      return "#fff59d"; // Vibrant pastel yellow for moderate extremes
     } else if ((val >= 10 && val < 15) || (val > 40 && val <= 45)) {
-      return "#ffc000"; // Light orange for higher extremes
+      return "#ffb3ba"; // Light vibrant pastel pink for higher extremes
     } else if ((val >= 5 && val < 10) || (val > 45 && val <= 50)) {
-      return "#ff4000"; // Yellow for higher extremes
+      return "#ff9aab"; // Vibrant pastel pink for higher extremes
     } else {
-      return "#ff4000"; // Red for most extreme values
+      return "#ff6b9d"; // Vibrant pastel pink for most extreme values
     }
   };
 
@@ -70,7 +70,7 @@ const CarbonToNitrogenMeter: React.FC<CarbonToNitrogenMeterProps> = ({
 
       {/* Meter Bar */}
       <div className="w-full max-w-2xl ">
-        <div className="relative h-8 bg-gray-200 drop-shadow-lg">
+        <div className="relative h-8 bg-blue-100 drop-shadow-lg">
           {/* Meter segments */}
           {Array.from({ length: segments }, (_, i) => {
             const segmentStart = 5 + i * 5;

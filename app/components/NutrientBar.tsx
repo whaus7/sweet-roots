@@ -138,11 +138,12 @@ export default function NutrientBar({
         >
           {/* Ideal range indicator */}
           <div
-            className="absolute bg-green-500"
+            className="absolute"
             style={{
               left: `${idealPos.start}%`,
               width: `${idealPos.width}%`,
               height: "100%",
+              backgroundColor: "#66d9a8",
             }}
           />
         </div>

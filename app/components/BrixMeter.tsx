@@ -55,7 +55,7 @@ const BrixMeter: React.FC<BrixMeterProps> = ({ brixValue = 0 }) => {
             <div
               className="absolute inset-0 transition-all duration-2000 ease-out"
               style={{
-                background: `linear-gradient(to bottom, #3b82f6 0%, #3b82f6 ${
+                background: `linear-gradient(to bottom, #45B7D1 0%, #45B7D1 ${
                   100 - splitPosition
                 }%, #FFFFFF ${100 - splitPosition}%, #FFFFFF 100%)`,
               }}
