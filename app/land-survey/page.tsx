@@ -5,14 +5,6 @@ import HeroBanner from "@/app/components/HeroBannerNew";
 import { PropertyArea } from "@/types/PropertyArea";
 
 export default function LandSurveyPage() {
-  const handleAreaCreated = (area: PropertyArea) => {
-    console.log("New area created:", area);
-  };
-
-  const handleAreaUpdated = (area: PropertyArea) => {
-    console.log("Area updated:", area);
-  };
-
   return (
     <div className="min-h-screen" style={{ background: "#fcfcfc" }}>
       {/* Full Width Banner */}
@@ -24,10 +16,7 @@ export default function LandSurveyPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <MapComponent
-          onAreaCreated={handleAreaCreated}
-          onAreaUpdated={handleAreaUpdated}
-        />
+        <MapComponent />
       </div>
 
       <div className="max-w-[1100] mx-auto px-4">

@@ -13,12 +13,7 @@ interface MapComponentProps {
   onAreaUpdated?: (area: PropertyArea) => void;
 }
 
-export default function MapComponent({
-  onAreaCreated: _onAreaCreated,
-  onAreaUpdated: _onAreaUpdated,
-}: MapComponentProps) {
-  console.log("_onAreaCreated: " + _onAreaCreated);
-  console.log("_onAreaUpdated: " + _onAreaCreated);
+export default function MapComponent({}: MapComponentProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
 
@@ -33,12 +28,10 @@ export default function MapComponent({
   const [error, setError] = useState<string | null>(null);
   const [isWaterFlowView, setIsWaterFlowView] = useState(false);
 
-  const [isOrganicTerrainView, setIsOrganicTerrainView] = useState(false);
-  const [showTerrainMarkers, setShowTerrainMarkers] = useState(false);
   const [showOrganicTerrainMarkers, setShowOrganicTerrainMarkers] =
     useState(false);
   const [rainfallAmount, setRainfallAmount] = useState(1); // inches
-  const [terraceCount, setTerraceCount] = useState(8);
+
   const [hasSavedState, setHasSavedState] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [autocompleteService, setAutocompleteService] =
@@ -229,22 +222,9 @@ export default function MapComponent({
         await waterFlowAlgorithmRef.current.generateWaterFlowSimulation(
           rainfallAmount
         );
-        // Sync pool markers visibility state after regeneration
-        if (waterFlowAlgorithmRef.current) {
-          _setShowPoolMarkers(
-            waterFlowAlgorithmRef.current.arePoolMarkersVisible()
-          );
-        }
       } catch (error) {
         console.error("Error refreshing water flow simulation:", error);
       }
-    }
-  };
-
-  const toggleTerrainMarkers = () => {
-    if (terrainAlgorithmRef.current) {
-      terrainAlgorithmRef.current.toggleMarkersVisibility();
-      setShowTerrainMarkers(terrainAlgorithmRef.current.areMarkersVisible());
     }
   };
 
