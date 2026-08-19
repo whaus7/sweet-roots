@@ -12,6 +12,9 @@ Create a `.env.local` file in the root directory with the following variables:
 # Database Configuration
 DATABASE_URL=postgresql://username:password@localhost:5432/soil_dashboard
 
+# Google Maps (Water Flow / land survey)
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
+
 # Google OAuth Configuration
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id_here
 
@@ -36,6 +39,13 @@ NODE_ENV=development
    - `http://localhost:3000` (for development)
    - `https://your-domain.vercel.app` (for production)
 6. Copy the Client ID and set it as `NEXT_PUBLIC_GOOGLE_CLIENT_ID` in your environment variables
+
+## Google Maps Setup (Water Flow)
+
+1. In the same Google Cloud project, enable **Maps JavaScript API**, **Places API**, and **Elevation API**.
+2. Enable **billing** on the project. Without billing, Maps loads with a “for development purposes only” watermark and Elevation (water flow) is denied.
+3. Create an API key, restrict it to those APIs, and add your domains (`http://localhost:3000/*` and the production site) as HTTP referrers.
+4. Set `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` in `.env.local` for local dev, and the same variable in Vercel for production. Restart `next dev` after changing local env vars.
 
 ## Database Changes
 

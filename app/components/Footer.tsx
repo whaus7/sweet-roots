@@ -62,6 +62,12 @@ export function Footer() {
                   Water Flow
                 </Link>
                 <Link
+                  href="/planting-schedule"
+                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
+                >
+                  Planting
+                </Link>
+                <Link
                   href="/microgreen-store"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >

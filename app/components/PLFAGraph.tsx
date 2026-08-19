@@ -77,9 +77,9 @@ const PLFAGraph: React.FC<PLFAGraphProps> = ({
                 width={40}
               />
               <Tooltip
-                formatter={(value: number) => [`${value}%`, "Organisms"]}
+                formatter={(value) => [`${value}%`, "Organisms"]}
                 labelFormatter={(label) => {
-                  const date = new Date(label);
+                  const date = new Date(String(label));
                   return date.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",

@@ -1,0 +1,22 @@
+.planting-schedule {
+  --paper: #f3eee4;
+  --paper-raised: #faf6ee;
+  --ink: #2a2418;
+  --ink-muted: #6b6155;
+  --ink-faint: #8a8073;
+  --rule: #d9d0c1;
+  --sage: #5e6f4e;
+  --sage-wash: #e7eadc;
+  --amber: #c4a35a;
+  --terracotta: #a35d3f;
+  --bar-track: #e4dccf;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}
+
+.planting-schedule ::selection {
+  background: var(--sage-wash);
+  color: var(--ink);
+}

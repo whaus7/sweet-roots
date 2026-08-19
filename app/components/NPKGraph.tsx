@@ -74,12 +74,9 @@ const NPKGraph: React.FC<NPKGraphProps> = ({
               width={60}
             />
             <Tooltip
-              formatter={(value: number, name: string) => [
-                `${value} ppm`,
-                name,
-              ]}
+              formatter={(value, name) => [`${value} ppm`, String(name)]}
               labelFormatter={(label) => {
-                const date = new Date(label);
+                const date = new Date(String(label));
                 return date.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",

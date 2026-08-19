@@ -68,9 +68,9 @@ export const CompactionGraph = ({
                 width={60}
               />
               <Tooltip
-                formatter={(value: number) => [`${value} PSI`, "Compaction"]}
+                formatter={(value) => [`${value} PSI`, "Compaction"]}
                 labelFormatter={(label) => {
-                  const date = new Date(label);
+                  const date = new Date(String(label));
                   return date.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",

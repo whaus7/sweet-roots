@@ -50,6 +50,12 @@ export function Header() {
             >
               Water Flow
             </Link>
+            <Link
+              href="/planting-schedule"
+              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+            >
+              Planting
+            </Link>
             {/* <Link
               href="/microgreen-store"
               className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
@@ -165,6 +171,13 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Land Survey
+            </Link>
+            <Link
+              href="/planting-schedule"
+              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Planting
             </Link>
             <Link
               href="/microgreen-store"

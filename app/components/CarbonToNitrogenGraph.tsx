@@ -73,9 +73,9 @@ const CarbonToNitrogenGraph: React.FC<CarbonToNitrogenGraphProps> = ({
               width={50}
             />
             <Tooltip
-              formatter={(value: number) => [`${value}:1`, "C:N Ratio"]}
+              formatter={(value) => [`${value}:1`, "C:N Ratio"]}
               labelFormatter={(label) => {
-                const date = new Date(label);
+                const date = new Date(String(label));
                 return date.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",

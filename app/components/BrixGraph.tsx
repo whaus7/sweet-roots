@@ -69,9 +69,9 @@ const BrixGraph: React.FC<BrixGraphProps> = ({
                 width={40}
               />
               <Tooltip
-                formatter={(value: number) => [`${value}%`, "Brix"]}
+                formatter={(value) => [`${value}%`, "Brix"]}
                 labelFormatter={(label) => {
-                  const date = new Date(label);
+                  const date = new Date(String(label));
                   return date.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",

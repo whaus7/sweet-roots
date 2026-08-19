@@ -144,12 +144,9 @@ export default function BrixLogsChart({
               width={40}
             />
             <Tooltip
-              formatter={(value: number, name: string) => [
-                `${value}% Brix`,
-                name,
-              ]}
+              formatter={(value, name) => [`${value}% Brix`, String(name)]}
               labelFormatter={(label) => {
-                const date = new Date(label);
+                const date = new Date(String(label));
                 return date.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",

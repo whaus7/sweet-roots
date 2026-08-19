@@ -1,0 +1,3536 @@
+[
+  {
+    "id": "tatsoi-tah-tsai",
+    "commonName": "Tatsoi",
+    "varietyName": "Tah Tsai",
+    "scientificName": "Brassica rapa subsp. narinosa",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Spoon-shaped leaves with a sweet mustard snap and a lingering mineral finish — richer than bok choy, never bitter when grown in cold.",
+    "notes": "Forms a low rosette that shrugs off frost and actually sweetens after cold nights. Harvest outer leaves or cut the whole head. Prime crop for unheated houses in winter.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 50
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -8,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": -7
+      },
+      {
+        "season": "winter",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 35
+      }
+    ]
+  },
+  {
+    "id": "mizuna-kyona",
+    "commonName": "Mizuna",
+    "varietyName": "Kyona",
+    "scientificName": "Brassica rapa var. nipposinica",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Feathery leaves with a peppery, almost arugula brightness and a clean finish — the salad green chefs reach for when lettuce tastes like water.",
+    "notes": "Cut-and-come-again. Bolts in long hot days, so spring sowings should be early. Fall crops are the most succulent. Excellent under cover.",
+    "daysToMaturity": {
+      "min": 35,
+      "max": 45
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 6,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -91,
+        "endOffsetDays": -7
+      }
+    ]
+  },
+  {
+    "id": "mibuna",
+    "commonName": "Mibuna",
+    "varietyName": "Early Mibuna",
+    "scientificName": "Brassica rapa var. nipposinica",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Narrow strap leaves, milder than mizuna, with a juicy green-cabbage sweetness that stands up to soup and pickling.",
+    "notes": "A Kyoto classic, less common in Western catalogs. Dense clumps; harvest like chives. More heat-tolerant than mizuna but still a cool-season star.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 50
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -5,
+    "minSoilTempC": 6,
+    "preferredTempC": {
+      "min": 6,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
+  },
+  {
+    "id": "komatsuna-summerfest",
+    "commonName": "Komatsuna",
+    "varietyName": "Summerfest",
+    "scientificName": "Brassica rapa var. perviridis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "Glossy spinach-mustard hybrid flavor: sweet, spinachy, with a quiet mustard undertone. One of the most versatile cooking greens in Japan.",
+    "notes": "Also called Japanese mustard spinach. 'Summerfest' holds quality in shoulder heat better than heirlooms. Stir-fry stems and leaves together.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 40
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -6,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 49
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
+  },
+  {
+    "id": "yukina-savoy",
+    "commonName": "Yukina Savoy",
+    "varietyName": "Yukina Savoy",
+    "scientificName": "Brassica rapa",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Deeply blistered, dark leaves with a buttery texture and a mild, sweet brassica flavor — like tatsoi crossed with savoy cabbage.",
+    "notes": "Exceptionally cold-hardy; a greenhouse winter staple. Slow to bolt. Beautiful in the bed and on the plate.",
+    "daysToMaturity": {
+      "min": 45,
+      "max": 55
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -9,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 4,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": 0
+      },
+      {
+        "season": "winter",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "tokyo-bekana",
+    "commonName": "Tokyo Bekana",
+    "varietyName": "Tokyo Bekana",
+    "scientificName": "Brassica rapa var. chinensis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Lime-green ruffled leaves that eat like a tender lettuce with a hint of napa sweetness. The rare green that satisfies salad and stir-fry people.",
+    "notes": "Fast and elegant. Baby leaves at 3 weeks, heads at 6. Prefers cool weather; greenhouse extends the fall crop deep into winter.",
+    "daysToMaturity": {
+      "min": 21,
+      "max": 45
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -10
+      }
+    ]
+  },
+  {
+    "id": "senposai",
+    "commonName": "Senposai",
+    "varietyName": "Senposai",
+    "scientificName": "Brassica rapa × Brassica oleracea",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "A cabbage–komatsuna cross: large, tender leaves with sweet cabbage depth and none of the sulfur bite of collards.",
+    "notes": "Huge productivity. Cut leaves for months. More heat-tolerant than napa, more cold-tolerant than regular cabbage greens.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 55
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -7,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 6,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "hon-tsai-tai",
+    "commonName": "Hon Tsai Tai",
+    "varietyName": "Purple Choy Sum",
+    "scientificName": "Brassica rapa var. parachinensis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Purple flower stems with a sweet, asparagus-broccoli taste. The buds are the prize — delicate, nutty, and completely unlike heading brassicas.",
+    "notes": "Grown for flowering shoots, not a leafy head. Cool weather intensifies the purple. Harvest stems with a few open flowers.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 50
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -4,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -10,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -91,
+        "endOffsetDays": -21
+      }
+    ]
+  },
+  {
+    "id": "yu-choy-sum",
+    "commonName": "Yu Choy Sum",
+    "varietyName": "Choy Sum",
+    "scientificName": "Brassica rapa var. parachinensis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "Tender stems and buds with a sweet, green-pea brassica flavor — the Cantonese standard for high-heat wok cooking.",
+    "notes": "Fast. Harvest whole plants when buds form, before flowers fully open. Successions every two weeks in cool weather.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 45
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -3,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "gai-lan",
+    "commonName": "Gai Lan",
+    "varietyName": "Chinese Broccoli",
+    "scientificName": "Brassica oleracea var. alboglabra",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "Thick succulent stems with a sweet, faintly bitter broccoli intensity. Oyster sauce exists for this vegetable.",
+    "notes": "Needs more time than leafy choys. Fall plantings produce the thickest stems. Greenhouse keeps quality when nights drop.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -4,
+    "minSoilTempC": 10,
+    "preferredTempC": {
+      "min": 10,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 0,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -35
+      }
+    ]
+  },
+  {
+    "id": "gai-choy",
+    "commonName": "Gai Choy",
+    "varietyName": "Chinese Mustard",
+    "scientificName": "Brassica juncea",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "A wrapped mustard head with serious heat that mellows to a round, pickled-cabbage richness when cooked. Essential for suan cai.",
+    "notes": "Heading mustard. Cool nights keep it from turning fiercely hot. Direct sow; do not let it sit in heat or it bolts and toughens.",
+    "daysToMaturity": {
+      "min": 45,
+      "max": 65
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -5,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": -21
+      }
+    ]
+  },
+  {
+    "id": "osaka-purple",
+    "commonName": "Mustard",
+    "varietyName": "Osaka Purple",
+    "scientificName": "Brassica juncea",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Burgundy-blushed leaves with a wasabi-like heat that cools into grape-mustard sweetness after frost.",
+    "notes": "Ornamental and edible. Baby leaves for salad, large leaves for braising. Cold makes the color and flavor both more interesting.",
+    "daysToMaturity": {
+      "min": 21,
+      "max": 45
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -91,
+        "endOffsetDays": 0
+      }
+    ]
+  },
+  {
+    "id": "napa-bilko",
+    "commonName": "Napa Cabbage",
+    "varietyName": "Bilko",
+    "scientificName": "Brassica rapa subsp. pekinensis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "Crisp, juicy midribs with a clean sweetness that kimchi was invented to celebrate. 'Bilko' heads are dense and resist bursting.",
+    "notes": "Fall is the real season — spring crops often bolt in lengthening days. Needs consistent moisture. Clubroot-resistant strain.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -3,
+    "minSoilTempC": 10,
+    "preferredTempC": {
+      "min": 10,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 0,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -112,
+        "endOffsetDays": -42
+      }
+    ]
+  },
+  {
+    "id": "bok-choy-mei-qing",
+    "commonName": "Bok Choy",
+    "varietyName": "Mei Qing Choi",
+    "scientificName": "Brassica rapa subsp. chinensis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "Baby heads with celadon stems and a sweet, almost corn-like juice. More refined than full-size white-stem pak choi.",
+    "notes": "Compact, uniform, and fast. Spring and fall. Heat makes it bolt; greenhouse in late fall is insurance.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 40
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -3,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "purple-lady-bok-choy",
+    "commonName": "Bok Choy",
+    "varietyName": "Purple Lady",
+    "scientificName": "Brassica rapa subsp. chinensis",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Violet leaves over green stems; milder than red mustards, with a sweet pak-choi crunch and a faint berry-brassica aroma.",
+    "notes": "Color deepens in cold. Best eaten young. A showpiece that actually tastes as good as it looks.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 45
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -3,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "shungiku",
+    "commonName": "Shungiku",
+    "varietyName": "Garland Chrysanthemum",
+    "scientificName": "Glebionis coronaria",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Aromatic greens with a resinous, herbal bitterness — like chrysanthemum tea crossed with spinach. The flavor of sukiyaki.",
+    "notes": "Not a brassica. Cool weather keeps leaves tender. Harvest before buds, or let a few flower. Unique enough that people remember it.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 45
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -10,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -10
+      }
+    ]
+  },
+  {
+    "id": "celtuce",
+    "commonName": "Celtuce",
+    "varietyName": "Wosun / Stem Lettuce",
+    "scientificName": "Lactuca sativa var. augustana",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Grown for the thick stem: crisp as jicama, with a mild lettuce-cucumber taste and a toasted-nut aftertaste when sliced thin.",
+    "notes": "Leaves are edible young; the swollen stem is the point. Needs a long cool stretch. A Chinese banquet vegetable rarely grown in home gardens.",
+    "daysToMaturity": {
+      "min": 75,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -2,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -119,
+        "endOffsetDays": -49
+      }
+    ]
+  },
+  {
+    "id": "daikon-miyashige",
+    "commonName": "Daikon",
+    "varietyName": "Miyashige",
+    "scientificName": "Raphanus sativus var. longipinnatus",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green"
+    ],
+    "flavor": "Long white roots that are juicy, mildly sweet, and only gently pungent — the daikon you grate over soba and pickle into takuan.",
+    "notes": "Fall crop first. Spring sowings often go pithy or bolt. Loose soil is essential. Greens are a second vegetable.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -2,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "kn-bravo-radish",
+    "commonName": "Winter Radish",
+    "varietyName": "KN-Bravo",
+    "scientificName": "Raphanus sativus",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Magenta-and-white flesh with a sweet, juicy bite and a tamed heat. Beautiful raw; keeps its color in quick pickles.",
+    "notes": "A modern Korean-type winter radish. Best as a fall crop. Stores well. Sow later than summer radishes; it wants to size in cooling soil.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -3,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "watermelon-radish",
+    "commonName": "Watermelon Radish",
+    "varietyName": "Red Meat",
+    "scientificName": "Raphanus sativus",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Pale green skin, shocking magenta heart. Sweet, crisp, and only mildly peppery — the radish that converts radish skeptics.",
+    "notes": "Classic Chinese xin li mei type. Needs a long cool season to color fully. Spring crops can disappoint; plant for late fall harvest.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 65
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -3,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "green-meat-radish",
+    "commonName": "Green Meat Radish",
+    "varietyName": "Qingluobo",
+    "scientificName": "Raphanus sativus",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Jade flesh that is sweeter and juicier than red radishes, with a fresh-apple quality and almost no bite.",
+    "notes": "A northern Chinese keeping radish. Outstanding raw and in hot pot. Fall only in most climates.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -3,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "hinona-kabu",
+    "commonName": "Turnip",
+    "varietyName": "Hinona Kabu",
+    "scientificName": "Brassica rapa var. rapa",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "A slender Kyoto turnip, white with a magenta shoulder. Tender, sweet, and the traditional pickle for senmaizuke.",
+    "notes": "Harvest young. Fall crops are sweeter. The greens are as good as the roots. Rare outside Japanese seed lists.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 55
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -91,
+        "endOffsetDays": -21
+      }
+    ]
+  },
+  {
+    "id": "nira-garlic-chives",
+    "commonName": "Garlic Chives",
+    "varietyName": "Nira",
+    "scientificName": "Allium tuberosum",
+    "category": "herb",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Flat leaves with a true garlic perfume and a green-onion juiciness. The flavor of dumplings, jiaozi, and Korean buchimgae.",
+    "notes": "Perennial once established. Start from seed in spring or divide. Yellow (blanched) nira is a delicacy. Flowers are edible.",
+    "daysToMaturity": {
+      "min": 80,
+      "max": 120
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -15,
+    "minSoilTempC": 10,
+    "preferredTempC": {
+      "min": 10,
+      "max": 26
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "mitsuba",
+    "commonName": "Mitsuba",
+    "varietyName": "Japanese Parsley",
+    "scientificName": "Cryptotaenia japonica",
+    "category": "herb",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "A wild, aromatic parsley-celery-chervil hybrid. Fresh, slightly bitter, and unmistakably Japanese in soups and chawanmushi.",
+    "notes": "Woodland plant: part shade, steady moisture. Can overwinter in mild climates and unheated houses. Treat as a perennial in shade.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -8,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "aojiso",
+    "commonName": "Shiso",
+    "varietyName": "Green Aojiso",
+    "scientificName": "Perilla frutescens var. crispa",
+    "category": "herb",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Cinnamon, basil, mint, and cumin in one ruffled leaf. The herb that makes sashimi, umeboshi, and summer noodles taste like themselves.",
+    "notes": "Tender. Needs warmth to germinate — soak seed. Pinch for bushiness. Self-sows once happy. Greenhouse gets you an earlier, longer season.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 80
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "akajiso",
+    "commonName": "Shiso",
+    "varietyName": "Red Akajiso",
+    "scientificName": "Perilla frutescens var. crispa",
+    "category": "herb",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Dark purple leaves with the same spice-basil perfume as green shiso, plus a berry-ink tannin used to color umeboshi.",
+    "notes": "Same warmth needs as green shiso. Stunning in the garden. Red is the pickling leaf; green is the fresh herb. Grow both.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 80
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "red-beard-onion",
+    "commonName": "Bunching Onion",
+    "varietyName": "Red Beard",
+    "scientificName": "Allium fistulosum",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Long scarlet shanks with a sweet, round onion flavor and none of the harshness of storage onions. Stunning sliced raw.",
+    "notes": "Japanese negi type. Can be blanched for longer white/red stems. Hardy. Sow spring or late summer for overwintering in mild areas.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 120
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -12,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 24
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "shimonita-negi",
+    "commonName": "Negi",
+    "varietyName": "Shimonita",
+    "scientificName": "Allium fistulosum",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "A fat, leek-like Japanese onion with a melting sweetness when braised. Famous from Shimonita, Gunma — one of Japan’s great vegetables.",
+    "notes": "Needs a long season and hilling. Fall transplant or early spring. Worth the wait. Greenhouse or cloche speeds the start.",
+    "daysToMaturity": {
+      "min": 120,
+      "max": 180
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -10,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -126,
+        "endOffsetDays": -49
+      }
+    ]
+  },
+  {
+    "id": "kabocha-sunshine",
+    "commonName": "Kabocha",
+    "varietyName": "Sunshine",
+    "scientificName": "Cucurbita maxima",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Red-orange kabocha with dry, chestnut-sweet flesh. Denser and more candied than butternut, with a roasted-squash perfume.",
+    "notes": "Short-vine, earlier than many maximas. Needs heat and frost-free ripening. Greenhouse or black plastic helps cool climates.",
+    "daysToMaturity": {
+      "min": 85,
+      "max": 95
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "red-kuri",
+    "commonName": "Red Kuri",
+    "varietyName": "Hokkaido",
+    "scientificName": "Cucurbita maxima",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Teardrop squash with dry, nutty, almost chestnut flesh and edible skin. The French potimarron — a flavor benchmark for winter squash.",
+    "notes": "Stores for months. Plant after soil is truly warm. One of the few squash worth growing instead of buying.",
+    "daysToMaturity": {
+      "min": 90,
+      "max": 100
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "jimmy-nardello",
+    "commonName": "Frying Pepper",
+    "varietyName": "Jimmy Nardello",
+    "scientificName": "Capsicum annuum",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Thin-walled Italian frying pepper that ripens to candy-sweet, fruity, and almost jammy. Slow Food’s Ark of Taste for a reason.",
+    "notes": "Not a hot pepper. Transplant after nights stay above 10°C. Greenhouse weeks matter in short seasons. Dry or fry when fully red.",
+    "daysToMaturity": {
+      "min": 80,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "shishito",
+    "commonName": "Shishito",
+    "varietyName": "Fushimi-type Shishito",
+    "scientificName": "Capsicum annuum",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Blistered, salted, and eaten whole: thin skin, green-pepper sweetness, and the occasional hot one. The best bar snack that is a vegetable.",
+    "notes": "Harvest small and green. Productive in heat. Greenhouse gives an earlier first pick. One in ten fruits runs hot — that is the game.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "padron",
+    "commonName": "Padrón",
+    "varietyName": "Pemento de Padrón",
+    "scientificName": "Capsicum annuum",
+    "category": "vegetable",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Galician frying pepper: grassy, sweet, and mostly mild, with the same roulette heat as shishito but a deeper, oil-friendly flesh.",
+    "notes": "Pick at 4–5 cm. Larger fruits run hotter. Loves heat; unheated greenhouse is a real advantage in maritime climates.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "aunt-mollys-ground-cherry",
+    "commonName": "Ground Cherry",
+    "varietyName": "Aunt Molly's",
+    "scientificName": "Physalis pruinosa",
+    "category": "fruit",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Husked golden berries that taste like pineapple, vanilla, and cherry tomato. A fruit people eat standing in the garden.",
+    "notes": "Drop when ripe — that’s the harvest cue. Self-sows. Needs a warm start; greenhouse transplanting pays off. Polish heirloom.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 7,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "tromboncino",
+    "commonName": "Tromboncino",
+    "varietyName": "Zucchetta Rampicante",
+    "scientificName": "Cucurbita moschata",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "A climbing moschata eaten young like zucchini — nutty, never watery, with a seed cavity in the bell so the neck is all flesh.",
+    "notes": "Resistant to many squash borers (vines). Harvest at 30 cm for summer use, or let mature as a keeping squash. Needs a trellis.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "suyo-long",
+    "commonName": "Cucumber",
+    "varietyName": "Suyo Long",
+    "scientificName": "Cucumis sativus",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Ribbed Chinese cucumber: crisp, mild, and never bitter, with thin skin you do not peel. The slicing cucumber of northern China.",
+    "notes": "Grows 30–40 cm. Trellis for straight fruit. More heat-tolerant than European types. Greenhouse cucumbers start earlier and cleaner.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "mexican-sour-gherkin",
+    "commonName": "Mexican Sour Gherkin",
+    "varietyName": "Cucamelon",
+    "scientificName": "Melothria scabra",
+    "category": "vegetable",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Thumbnail watermelons that pop with lime-cucumber juice. A pickle and snack crop people grow once and then never skip.",
+    "notes": "Long season; start indoors. Tiny fruit, huge vines. Greenhouse or a warm wall helps north of zone 7.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "spigarello",
+    "commonName": "Spigarello",
+    "varietyName": "Cavolo Broccolo a Gettata",
+    "scientificName": "Brassica oleracea var. italica",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Leaf broccoli from southern Italy: sweet, mineral, and more interesting than calabrese, with tender stems like rapini without the bitterness.",
+    "notes": "Grown for leaves and shoots, not a big head. Cool-season. Cut-and-come-again. A chef green that is still uncommon in home beds.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -5,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -21
+      }
+    ]
+  },
+  {
+    "id": "cima-di-rapa",
+    "commonName": "Cima di Rapa",
+    "varietyName": "Quarantina",
+    "scientificName": "Brassica rapa subsp. rapa",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Classic Pugliese rapini: bitter-sweet shoots and buds with a mustard edge that olive oil and garlic were made to tame.",
+    "notes": "Quarantina is a 40-day type. Spring and fall. Heat makes it bolt to flowers — still edible, just smaller. Fall is kinder.",
+    "daysToMaturity": {
+      "min": 35,
+      "max": 50
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "cardoon",
+    "commonName": "Cardoon",
+    "varietyName": "Gobbo di Nizza",
+    "scientificName": "Cynara cardunculus",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Artichoke’s wild cousin, grown for blanched leaf stalks: bittersweet, nutty, and deeply Mediterranean. A slow luxury vegetable.",
+    "notes": "Long season. Blanch stalks 3–4 weeks before harvest. Perennial in mild winters. Start early indoors or in a greenhouse.",
+    "daysToMaturity": {
+      "min": 150,
+      "max": 180
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -6,
+    "minSoilTempC": 12,
+    "preferredTempC": {
+      "min": 12,
+      "max": 26
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 35
+      }
+    ]
+  },
+  {
+    "id": "alpine-strawberry-mignonette",
+    "commonName": "Alpine Strawberry",
+    "varietyName": "Mignonette",
+    "scientificName": "Fragaria vesca",
+    "category": "fruit",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Tiny berries that taste like wild woodland strawberries — intense perfume, rose, and honey. Flavor density supermarket berries forgot.",
+    "notes": "Day-neutral, no runners. Sow early; needs light to germinate. Fruit the first year from an early start. Shade in hot summers.",
+    "daysToMaturity": {
+      "min": 90,
+      "max": 120
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -20,
+    "minSoilTempC": 10,
+    "preferredTempC": {
+      "min": 8,
+      "max": 24
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "rau-ram",
+    "commonName": "Vietnamese Coriander",
+    "varietyName": "Rau Răm",
+    "scientificName": "Persicaria odorata",
+    "category": "herb",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Cilantro’s heat-proof cousin: lemon, cilantro, and a peppery tickle. The herb of gỏi gà and many southern Vietnamese tables.",
+    "notes": "Tender perennial. Start in warmth; it hates cold soil. Greenhouse or a bright windowsill through winter. Usually grown from cuttings, seed is slow.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 5,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 21,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "thai-basil-siam-queen",
+    "commonName": "Thai Basil",
+    "varietyName": "Siam Queen",
+    "scientificName": "Ocimum basilicum var. thyrsiflora",
+    "category": "herb",
+    "tags": [
+      "asian"
+    ],
+    "flavor": "Anise-clove basil that holds in a hot wok. Sweeter and more perfume-heavy than Genovese, with purple stems that mark a proper phở plate.",
+    "notes": "Transplant into real heat. Pinch flowers for leaf. Greenhouse basil is earlier and more abundant. 'Siam Queen' is an All-America winner for a reason.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "culantro",
+    "commonName": "Culantro",
+    "varietyName": "Recao / Ngò Gai",
+    "scientificName": "Eryngium foetidum",
+    "category": "herb",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Sawtooth leaves with a louder, longer cilantro flavor that does not vanish in soup. Central to sofrito, larb, and many Vietnamese broths.",
+    "notes": "Likes heat, moisture, and a little shade. Bolts in long days; greenhouse or shade cloth helps. Perennial in frost-free climates.",
+    "daysToMaturity": {
+      "min": 80,
+      "max": 100
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 4,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 21,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "anise-hyssop",
+    "commonName": "Anise Hyssop",
+    "varietyName": "Blue Fortune",
+    "scientificName": "Agastache foeniculum",
+    "category": "herb",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Leaves and flowers taste like licorice-mint tea. A North American native that makes fruit, salads, and cold drinks more interesting.",
+    "notes": "Hardy perennial. Sow spring. Bees wreck the flowers in the best way. Drought-tolerant once established.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -25,
+    "minSoilTempC": 10,
+    "preferredTempC": {
+      "min": 8,
+      "max": 26
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "salad-burnet",
+    "commonName": "Salad Burnet",
+    "varietyName": "Poterium",
+    "scientificName": "Sanguisorba minor",
+    "category": "herb",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Young leaves taste exactly like cucumber water — cooling, green, and clean. A medieval salad herb that still earns a bed.",
+    "notes": "Evergreen in mild winters. Clip often to keep leaves tender. Direct sow early. Unheated greenhouse keeps a winter picking patch.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -20,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 5,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": 14
+      }
+    ]
+  },
+  {
+    "id": "lovage",
+    "commonName": "Lovage",
+    "varietyName": "Levisticum",
+    "scientificName": "Levisticum officinale",
+    "category": "herb",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Celery turned up to eleven: leaf, stem, and seed all carry a deep, savory, Maggi-like intensity. A little goes a long way in broth.",
+    "notes": "Huge hardy perennial. Sow cold or stratify. Plant once. One plant is enough for a household.",
+    "daysToMaturity": {
+      "min": 90,
+      "max": 120
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -25,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 6,
+      "max": 24
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 35
+      }
+    ]
+  },
+  {
+    "id": "epazote",
+    "commonName": "Epazote",
+    "varietyName": "Mexican Tea",
+    "scientificName": "Dysphania ambrosioides",
+    "category": "herb",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Resinous, medicinal, and a little wild — the herb that makes black beans taste Mexican. Not a background note; a signature.",
+    "notes": "Heat lover. Self-sows aggressively in warm climates. Transplant after frost. Greenhouse start for short seasons.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "claytonia",
+    "commonName": "Claytonia",
+    "varietyName": "Miner's Lettuce",
+    "scientificName": "Claytonia perfoliata",
+    "category": "vegetable",
+    "tags": [
+      "unique",
+      "winter-green"
+    ],
+    "flavor": "Succulent, mild, and slightly sweet discs — the winter salad green that does not sulk in cold the way lettuce does.",
+    "notes": "Native to western North America. Peak in cool, wet weather. Self-sows. A greenhouse winter crop par excellence.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 50
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -10,
+    "minSoilTempC": 4,
+    "preferredTempC": {
+      "min": 4,
+      "max": 16
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -42,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "winter",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": 0,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "mache-vit",
+    "commonName": "Mâche",
+    "varietyName": "Vit",
+    "scientificName": "Valerianella locusta",
+    "category": "vegetable",
+    "tags": [
+      "unique",
+      "winter-green"
+    ],
+    "flavor": "Nutty, buttery rosettes. The French winter salad that makes greenhouse lettuce look like a compromise.",
+    "notes": "Germinates in cool soil; heat is the enemy. Direct sow. 'Vit' is a large-seeded Dutch type. Unheated greenhouse is ideal.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -12,
+    "minSoilTempC": 4,
+    "preferredTempC": {
+      "min": 4,
+      "max": 16
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -42,
+        "endOffsetDays": 14
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": 28
+      }
+    ]
+  },
+  {
+    "id": "oca-reseta",
+    "commonName": "Oca",
+    "varietyName": "Reseta",
+    "scientificName": "Oxalis tuberosa",
+    "category": "vegetable",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Andean tubers with a lemon-bright, slightly acidic crunch that mellows to squash-like sweetness after sun-curing.",
+    "notes": "Forms tubers only as days shorten — a late-fall harvest. Plant after frost. Needs a long season; greenhouse or cloche in autumn helps tubers size.",
+    "daysToMaturity": {
+      "min": 150,
+      "max": 180
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -2,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 7,
+        "endOffsetDays": 35
+      }
+    ]
+  },
+  {
+    "id": "yacon",
+    "commonName": "Yacon",
+    "varietyName": "Peruvian Ground Apple",
+    "scientificName": "Smallanthus sonchifolius",
+    "category": "fruit",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Crisp, juicy storage roots that taste like pear, apple, and jicama. Eaten raw. A dessert vegetable from the Andes.",
+    "notes": "Needs a long warm season. Plant tubers after frost. Dig after foliage dies back. Greenhouse or a sheltered site in cool climates.",
+    "daysToMaturity": {
+      "min": 180,
+      "max": 220
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 12,
+    "preferredTempC": {
+      "min": 12,
+      "max": 28
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "aunt-rubys-german-green",
+    "commonName": "Tomato",
+    "varietyName": "Aunt Ruby's German Green",
+    "scientificName": "Solanum lycopersicum",
+    "category": "fruit",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Beefsteak that ripens green-amber with a spicy, sweet, almost tropical flesh. One of the loudest-flavored heirlooms, not just a novelty color.",
+    "notes": "Indeterminate, large fruit. Needs heat and a long season. Greenhouse or high tunnel changes everything in cool summers.",
+    "daysToMaturity": {
+      "min": 80,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "fish-pepper",
+    "commonName": "Fish Pepper",
+    "varietyName": "African American Strain",
+    "scientificName": "Capsicum annuum",
+    "category": "vegetable",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Variegated Chesapeake heirloom with clean heat and a bright, seafood-friendly pepper flavor. Historically used in crab and fish houses.",
+    "notes": "Striking white-and-green foliage. Heat like a cayenne, fruit smaller. Transplant after frost. Greenhouse for a head start.",
+    "daysToMaturity": {
+      "min": 75,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "wasabi-arugula",
+    "commonName": "Wasabi Arugula",
+    "varietyName": "Wasabina",
+    "scientificName": "Brassica juncea",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "A mustard green that hits the sinuses like real wasabi — green, volatile heat that fades to sweetness. Not arugula, despite the nickname.",
+    "notes": "Baby leaf in 21 days. Full size for braising. Cool weather keeps the heat pleasant instead of harsh. Fast greenhouse crop.",
+    "daysToMaturity": {
+      "min": 21,
+      "max": 40
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -5,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": 0
+      }
+    ]
+  },
+  {
+    "id": "methi-pusa-early-bunching",
+    "commonName": "Methi",
+    "varietyName": "Pusa Early Bunching",
+    "scientificName": "Trigonella foenum-graecum",
+    "category": "herb",
+    "tags": [
+      "indian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Young fenugreek greens: maple-bitter, celery-fresh, and the backbone of aloo methi. The dried leaf is kasuri; this is the garden version, loud and green.",
+    "notes": "Cut-and-come-again in cool weather. Direct sow thickly; eat thinnings. Heat makes it tough and seedy. Fall and an unheated house are kinder than late spring.",
+    "daysToMaturity": {
+      "min": 25,
+      "max": 40
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
+  },
+  {
+    "id": "sarson-pusa-sag",
+    "commonName": "Sarson",
+    "varietyName": "Pusa Sag 1",
+    "scientificName": "Brassica juncea",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "The mustard of sarson da saag: broad, succulent leaves with a round heat that cooks down to sweetness with makki and ghee. Not an ornamental purple mustard.",
+    "notes": "Grown for greens, not seed. Spring and fall; frost sweetens it. Pair with bathua and spinach if you want a proper Punjabi mix. Greenhouse keeps a winter picking patch.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 50
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 35
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -91,
+        "endOffsetDays": 0
+      }
+    ]
+  },
+  {
+    "id": "tulsi-krishna",
+    "commonName": "Tulsi",
+    "varietyName": "Krishna",
+    "scientificName": "Ocimum tenuiflorum",
+    "category": "herb",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Holy basil with clove, pepper, and a medicinal sweetness Thai basil does not have. Purple Krishna is the intense one — tea, tadka, and the plant many households keep by the door.",
+    "notes": "Tender perennial treated as an annual in frost climates. Transplant into real heat. Pinch for bushiness. Greenhouse or a sunny pot overwinters it indoors.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 80
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "curry-leaf-dwarf",
+    "commonName": "Curry Leaf",
+    "varietyName": "Dwarf",
+    "scientificName": "Murraya koenigii",
+    "category": "herb",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "The leaf that makes South Indian tadka smell like itself: citrus, resin, and toasted allium. Dried curry powder is not a substitute.",
+    "notes": "A frost-tender shrub. Seed is slow; most gardeners start a nursery plant. Keep in a pot and bring in before frost. Dwarf stays harvestable in a greenhouse or sunroom.",
+    "daysToMaturity": {
+      "min": 90,
+      "max": 150
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 4,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 21,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "chili-jwala",
+    "commonName": "Chili",
+    "varietyName": "Jwala",
+    "scientificName": "Capsicum annuum",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "The classic Indian green chili: wrinkled, thin-walled, bright heat, and a fresh pepper snap. This is the chili in the crisper, not a cayenne for drying.",
+    "notes": "Name means 'volcano.' Harvest green for everyday cooking; red for pickle and powder. Transplant after nights stay warm. Greenhouse weeks matter in cool summers.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "brinjal-pusa-purple-cluster",
+    "commonName": "Brinjal",
+    "varietyName": "Pusa Purple Cluster",
+    "scientificName": "Solanum melongena",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Small clustered eggplants with thin skin and a creamy, barely bitter flesh — the size for bharwan, sabzi, and a quick baingan fry. Not a watery globe.",
+    "notes": "IARI cluster type. Pick young and often. Needs heat; unheated greenhouse or black plastic helps maritime climates. Staking keeps fruit clean.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 18,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "bhindi-pusa-sawani",
+    "commonName": "Bhindi",
+    "varietyName": "Pusa Sawani",
+    "scientificName": "Abelmoschus esculentus",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Classic Indian okra: long tender pods with a green-bean sweetness and only a little slime if you keep them small. The bhindi of bharwan and sukhi sabzi.",
+    "notes": "IARI variety, productive in heat. Direct sow or transplant into truly warm soil. Pick every other day. Cool nights stall it; a greenhouse start is worth it north of the hot belt.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 65
+    },
+    "sowMethod": "both",
+    "frostHardinessC": 5,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 20,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 21,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "karela-indian-long",
+    "commonName": "Karela",
+    "varietyName": "Indian Long Green",
+    "scientificName": "Momordica charantia",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Bitter melon the Indian way: long, pointed, fiercely bitter, then nutty once salted or stuffed. The bitterness is the point, not a defect.",
+    "notes": "Trellis the vines. Harvest young before seeds harden. Needs a long warm season; greenhouse or a south wall in cool climates. Soak seed. More bitter than the smooth Chinese type.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 5,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 20,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "lauki-pusa-naveen",
+    "commonName": "Lauki",
+    "varietyName": "Pusa Naveen",
+    "scientificName": "Lagenaria siceraria",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Bottle gourd with pale, mild, slightly sweet flesh that takes dal, kofta, and lauki halwa. A cooling summer squash, not a craft birdhouse.",
+    "notes": "Pick tender at 20–30 cm; older fruit turns pithy. Climbing vine, so trellis. Warm soil. IARI ‘Pusa Naveen’ is a straight, early eating type.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "turai-pusa-nasdar",
+    "commonName": "Turai",
+    "varietyName": "Pusa Nasdar",
+    "scientificName": "Luffa acutangula",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Ridge gourd: angled, spongy-tender, and quietly sweet, with a cucumber-squash taste that loves jeera and tomato. Peel the ridges; keep the flesh.",
+    "notes": "Eat young — fist-long, still flexible. Mature fruit is a luffa sponge, not dinner. Trellis. Heat lover; greenhouse gets fruit before cool nights.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "tinda-arka",
+    "commonName": "Tinda",
+    "varietyName": "Arka Tinda",
+    "scientificName": "Praecitrullus fistulosus",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "The round Indian gourd: apple-sized, pale green, with a soft squash-cucumber flesh that is the sabzi of Punjabi summers. Nothing else in the catalog tastes like it.",
+    "notes": "A true Indian crop, not a baby watermelon. Pick small and tender. Warm soil, full sun. IIHR ‘Arka Tinda’ is an early, uniform type. Short vines compared with lauki.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 65
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "snake-gourd-extra-long",
+    "commonName": "Snake Gourd",
+    "varietyName": "Extra Long White",
+    "scientificName": "Trichosanthes cucumerina",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Chichinda / padwal: long pale fruits with a mild, slightly sweet squash flavor and a spongy bite that holds coconut and mustard-seed tadka.",
+    "notes": "Hang a small weight on young fruit if you want them straight. Harvest at 40–60 cm, still tender. Long warm season; trellis high. Greenhouse helps the start.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "gongura-chitti",
+    "commonName": "Gongura",
+    "varietyName": "Chitti",
+    "scientificName": "Hibiscus sabdariffa",
+    "category": "herb",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Andhra’s sour leaf: lemon, sorrel, and a green tang that makes gongura pachadi and mutton the dishes they are. Small-leaf chitti is the sharper one.",
+    "notes": "Roselle grown for leaves, not calyxes. Heat and sun. Cut often so it does not wood up. Tender; treat as a summer annual. A greenhouse start lengthens the sour-leaf season.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 4,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "chaulai-pusa-lal",
+    "commonName": "Chaulai",
+    "varietyName": "Pusa Lal Chaulai",
+    "scientificName": "Amaranthus tricolor",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Red amaranth saag: earthy, mineral, and slightly sweet, with a spinach body that does not collapse into water. The summer green when palak has bolted.",
+    "notes": "Cut-and-come-again. Loves heat that wrecks lettuce. Direct sow after frost. IARI red leaf type — stunning and edible. Greenhouse is optional; heat is not.",
+    "daysToMaturity": {
+      "min": 30,
+      "max": 50
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "poi-red-stem",
+    "commonName": "Poi",
+    "varietyName": "Red Stem",
+    "scientificName": "Basella alba",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Malabar spinach: thick, mucilaginous leaves with a beet-green mineral taste. The poi saag of Bengal and the South — summer vine greens that laugh at heat.",
+    "notes": "Not true spinach. Climbing; give a trellis. Transplant after frost. Red-stem type is the looker. Greenhouse or a warm wall in short seasons. Perennial in frost-free climates.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 4,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "sem-ruby-moon",
+    "commonName": "Sem",
+    "varietyName": "Ruby Moon",
+    "scientificName": "Lablab purpureus",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Hyacinth bean: flat purple pods with a rich, beany, slightly tannic bite that is the sem of undhiyu and many Gujarati and South Indian kitchens. Cook thoroughly; do not eat raw.",
+    "notes": "Pole bean. Pick young pods; mature seeds need boiling. Heat lover, gorgeous in flower. Greenhouse start for northern summers. Never raw — lablab has toxins until cooked.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 90
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "barbati-red-noodle",
+    "commonName": "Barbati",
+    "varietyName": "Red Noodle",
+    "scientificName": "Vigna unguiculata subsp. sesquipedalis",
+    "category": "vegetable",
+    "tags": [
+      "indian",
+      "unique"
+    ],
+    "flavor": "Yardlong bean, the bora of Bengal and barbati of the North: snap-bean crunch with a deeper, pea-like sweetness and burgundy pods that stay pretty in a stir-fry.",
+    "notes": "Pick at 30–40 cm, before seeds bulge. Pole, so trellis. Loves monsoon heat. More productive in warmth than common green beans. Direct sow after soil is warm.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 80
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "molokhia-egyptian",
+    "commonName": "Molokhia",
+    "varietyName": "Egyptian",
+    "scientificName": "Corchorus olitorius",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Jute mallow, the ewedu of Yoruba cooking and Egypt’s national green: mucilaginous, deep, and spinach-like with a toasted-okra richness. The soup thickens itself.",
+    "notes": "Cut-and-come-again in heat. Direct sow or transplant after frost. Young leaves only. Cool nights stall it; a greenhouse start helps short summers. Also called krain-krain and saluyot.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "both",
+    "frostHardinessC": 4,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "soko-green-lagos",
+    "commonName": "Soko",
+    "varietyName": "Green Lagos",
+    "scientificName": "Celosia argentea",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Lagos spinach: tender celosia leaves with a mild beet-green mineral taste and no bitterness. The everyday pot herb of southern Nigeria, not the cockscomb in the flower bed.",
+    "notes": "Loves heat that cooks lettuce. Direct sow after frost; cut often. Flowers are edible but leaves get smaller if you let it bloom. Greenhouse optional — warmth is the requirement.",
+    "daysToMaturity": {
+      "min": 35,
+      "max": 55
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "garden-egg-turkish-orange",
+    "commonName": "Garden Egg",
+    "varietyName": "Turkish Orange",
+    "scientificName": "Solanum aethiopicum",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Scarlet eggplant, the garden egg of West Africa and Ethiopia: small orange globes with a tomato-bitter snap when raw and a sweet, firm flesh when cooked. Not a watery globe eggplant.",
+    "notes": "Also called mock tomato. Pick at orange, still slightly firm. Needs heat like eggplant. Unheated greenhouse or black plastic helps maritime climates. Striking on the plant.",
+    "daysToMaturity": {
+      "min": 75,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 18,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "ugu-fluted-pumpkin",
+    "commonName": "Ugu",
+    "varietyName": "Fluted Pumpkin",
+    "scientificName": "Telfairia occidentalis",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "The fluted pumpkin of Igbo kitchens: grown first for the leaves — rich, slightly bitter, and meaty — and later for huge, oil-seeded fruit. This is ugu soup, not pie pumpkin.",
+    "notes": "Long, hungry vine. Needs a long warm season; greenhouse or a south wall in cool climates. Soak seed. Harvest shoots and leaves continuously; fruit is a bonus in hot summers.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 120
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 5,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 20,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "egusi-west-african",
+    "commonName": "Egusi",
+    "varietyName": "West African",
+    "scientificName": "Citrullus mucosospermus",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Grown for the fat, nutty white seeds that thicken egusi soup — toasted, almost pistachio-pumpkin. The fruit flesh is bland; the seed is the crop.",
+    "notes": "A true West African melon, not a picnic watermelon. Long warm season. Dry and roast seeds. Greenhouse or black plastic helps the start. Give it room to sprawl.",
+    "daysToMaturity": {
+      "min": 90,
+      "max": 120
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 20,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "kiwano-horned",
+    "commonName": "Kiwano",
+    "varietyName": "Horned Melon",
+    "scientificName": "Cucumis metuliferus",
+    "category": "fruit",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "African horned cucumber: jelly flesh that tastes like banana, lime, and cucumber in one spoon. The fruit people cut as a showpiece and then actually finish.",
+    "notes": "Kalahari native. Needs heat and a long season; greenhouse pays off. Harvest gold-orange with horns still firm. Treat like a cucumber vine on a trellis.",
+    "daysToMaturity": {
+      "min": 90,
+      "max": 120
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "cowpea-african-red",
+    "commonName": "Cowpea",
+    "varietyName": "African Red",
+    "scientificName": "Vigna unguiculata",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Burgundy pods and earthy, sweet beans — the niebe of West Africa, eaten as leaves (the first green) and as peas. Deeper than a supermarket black-eyed pea.",
+    "notes": "Heat and drought tough. Pick young pods, mature peas, or the tips as greens. Direct sow into warm soil. A true dual-purpose African staple, not just a cover crop.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 80
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "texsel-ethiopian-kale",
+    "commonName": "Ethiopian Kale",
+    "varietyName": "Texsel",
+    "scientificName": "Brassica carinata",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Gomenzer in a heat-proof suit: kale-mustard leaves with a clean, cabbage-sweet bite and none of the sulfur funk of tired collards. Ethiopia’s brassica, selected in Texas for greens.",
+    "notes": "More heat-tolerant than European kale, still sweet after frost. Spring, summer, and fall. Cut-and-come-again. Unheated greenhouse keeps a winter patch in mild climates.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 60
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -8,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 8,
+      "max": 28
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 56
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": 0
+      }
+    ]
+  },
+  {
+    "id": "sukuma-wiki",
+    "commonName": "Collard",
+    "varietyName": "Sukuma Wiki",
+    "scientificName": "Brassica oleracea var. acephala",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "East Africa’s weekly green: broad, sweet collard leaves that stay tender in soup with tomato and onion. The name means ‘to stretch the week’ — flavor that feeds.",
+    "notes": "Hardy. Sow spring or late summer. Frost sweetens it. Slow-pick the lower leaves. Unheated greenhouse or a mild winter keeps it producing when lettuce has quit.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 80
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -12,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 6,
+      "max": 24
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": 14
+      }
+    ]
+  },
+  {
+    "id": "spider-plant-african-cabbage",
+    "commonName": "African Cabbage",
+    "varietyName": "Cat's Whiskers",
+    "scientificName": "Cleome gynandra",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Spider plant, the African cabbage of the Sahel and East Africa: mustard-bright leaves with a peppery, slightly bitter snap that mellows in a tomato stew.",
+    "notes": "Indigenous African green, not ornamental cleome. Heat lover. Direct sow after frost; harvest young shoots. Self-sows once happy. Fast summer saag when brassicas have bolted.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 60
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 56
+      }
+    ]
+  },
+  {
+    "id": "managu-african-nightshade",
+    "commonName": "African Nightshade",
+    "varietyName": "Managu",
+    "scientificName": "Solanum scabrum",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Mnavu / managu: tender nightshade greens with a deep, spinach-bitter richness that milk or cream tames. The everyday pot herb of Kenya and Uganda.",
+    "notes": "Cultivated S. scabrum, not deadly nightshade. Cook the leaves; do not eat raw berries. Warm season. Transplant after frost. Cut-and-come-again. Greenhouse start for cool climates.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 60
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 14,
+    "preferredTempC": {
+      "min": 14,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 7,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "scent-leaf-effirin",
+    "commonName": "Scent Leaf",
+    "varietyName": "Effirin",
+    "scientificName": "Ocimum gratissimum",
+    "category": "herb",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "West African clove basil: pepper, clove, and thyme in one leaf. The scent leaf of pepper soup and jollof, louder and more medicinal than Thai or holy basil.",
+    "notes": "Also called nchuanwu. Transplant into heat. Pinch for bushiness. Tender perennial — pot it and bring in before frost, or treat as an annual. Distinct from tulsi and Siam Queen.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 80
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 4,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "chili-piri-piri",
+    "commonName": "Chili",
+    "varietyName": "Piri Piri",
+    "scientificName": "Capsicum frutescens",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "African bird’s eye: small, clean, searing heat with a bright, almost citrus pepper flavor. The chili of piri-piri sauce, not a thick-walled habanero.",
+    "notes": "Harvest red for sauce, green for a sharper bite. Compact plants, very productive in heat. Greenhouse weeks matter in cool summers. A little goes a long way.",
+    "daysToMaturity": {
+      "min": 80,
+      "max": 95
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 18,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "okra-star-of-david",
+    "commonName": "Okra",
+    "varietyName": "Star of David",
+    "scientificName": "Abelmoschus esculentus",
+    "category": "vegetable",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "Ridged North African / Middle Eastern okra: star-shaped in cross-section, meaty walls, and a deep green-bean sweetness. The ancestor crop, not a slimy afterthought.",
+    "notes": "Okra is African in origin. Pick small. Needs truly warm soil — direct sow or transplant after nights stay hot. Distinct from Indian Pusa Sawani: shorter, deeply winged pods.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 70
+    },
+    "sowMethod": "both",
+    "frostHardinessC": 5,
+    "minSoilTempC": 18,
+    "preferredTempC": {
+      "min": 20,
+      "max": 35
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 21,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "cranberry-hibiscus-panama-red",
+    "commonName": "Cranberry Hibiscus",
+    "varietyName": "Panama Red",
+    "scientificName": "Hibiscus acetosella",
+    "category": "herb",
+    "tags": [
+      "african",
+      "unique"
+    ],
+    "flavor": "False roselle: maple-shaped maroon leaves that taste like cranberry, sorrel, and lemon. A sour salad and tea leaf from African hibiscus, not the gongura grown for stew.",
+    "notes": "Tender shrub treated as an annual in frost climates. Transplant after heat arrives. Stunning hedge. Young leaves for salad; older for tea. Pot and overwinter indoors, or take cuttings.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 4,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "agretti-barba-di-frate",
+    "commonName": "Agretti",
+    "varietyName": "Barba di Frate",
+    "scientificName": "Salsola soda",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Monk’s beard: saline, mineral, and snappy, like samphire crossed with young spinach. The Ligurian and Lazio spring green you eat with lemon and oil, not a background salad leaf.",
+    "notes": "Sow in cool weather; heat makes it tough. Direct sow thickly. Harvest the succulent tips. A Slow Food curiosity that is still rare in home gardens. Greenhouse helps an early spring crop.",
+    "daysToMaturity": {
+      "min": 40,
+      "max": 60
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -70,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "puntarelle-galatina",
+    "commonName": "Puntarelle",
+    "varietyName": "Catalogna di Galatina",
+    "scientificName": "Cichorium intybus var. foliosum",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Roman chicory grown for the hollow, crunchy shoots: bitter, juicy, and the reason puntarelle alla romana with anchovy dressing exists. Not a leaf chicory in disguise.",
+    "notes": "Fall and winter crop. Cut the inner shoots, soak in ice water to curl. Cool nights make it sweeter. Unheated greenhouse or a mild winter keeps it going. Direct sow or transplant.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 100
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -6,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 6,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "radicchio-castelfranco",
+    "commonName": "Radicchio",
+    "varietyName": "Castelfranco",
+    "scientificName": "Cichorium intybus var. foliosum",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "The variegated radicchio that looks like a cream-and-wine rose: milder than Chioggia, with a nutty bitterness that takes olive oil and something sweet. A Veneto winter luxury.",
+    "notes": "Needs a long cool finish to color. Sow for fall; spring crops stay greener and more bitter. Heads form as days shorten. Greenhouse or cloche helps in harsh winters. Don’t crowd.",
+    "daysToMaturity": {
+      "min": 80,
+      "max": 100
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -8,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 5,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -112,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "cavolo-nero-toscana",
+    "commonName": "Cavolo Nero",
+    "varietyName": "Nero di Toscana",
+    "scientificName": "Brassica oleracea var. acephala",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Tuscan kale: blistered, blue-black leaves with a deep, almost nutty cabbage sweetness and none of the ruffly wateriness of supermarket curly kale. The green of ribollita.",
+    "notes": "Hardy. Pick lower leaves through winter. Frost improves it. Sow spring or late summer. Unheated greenhouse keeps a picking patch when outdoor growth stalls.",
+    "daysToMaturity": {
+      "min": 55,
+      "max": 80
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -12,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 5,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -105,
+        "endOffsetDays": 14
+      }
+    ]
+  },
+  {
+    "id": "romanesco-natalino",
+    "commonName": "Romanesco",
+    "varietyName": "Natalino",
+    "scientificName": "Brassica oleracea var. botrytis",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "The fractal Roman cauliflower: nuttier and sweeter than white cauliflower, with a precise, almost hazelnut crunch. A Lazio and Roman-campagna classic, not a novelty print.",
+    "notes": "Cool-season and fussy about heat. Fall crops are more reliable. Transplant. Needs steady moisture and fertility. Greenhouse or shade cloth helps in warm spells.",
+    "daysToMaturity": {
+      "min": 75,
+      "max": 100
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": -5,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -112,
+        "endOffsetDays": -35
+      }
+    ]
+  },
+  {
+    "id": "finocchio-di-firenze",
+    "commonName": "Finocchio",
+    "varietyName": "Di Firenze",
+    "scientificName": "Foeniculum vulgare var. azoricum",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Florence fennel: crisp anise-sweet bulbs that taste like licorice and celery had a well-dressed child. Shaved raw or braised, it is a proper secondo, not a garnish.",
+    "notes": "Bolts in heat and long days — fall is kinder. Direct sow or transplant without disturbing roots. Hill the bulbs. Keep soil evenly moist. Greenhouse for an extra autumn crop.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 90
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 10,
+    "preferredTempC": {
+      "min": 8,
+      "max": 20
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 0,
+        "endOffsetDays": 28
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": -28
+      }
+    ]
+  },
+  {
+    "id": "rucola-selvatica",
+    "commonName": "Rucola",
+    "varietyName": "Selvatica",
+    "scientificName": "Diplotaxis tenuifolia",
+    "category": "herb",
+    "tags": [
+      "italian",
+      "winter-green",
+      "unique"
+    ],
+    "flavor": "Wild rocket: thinner leaves, longer heat, a peppery, nutty, almost sesame bitterness that supermarket salad rocket never reaches. The rucola of a Roman pizzeria.",
+    "notes": "Perennial in mild winters. Cut-and-come-again. More heat-tolerant than annual rocket, still best in cool weather. Direct sow. Unheated greenhouse keeps a winter picking patch.",
+    "daysToMaturity": {
+      "min": 35,
+      "max": 50
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -8,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 6,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -28,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": 21
+      }
+    ]
+  },
+  {
+    "id": "costata-romanesco",
+    "commonName": "Zucchini",
+    "varietyName": "Costata Romanesco",
+    "scientificName": "Cucurbita pepo",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Ribbed Roman zucchini: dry, nutty flesh that does not water out in the pan, and male flowers worth stuffing. The zucchini people grow after they swear off watery supermarket fruit.",
+    "notes": "Harvest small, with the flower on. Distinct from tromboncino (this is a bush/semi-vining pepo). Warm soil. Greenhouse start in cool summers. Pick every other day.",
+    "daysToMaturity": {
+      "min": 52,
+      "max": 70
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "marina-di-chioggia",
+    "commonName": "Winter Squash",
+    "varietyName": "Marina di Chioggia",
+    "scientificName": "Cucurbita maxima",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "The warty sea pumpkin of the Venetian lagoon: dry, sweet, chestnut-dense flesh that gnocchi di zucca was invented for. A Slow Food squash, not a carving pumpkin.",
+    "notes": "Long season. Needs heat and room to sprawl. Cure after harvest; flavor deepens in storage. Greenhouse or black plastic helps cool climates. Distinct from kabocha and red kuri.",
+    "daysToMaturity": {
+      "min": 95,
+      "max": 110
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 0,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 35
+      }
+    ]
+  },
+  {
+    "id": "rosa-bianca-eggplant",
+    "commonName": "Melanzana",
+    "varietyName": "Rosa Bianca",
+    "scientificName": "Solanum melongena",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Sicilian-style round eggplant, lavender and cream: creamy, almost seedless flesh with a mild, sweet flavor and none of the bitterness people blame on eggplant.",
+    "notes": "Needs heat. Pick when glossy, before they harden. Unheated greenhouse or black plastic in maritime climates. The Italian cooking eggplant, not a long Asian type.",
+    "daysToMaturity": {
+      "min": 73,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 18,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "corno-di-toro-rosso",
+    "commonName": "Peperone",
+    "varietyName": "Corno di Toro Rosso",
+    "scientificName": "Capsicum annuum",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Bull’s horn pepper: long, curved, thick enough to roast, sweet enough to eat like fruit when red. The peperone of an Italian grill, distinct from skinny Jimmy Nardello.",
+    "notes": "Sweet, not hot. Transplant after nights stay warm. Greenhouse weeks matter in short seasons. Harvest green for frying, red for roasting and conserving.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 85
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "borlotto-lingua-di-fuoco",
+    "commonName": "Borlotti",
+    "varietyName": "Lingua di Fuoco",
+    "scientificName": "Phaseolus vulgaris",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Fire-tongue beans: streaked cranberry pods with a rich, chestnut-beany flavor that pasta e fagioli and minestrone were built on. Fresh shelly or dried.",
+    "notes": "Pole or semi-pole depending on strain. Pick plump for fresh shellies, or dry on the plant. Warm soil. More interesting than a generic kidney bean. Greenhouse start optional.",
+    "daysToMaturity": {
+      "min": 70,
+      "max": 90
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": 1,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 30
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  },
+  {
+    "id": "basilico-napoletano",
+    "commonName": "Basilico",
+    "varietyName": "Napoletano",
+    "scientificName": "Ocimum basilicum",
+    "category": "herb",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Lettuce-leaf Neapolitan basil: huge rumpled leaves, softer and sweeter than Genovese, with a perfume that holds in a caprese without turning minty. The basil of the South.",
+    "notes": "Transplant into real heat. Pinch flowers. More heat-tolerant than tiny-leaf types. Greenhouse basil is earlier and cleaner. Distinct from Thai and tulsi already in the catalog.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 49
+      }
+    ]
+  },
+  {
+    "id": "borage-italian",
+    "commonName": "Borragine",
+    "varietyName": "Borage",
+    "scientificName": "Borago officinalis",
+    "category": "herb",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Cucumber-bright leaves and flowers: the Ligurian herb of pansoti and ravioli di borragine, and a cool, honeyed edible flower. More kitchen than cottage garden.",
+    "notes": "Hardy annual. Direct sow spring or fall. Self-sows. Young leaves for stuffing and soup; flowers for salad. Prefers cool weather. Unheated greenhouse for a winter picking of young leaves.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 8,
+    "preferredTempC": {
+      "min": 8,
+      "max": 24
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
+  },
+  {
+    "id": "piennolo-del-vesuvio",
+    "commonName": "Pomodoro",
+    "varietyName": "Piennolo del Vesuvio",
+    "scientificName": "Solanum lycopersicum",
+    "category": "fruit",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Vesuvian hanging tomato: thick skin, intense sweet-acid pulp, and a volcanic minerality. Stored in bunches through winter — the tomato of a Neapolitan pantry, not a beefsteak.",
+    "notes": "Small pointed fruits with a nipple. Hang whole clusters in a cool dry room. Needs heat and a long season; greenhouse changes everything in cool summers. DOP of Vesuvius.",
+    "daysToMaturity": {
+      "min": 75,
+      "max": 90
+    },
+    "sowMethod": "transplant",
+    "frostHardinessC": 2,
+    "minSoilTempC": 16,
+    "preferredTempC": {
+      "min": 16,
+      "max": 32
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": 14,
+        "endOffsetDays": 42
+      }
+    ]
+  }
+]

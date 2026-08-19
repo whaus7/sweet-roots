@@ -20,6 +20,7 @@ export default function MapComponent({}: MapComponentProps) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [waterFlowError, setWaterFlowError] = useState<string | null>(null);
   const [isWaterFlowView, setIsWaterFlowView] = useState(false);
 
   const [rainfallAmount, setRainfallAmount] = useState(1); // inches
@@ -45,7 +46,8 @@ export default function MapComponent({}: MapComponentProps) {
       const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
       if (!apiKey) {
-        const errorMsg = "Google Maps API key is not configured.";
+        const errorMsg =
+          "Google Maps API key is not configured. Add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to .env.local (and to Vercel for production), then restart the dev server.";
         console.error(errorMsg);
         setError(errorMsg);
         setIsLoading(false);
@@ -57,6 +59,13 @@ export default function MapComponent({}: MapComponentProps) {
         version: "weekly",
         libraries: ["drawing", "geometry", "elevation", "places"],
       });
+
+      window.gm_authFailure = () => {
+        setError(
+          "Google rejected this Maps key. Open the browser console and look for BillingNotEnabledMapError, ApiNotActivatedMapError, RefererNotAllowedMapError, or InvalidKeyMapError. Billing and Maps JavaScript API must be enabled on the same Cloud project that created this key."
+        );
+        setIsLoading(false);
+      };
 
       try {
         const google = await loader.load();
@@ -116,15 +125,25 @@ export default function MapComponent({}: MapComponentProps) {
 
   // Effect to handle water flow view changes
   useEffect(() => {
-    if (isWaterFlowView && waterFlowAlgorithmRef.current) {
-      waterFlowAlgorithmRef.current
-        .generateWaterFlowSimulation(rainfallAmount)
-        .catch((error) =>
-          console.error("Error generating water flow simulation:", error)
-        );
-    } else if (!isWaterFlowView && waterFlowAlgorithmRef.current) {
+    if (!waterFlowAlgorithmRef.current) return;
+
+    if (!isWaterFlowView) {
       waterFlowAlgorithmRef.current.clearWaterFlowData();
+      setWaterFlowError(null);
+      return;
     }
+
+    waterFlowAlgorithmRef.current
+      .generateWaterFlowSimulation(rainfallAmount)
+      .then(() => setWaterFlowError(null))
+      .catch((error) => {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "Water flow simulation failed.";
+        console.error("Error generating water flow simulation:", error);
+        setWaterFlowError(message);
+      });
   }, [isWaterFlowView, rainfallAmount]);
 
   // Close predictions dropdown when clicking outside
@@ -154,34 +173,25 @@ export default function MapComponent({}: MapComponentProps) {
     };
   }, []);
 
-  const toggleWaterFlowView = async () => {
-    const newWaterFlowView = !isWaterFlowView;
-    setIsWaterFlowView(newWaterFlowView);
-
-    if (newWaterFlowView && waterFlowAlgorithmRef.current) {
-      try {
-        await waterFlowAlgorithmRef.current.generateWaterFlowSimulation(
-          rainfallAmount
-        );
-      } catch (error) {
-        console.error("Error generating water flow simulation:", error);
-      }
-    } else if (!newWaterFlowView && waterFlowAlgorithmRef.current) {
-      waterFlowAlgorithmRef.current.clearWaterFlowData();
-    }
+  const toggleWaterFlowView = () => {
+    setIsWaterFlowView((current) => !current);
   };
 
   const refreshWaterFlow = async () => {
     if (waterFlowAlgorithmRef.current && isWaterFlowView) {
       try {
-        // Clear existing water flow data first
         waterFlowAlgorithmRef.current.clearWaterFlowData();
-        // Regenerate with current settings
         await waterFlowAlgorithmRef.current.generateWaterFlowSimulation(
           rainfallAmount
         );
+        setWaterFlowError(null);
       } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "Water flow simulation failed.";
         console.error("Error refreshing water flow simulation:", error);
+        setWaterFlowError(message);
       }
     }
   };
@@ -288,11 +298,12 @@ export default function MapComponent({}: MapComponentProps) {
   if (error) {
     return (
       <div className="w-full h-[600px] rounded-lg shadow-lg flex items-center justify-center bg-gray-100">
-        <div className="text-center p-8">
+        <div className="text-center p-8 max-w-lg">
           <div className="text-red-500 text-xl mb-4">⚠️</div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
             Map Error
           </h3>
+          <p className="text-sm text-gray-600">{error}</p>
         </div>
       </div>
     );
@@ -316,6 +327,12 @@ export default function MapComponent({}: MapComponentProps) {
         className="h-[600px]"
         style={{ width: "100%", maxWidth: "100vw" }}
       />
+
+      {waterFlowError ? (
+        <div className="absolute bottom-20 left-1/2 z-20 w-[min(36rem,calc(100%-2rem))] -translate-x-1/2 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950 shadow-lg">
+          {waterFlowError}
+        </div>
+      ) : null}
 
       {/* Address Search */}
       <div className="absolute bottom-4 left-4 z-20">

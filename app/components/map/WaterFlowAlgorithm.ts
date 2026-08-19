@@ -55,18 +55,13 @@ export class WaterFlowAlgorithm {
       }
     }
 
-    try {
-      const elevationResults = await this.getElevationData(points);
-      return this.simulateWaterFlow(
-        elevationResults,
-        points,
-        gridSize,
-        rainfallAmount
-      );
-    } catch (error) {
-      console.error("Error generating water flow simulation:", error);
-      return { flowLines: [] };
-    }
+    const elevationResults = await this.getElevationData(points);
+    return this.simulateWaterFlow(
+      elevationResults,
+      points,
+      gridSize,
+      rainfallAmount
+    );
   }
 
   /**
@@ -83,7 +78,12 @@ export class WaterFlowAlgorithm {
           if (status === google.maps.ElevationStatus.OK && results) {
             resolve(results);
           } else {
-            reject(new Error("Failed to get elevation data"));
+            let message = `Failed to get elevation data (${status}).`;
+            if (status === google.maps.ElevationStatus.REQUEST_DENIED) {
+              message +=
+                " Enable billing plus the Maps JavaScript API, Places API, and Elevation API on this Google Cloud key. Without billing, Maps shows “for development purposes only” and water flow cannot run.";
+            }
+            reject(new Error(message));
           }
         }
       );
