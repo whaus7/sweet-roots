@@ -2,22 +2,40 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUser } from "../contexts/UserContext";
+
+const TOOLS = [
+  { href: "/soil-tests", label: "Soil Tests" },
+  { href: "/brix-logs", label: "Brix Logs" },
+  { href: "/land-survey", label: "Water Flow" },
+  { href: "/planting-schedule", label: "Planting" },
+];
+
+const navLinkClass =
+  "text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200";
 
 export function Header() {
   const { user, logout } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
+  const toolsRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    function onPointer(event: MouseEvent) {
+      if (!toolsRef.current?.contains(event.target as Node)) {
+        setIsToolsOpen(false);
+      }
+    }
+    window.addEventListener("mousedown", onPointer);
+    return () => window.removeEventListener("mousedown", onPointer);
+  }, []);
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
+    <header className="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-[1100] mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3">
               <Image
@@ -30,40 +48,57 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Desktop Navigation Menu */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-            >
-              Soil Tests
+          <nav className="hidden md:flex items-center space-x-2 lg:space-x-4">
+            <Link href="/" className={navLinkClass}>
+              Home
             </Link>
-            <Link
-              href="/brix-logs"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-            >
-              Brix Logs
+            <Link href="/store" className={navLinkClass}>
+              Store
             </Link>
-            <Link
-              href="/land-survey"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-            >
-              Water Flow
+            <div ref={toolsRef} className="relative">
+              <button
+                type="button"
+                className={`${navLinkClass} inline-flex items-center gap-1`}
+                aria-expanded={isToolsOpen}
+                aria-haspopup="true"
+                onClick={() => setIsToolsOpen((open) => !open)}
+              >
+                Tools
+                <svg
+                  className={`h-4 w-4 transition-transform ${
+                    isToolsOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              {isToolsOpen ? (
+                <div className="absolute left-0 top-full z-50 mt-1 min-w-44 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+                  {TOOLS.map((tool) => (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
+                      onClick={() => setIsToolsOpen(false)}
+                    >
+                      {tool.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+            <Link href="/about" className={navLinkClass}>
+              About Us
             </Link>
-            <Link
-              href="/planting-schedule"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-            >
-              Planting
-            </Link>
-            {/* <Link
-              href="/microgreen-store"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-            >
-              Microgreen Store
-            </Link> */}
 
-            {/* User Menu */}
             {user ? (
               <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
@@ -102,19 +137,15 @@ export function Header() {
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              >
+              <Link href="/login" className={navLinkClass}>
                 Login
               </Link>
             )}
           </nav>
 
-          {/* Mobile Hamburger Menu Button */}
           <div className="md:hidden">
             <button
-              onClick={toggleMenu}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 hover:text-green-600 focus:outline-none focus:text-green-600"
               aria-label="Toggle menu"
             >
@@ -144,7 +175,6 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         <div
           className={`md:hidden ${
             isMenuOpen ? "block" : "hidden"
@@ -153,41 +183,61 @@ export function Header() {
           <nav className="flex flex-col space-y-1 py-4">
             <Link
               href="/"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              className={navLinkClass}
               onClick={() => setIsMenuOpen(false)}
             >
-              Dashboard
+              Home
             </Link>
             <Link
-              href="/brix-logs"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              href="/store"
+              className={navLinkClass}
               onClick={() => setIsMenuOpen(false)}
             >
-              Brix Logs
+              Store
             </Link>
+            <button
+              type="button"
+              className={`${navLinkClass} flex w-full items-center justify-between text-left`}
+              aria-expanded={isMobileToolsOpen}
+              onClick={() => setIsMobileToolsOpen((open) => !open)}
+            >
+              Tools
+              <svg
+                className={`h-4 w-4 transition-transform ${
+                  isMobileToolsOpen ? "rotate-180" : ""
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {isMobileToolsOpen
+              ? TOOLS.map((tool) => (
+                  <Link
+                    key={tool.href}
+                    href={tool.href}
+                    className="text-gray-600 hover:text-green-600 px-6 py-2 rounded-md text-sm font-medium"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {tool.label}
+                  </Link>
+                ))
+              : null}
             <Link
-              href="/land-survey"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              href="/about"
+              className={navLinkClass}
               onClick={() => setIsMenuOpen(false)}
             >
-              Land Survey
-            </Link>
-            <Link
-              href="/planting-schedule"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Planting
-            </Link>
-            <Link
-              href="/microgreen-store"
-              className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Microgreen Store
+              About Us
             </Link>
 
-            {/* Mobile User Menu */}
             {user ? (
               <>
                 <div className="border-t border-gray-200 pt-4 mt-4">
@@ -223,7 +273,7 @@ export function Header() {
             ) : (
               <Link
                 href="/login"
-                className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className={navLinkClass}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Login

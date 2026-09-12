@@ -1,0 +1,30 @@
+{
+  "plant-vigor": {
+    "x": 60.7,
+    "y": 17.5
+  },
+  "leaf-litter": {
+    "x": 35,
+    "y": 36
+  },
+  "red-wigglers": {
+    "x": 72.3,
+    "y": 59.5
+  },
+  "vermicast": {
+    "x": 62,
+    "y": 48
+  },
+  "rhizosphere": {
+    "x": 50.9,
+    "y": 57.5
+  },
+  "mycorrhizae": {
+    "x": 68.8,
+    "y": 71.6
+  },
+  "soil-structure": {
+    "x": 27.7,
+    "y": 51.5
+  }
+}

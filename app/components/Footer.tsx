@@ -13,7 +13,6 @@ export function Footer() {
       <div style={{ background: "#fcfcfc" }}>
         <div className="max-w-[1100px] mx-auto px-4 pb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Address Information */}
             <div>
               <h3 className="text-lg font-semibold mb-4 text-green-500">
                 Location
@@ -24,20 +23,17 @@ export function Footer() {
               </div>
             </div>
 
-            {/* About Section */}
             <div>
               <h3 className="text-lg font-semibold mb-4 text-green-500">
                 About Us
               </h3>
               <p className="text-gray-800 leading-relaxed">
-                We are a microgreen company with a strong emphasis on nutrition
-                testing. Our mission is to provide the highest quality
-                microgreens while ensuring optimal nutritional value through
-                comprehensive soil health analysis and testing protocols.
+                Sweet Roots is a knowledge hub for worms, soil health, and the
+                microbiome benefits of vermicast. We raise European red wigglers
+                and share the tools we use to read living soil.
               </p>
             </div>
 
-            {/* Menu Section */}
             <div>
               <h3 className="text-lg font-semibold mb-4 text-green-500">
                 Menu
@@ -45,6 +41,18 @@ export function Footer() {
               <nav className="space-y-2">
                 <Link
                   href="/"
+                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/store"
+                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
+                >
+                  Store
+                </Link>
+                <Link
+                  href="/soil-tests"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >
                   Soil Tests
@@ -68,22 +76,15 @@ export function Footer() {
                   Planting
                 </Link>
                 <Link
-                  href="/microgreen-store"
-                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
-                >
-                  Microgreen Store
-                </Link>
-                <Link
                   href="/about"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >
-                  About
+                  About Us
                 </Link>
               </nav>
             </div>
           </div>
 
-          {/* Copyright */}
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
             <p>
               &copy; {new Date().getFullYear()} Sweet Roots Farm. All rights

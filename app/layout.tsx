@@ -14,7 +14,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Sweet Roots",
   description:
-    "Grade the health of your soil and learn about some tips to improve low scores",
+    "A knowledge hub for worms, soil health, and vermicast — plus live European red wigglers shipped from Sweet Roots.",
 };
 
 export default function RootLayout({
