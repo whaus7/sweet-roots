@@ -2,20 +2,36 @@ import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
 import {
-  SOIL_DIAGRAM_TOPICS,
-  roundPhotoMarker,
   serializePhotoMarkerMap,
+  type DiagramHotspot,
   type PhotoMarker,
   type PhotoMarkerMap,
-} from "@/app/data/soilDiagramHotspots";
+  type PhotoMarkerSaveId,
+} from "@/app/data/photoDiagram";
+import { SERVICE_DIAGRAM_TOPICS } from "@/app/data/serviceDiagramHotspots";
+import { SOIL_DIAGRAM_TOPICS } from "@/app/data/soilDiagramHotspots";
 
 const HOTSPOT_ID = /^[a-z0-9-]+$/;
-const MARKERS_FILE = path.resolve(
-  process.cwd(),
-  "app",
-  "data",
-  "soil-diagram-markers.json"
-);
+
+const DIAGRAMS: Record<
+  PhotoMarkerSaveId,
+  { filename: string; topics: DiagramHotspot[] }
+> = {
+  soil: {
+    filename: "soil-diagram-markers.json",
+    topics: SOIL_DIAGRAM_TOPICS,
+  },
+  services: {
+    filename: "service-diagram-markers.json",
+    topics: SERVICE_DIAGRAM_TOPICS,
+  },
+};
+
+const MARKERS_DIR = path.resolve(process.cwd(), "app", "data");
+
+function isSaveId(value: unknown): value is PhotoMarkerSaveId {
+  return value === "soil" || value === "services";
+}
 
 function notFound() {
   return new NextResponse(null, { status: 404 });
@@ -37,12 +53,14 @@ function isPoint(value: unknown): value is PhotoMarker {
   );
 }
 
-function parseMarkers(raw: unknown): PhotoMarkerMap | string {
+function parseMarkers(
+  raw: unknown,
+  allowedIds: Set<string>
+): PhotoMarkerMap | string {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
     return "markers must be an object";
   }
 
-  const allowedIds = new Set(SOIL_DIAGRAM_TOPICS.map((hotspot) => hotspot.id));
   const markers: PhotoMarkerMap = {};
   for (const [id, point] of Object.entries(raw)) {
     if (!HOTSPOT_ID.test(id) || !allowedIds.has(id)) {
@@ -51,7 +69,10 @@ function parseMarkers(raw: unknown): PhotoMarkerMap | string {
     if (!isPoint(point)) {
       return `invalid coordinates for ${id}`;
     }
-    markers[id] = roundPhotoMarker(point);
+    markers[id] = {
+      x: Math.round(point.x * 10) / 10,
+      y: Math.round(point.y * 10) / 10,
+    };
   }
   return markers;
 }
@@ -82,13 +103,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  const parsed = parseMarkers(Reflect.get(body, "markers"));
+  const diagramId = Reflect.get(body, "diagramId");
+  if (!isSaveId(diagramId)) {
+    return NextResponse.json({ error: "Invalid diagramId" }, { status: 400 });
+  }
+
+  const diagram = DIAGRAMS[diagramId];
+  const allowedIds = new Set(diagram.topics.map((hotspot) => hotspot.id));
+  const parsed = parseMarkers(Reflect.get(body, "markers"), allowedIds);
   if (typeof parsed === "string") {
     return NextResponse.json({ error: parsed }, { status: 400 });
   }
 
-  const ordered = serializePhotoMarkerMap(SOIL_DIAGRAM_TOPICS, parsed);
-  await writeFile(MARKERS_FILE, formatPhotoMarkerFile(ordered), "utf8");
+  const target = path.resolve(MARKERS_DIR, diagram.filename);
+  const relative = path.relative(MARKERS_DIR, target);
+  if (relative.startsWith("..") || path.isAbsolute(relative)) {
+    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+  }
 
-  return NextResponse.json({ ok: true });
+  const ordered = serializePhotoMarkerMap(diagram.topics, parsed);
+  await writeFile(target, formatPhotoMarkerFile(ordered), "utf8");
+
+  return NextResponse.json({ ok: true, diagramId });
 }

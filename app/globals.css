@@ -101,13 +101,14 @@ input[type="date"] {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #d4a017;
+  background-color: #c8e87a;
   border: 3px solid #ffffff;
   box-shadow: 0 2px 10px rgb(0 0 0 / 35%);
   transition: transform 200ms ease, box-shadow 200ms ease,
     background-color 200ms ease;
 }
 
+button:hover .diagram-hotspot-marker,
 .diagram-hotspot-marker--active {
   background-color: #e85d04;
   transform: scale(1.15);
@@ -120,7 +121,7 @@ input[type="date"] {
   position: absolute;
   inset: -12px;
   border-radius: 50%;
-  border: 2px solid #d4a017;
+  border: 2px solid #c8e87a;
   animation: map-marker-pulse 2.4s ease-out infinite;
 }
 
@@ -128,6 +129,8 @@ input[type="date"] {
   animation-delay: 1.2s;
 }
 
+button:hover .diagram-hotspot-marker::before,
+button:hover .diagram-hotspot-marker::after,
 .diagram-hotspot-marker--active::before,
 .diagram-hotspot-marker--active::after {
   animation-play-state: paused;

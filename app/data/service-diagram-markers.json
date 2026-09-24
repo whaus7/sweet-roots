@@ -1,0 +1,7 @@
+{
+  "raised-beds": { "x": 28, "y": 42 },
+  "hugelkultur": { "x": 62, "y": 68 },
+  "lawn": { "x": 22, "y": 82 },
+  "amend": { "x": 48, "y": 36 },
+  "consult": { "x": 86, "y": 50 }
+}

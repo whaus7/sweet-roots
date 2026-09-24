@@ -3,12 +3,19 @@
 import { useState } from "react";
 import {
   serializePhotoMarkerMap,
+  type DiagramHotspot,
   type PhotoMarkerMap,
-  type SoilHotspot,
-} from "@/app/data/soilDiagramHotspots";
+  type PhotoMarkerSaveId,
+} from "@/app/data/photoDiagram";
+
+const SAVE_LABEL: Record<PhotoMarkerSaveId, string> = {
+  soil: "soil-diagram-markers.json",
+  services: "service-diagram-markers.json",
+};
 
 export type PhotoPinEditorProps = {
-  hotspots: SoilHotspot[];
+  saveId: PhotoMarkerSaveId;
+  hotspots: DiagramHotspot[];
   markers: PhotoMarkerMap;
   editing: boolean;
   placingId: string | null;
@@ -18,6 +25,7 @@ export type PhotoPinEditorProps = {
 };
 
 export default function PhotoPinEditor({
+  saveId,
   hotspots,
   markers,
   editing,
@@ -52,10 +60,11 @@ export default function PhotoPinEditor({
     setSaveState("saving");
     setMessage("");
     try {
-      const res = await fetch("/api/dev/soil-markers", {
+      const res = await fetch("/api/dev/photo-markers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          diagramId: saveId,
           markers: serializePhotoMarkerMap(hotspots, markers),
         }),
       });
@@ -64,7 +73,7 @@ export default function PhotoPinEditor({
         throw new Error(body.error ?? `Save failed (${res.status})`);
       }
       setSaveState("saved");
-      setMessage("Saved to soil-diagram-markers.json");
+      setMessage(`Saved to ${SAVE_LABEL[saveId]}`);
     } catch (error) {
       setSaveState("error");
       setMessage(
