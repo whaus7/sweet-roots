@@ -9,8 +9,8 @@ export function ServicesDiagram() {
       headingLevel="h1"
       hoverHint="Hover a point to explore our services"
       tapHint="Tap a point to explore our services"
-      photoSrc="/images/services-diagram/backyard-hero.webp"
-      photoAlt="Backyard with concrete-and-cedar raised vegetable beds, a healthy lawn, pollinator flowers, and seedling starts"
+      photoSrc="/images/services-diagram/backyard-hero-vines-cedar.webp"
+      photoAlt="Finished concrete raised bed with a continuous vine relief and a simple overhanging cedar cap, vegetables, lawn, pollinator flowers, and seedling starts"
       initialHotspots={SERVICE_DIAGRAM_HOTSPOTS}
       saveId="services"
       priority
