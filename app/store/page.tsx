@@ -41,9 +41,10 @@ export default function WormStorePage() {
       <HeroBanner
         title="European Red Wigglers"
         subtitle="Live Eisenia fetida for composting, vermicast, and living soil — shipped from Sweet Roots"
-        backgroundImage="/images/brix-banner.png"
-        altText="Living soil and red wigglers"
-        burnAmount={0.6}
+        backgroundImage="/images/store/worm-farm-banner-v2.jpg"
+        altText="Cartoon worms with stick-figure arms and legs farming a landscape of mixed crops and a tractor"
+        burnAmount={0.28}
+        frameClassName="h-48 md:h-64 lg:h-80"
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

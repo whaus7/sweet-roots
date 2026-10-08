@@ -6,6 +6,7 @@ interface HeroBannerProps {
   backgroundImage: string;
   altText?: string;
   burnAmount?: number; // Controls the intensity of burn effect (0-1, default 0.6)
+  frameClassName?: string;
 }
 
 export default function HeroBanner({
@@ -14,6 +15,7 @@ export default function HeroBanner({
   backgroundImage,
   altText = "Hero Banner",
   burnAmount = 0.6,
+  frameClassName = "h-20 md:h-30 lg:h-40",
 }: HeroBannerProps) {
   // Clamp burnAmount between 0 and 1
   const clampedBurnAmount = Math.max(0, Math.min(1, burnAmount));
@@ -24,7 +26,7 @@ export default function HeroBanner({
   return (
     <div className="relative w-full">
       {/* Background Image with Burn Effect */}
-      <div className="relative h-20 md:h-30 lg:h-40 overflow-hidden">
+      <div className={`relative overflow-hidden ${frameClassName}`}>
         <Image
           src={backgroundImage}
           alt={altText}

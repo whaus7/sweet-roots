@@ -46,6 +46,12 @@ export function Footer() {
                   Home
                 </Link>
                 <Link
+                  href="/services"
+                  className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
+                >
+                  Services
+                </Link>
+                <Link
                   href="/store"
                   className="block text-gray-800 hover:text-green-500 transition-colors duration-200"
                 >

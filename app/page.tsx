@@ -1,10 +1,10 @@
-import { ServicesDiagram } from "./components/services-diagram/ServicesDiagram";
+import { SplitServicesHero } from "./components/home/SplitServicesHero";
 import { SoilDiagram } from "./components/soil-diagram/SoilDiagram";
 
 export default function Home() {
   return (
     <>
-      <ServicesDiagram />
+      <SplitServicesHero />
       <SoilDiagram />
     </>
   );
