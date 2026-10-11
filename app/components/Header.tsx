@@ -102,6 +102,9 @@ export function Header() {
             <Link href="/about" className={navLinkClass}>
               About Us
             </Link>
+            <Link href="/contact" className={navLinkClass}>
+              Get in Touch
+            </Link>
 
             {user ? (
               <div className="flex items-center space-x-3">
@@ -247,6 +250,13 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               About Us
+            </Link>
+            <Link
+              href="/contact"
+              className={navLinkClass}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Get in Touch
             </Link>
 
             {user ? (

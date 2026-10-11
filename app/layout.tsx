@@ -12,9 +12,12 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Sweet Roots",
+  title: {
+    default: "Jordhaus | Raised Beds in Bellevue, WA",
+    template: "%s | Jordhaus",
+  },
   description:
-    "Raised beds, organic lawn restoration, garden amending, and consulting — living soil work from Sweet Roots."
+    "Raised bed installation in Bellevue, WA. Cast concrete beds and living-soil work, built on site — we don't ship panels.",
 };
 
 export default function RootLayout({

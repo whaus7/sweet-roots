@@ -7,18 +7,20 @@ import trees from "@/app/components/footer/trees";
 import Boop from "@/app/components/Boop";
 import { useCallback, useMemo } from "react";
 
+const FOOTER_GREEN = "rgb(0, 52, 12)";
+
 const MOUNTAIN_COLORS = {
   dark: {
     layer1: "rgb(16, 25, 78)",
     layer2: "rgb(27, 55, 112)",
     layer3: "rgb(37, 93, 159)",
-    hills: "rgb(50, 147, 105)",
+    hills: FOOTER_GREEN,
   },
   light: {
     layer1: "rgb(0, 122, 106)",
     layer2: "rgb(5, 136, 124)",
     layer3: "rgb(33, 155, 140)",
-    hills: "rgb(112, 193, 112)",
+    hills: FOOTER_GREEN,
   },
 };
 
@@ -69,9 +71,19 @@ export default function Mountains() {
       className={styles.mountains}
       //width={3000} height={300}
       viewBox="0 0 3000 400"
+      preserveAspectRatio="xMidYMax meet"
       //style={{ zIndex: 2, marginTop: 33 }}
       style={{ zIndex: 2 }}
     >
+      <rect
+        x="0"
+        y="240"
+        width="3000"
+        height="160"
+        fill={FOOTER_GREEN}
+        aria-hidden="true"
+      />
+
       {/* Sky */}
       {/* <rect x="5.969" y="-42.493" width="1017.46" height="134.648"
             className={styles.mountain}

@@ -1,4 +1,5 @@
 .mountains {
+  display: block;
   width: 3000px;
   height: 595px;
 }

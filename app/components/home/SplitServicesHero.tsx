@@ -32,6 +32,40 @@ const BED_STAMPS: Stamp[] = [
   },
 ];
 
+// 0 = slide photo left, 100 = slide photo right. 50 is centered.
+const BED_IMAGE_X = 100;
+const SOIL_IMAGE_X = 100;
+const IMAGE_PAN_RANGE = 0;
+
+function HeroPhoto({
+  src,
+  alt,
+  x,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  x: number;
+  priority?: boolean;
+}) {
+  const shift = -((Math.min(100, Math.max(0, x)) / 100) * IMAGE_PAN_RANGE);
+  return (
+    <div
+      className="absolute inset-y-0"
+      style={{ width: `${100 + IMAGE_PAN_RANGE}%`, left: `${shift}%` }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 1024px) 70vw, 100vw"
+        className="object-cover"
+        priority={priority}
+      />
+    </div>
+  );
+}
+
 const SOIL_STAMPS: Stamp[] = [
   {
     id: "amend",
@@ -133,12 +167,10 @@ export function SplitServicesHero() {
           <div
             className="absolute inset-0 lg:[clip-path:polygon(0_0,56%_0,44%_100%,0_100%)]"
           >
-            <Image
+            <HeroPhoto
               src="/images/services-diagram/backyard-hero-vines-cedar.webp"
               alt="Finished concrete raised bed with a cedar cap in a backyard garden"
-              fill
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="object-cover"
+              x={BED_IMAGE_X}
               priority
             />
             <div
@@ -159,12 +191,10 @@ export function SplitServicesHero() {
           <div
             className="absolute inset-0 lg:[clip-path:polygon(56%_0,100%_0,100%_100%,44%_100%)]"
           >
-            <Image
+            <HeroPhoto
               src="/images/services-diagram/soil-amend-hero.jpg"
               alt="Vermicast tea poured onto living garden soil"
-              fill
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="object-cover"
+              x={SOIL_IMAGE_X}
             />
             <div
               className="absolute inset-0 bg-gradient-to-l from-black/65 via-black/25 to-transparent"

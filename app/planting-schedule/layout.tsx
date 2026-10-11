@@ -13,7 +13,7 @@ const serif = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Planting Window | Sweet Roots",
+  title: "Planting Window",
   description:
     "What to plant today: flavor-first vegetables, fruit, and Asian winter greens, timed to your climate and an unheated greenhouse.",
 };
