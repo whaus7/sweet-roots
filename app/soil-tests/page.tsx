@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Tile } from "../components/Tile";
-import HeroBanner from "../components/HeroBannerNew";
+import HeroBanner from "../components/HeroBanner";
 import { CompactionMeter } from "../components/CompactionMeter";
 import CarbonToNitrogenMeter from "../components/CarbonToNitrogenMeter";
 import BrixMeter from "../components/BrixMeter";

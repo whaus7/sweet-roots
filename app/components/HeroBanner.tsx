@@ -5,8 +5,9 @@ interface HeroBannerProps {
   subtitle: string;
   backgroundImage: string;
   altText?: string;
-  burnAmount?: number; // Controls the intensity of burn effect (0-1, default 0.6)
+  burnAmount?: number;
   frameClassName?: string;
+  ink?: "light" | "dark";
 }
 
 export default function HeroBanner({
@@ -14,18 +15,16 @@ export default function HeroBanner({
   subtitle,
   backgroundImage,
   altText = "Hero Banner",
-  burnAmount = 0.6,
-  frameClassName = "h-20 md:h-30 lg:h-40",
+  burnAmount = 0.28,
+  frameClassName = "h-48 md:h-64 lg:h-80",
+  ink = "light",
 }: HeroBannerProps) {
-  // Clamp burnAmount between 0 and 1
-  const clampedBurnAmount = Math.max(0, Math.min(1, burnAmount));
-
-  // Apply exponential scaling for more dramatic effect at higher values
-  const dramaticBurn = Math.pow(clampedBurnAmount, 0.7); // Makes higher values more pronounced
+  const dark = ink === "dark";
+  const clampedBurnAmount = dark ? 0 : Math.max(0, Math.min(1, burnAmount));
+  const dramaticBurn = Math.pow(clampedBurnAmount, 0.7);
 
   return (
     <div className="relative w-full">
-      {/* Background Image with Burn Effect */}
       <div className={`relative overflow-hidden ${frameClassName}`}>
         <Image
           src={backgroundImage}
@@ -34,36 +33,49 @@ export default function HeroBanner({
           className="object-cover"
           priority
         />
-        {/* Burn Effect Overlay */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-black via-black to-black"
-          style={{
-            opacity: dramaticBurn * 0.8,
-            background: `linear-gradient(to bottom, rgba(0,0,0,${
-              dramaticBurn * 0.6
-            }) 0%, rgba(0,0,0,${dramaticBurn * 0.5}) 50%, rgba(0,0,0,${
-              dramaticBurn * 0.9
-            }) 100%)`,
-          }}
-        ></div>
-        {/* Additional burn effect for better text contrast */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black"
-          style={{
-            opacity: dramaticBurn * 0.4,
-            background: `linear-gradient(to right, rgba(0,0,0,${
-              dramaticBurn * 0.4
-            }) 0%, transparent 50%, rgba(0,0,0,${dramaticBurn * 0.4}) 100%)`,
-          }}
-        ></div>
+        {clampedBurnAmount > 0 ? (
+          <>
+            <div
+              className="absolute inset-0"
+              style={{
+                opacity: dramaticBurn * 0.8,
+                background: `linear-gradient(to bottom, rgba(0,0,0,${
+                  dramaticBurn * 0.6
+                }) 0%, rgba(0,0,0,${dramaticBurn * 0.5}) 50%, rgba(0,0,0,${
+                  dramaticBurn * 0.9
+                }) 100%)`,
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                opacity: dramaticBurn * 0.4,
+                background: `linear-gradient(to right, rgba(0,0,0,${
+                  dramaticBurn * 0.4
+                }) 0%, transparent 50%, rgba(0,0,0,${dramaticBurn * 0.4}) 100%)`,
+              }}
+            />
+          </>
+        ) : null}
 
-        {/* Content */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-6">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-2 drop-shadow-lg">
+            <h1
+              className={`text-2xl md:text-4xl lg:text-5xl font-bold mb-2 ${
+                dark
+                  ? "text-gray-900"
+                  : "text-white drop-shadow-lg"
+              }`}
+            >
               {title}
             </h1>
-            <p className="text-sm md:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto drop-shadow-md">
+            <p
+              className={`text-sm md:text-lg lg:text-xl max-w-3xl mx-auto ${
+                dark
+                  ? "text-gray-600"
+                  : "text-white/90 drop-shadow-md"
+              }`}
+            >
               {subtitle}
             </p>
           </div>

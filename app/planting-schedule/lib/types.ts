@@ -30,14 +30,7 @@ export type Plant = {
   minSoilTempC: number;
   preferredTempC: { min: number; max: number };
   windows: PlantWindow[];
-};
-
-export type FrostCalendar = {
-  frostFree: boolean;
-  lastFrost: MonthDay | null;
-  firstFrost: MonthDay | null;
-  yearsWithLastFrost: number;
-  yearsWithFirstFrost: number;
+  prefersGreenhouse?: boolean;
 };
 
 export type ClimateStats = {
@@ -48,8 +41,6 @@ export type ClimateStats = {
   monthlyMeanC: number[];
   monthlyMinC: number[];
   monthlyMaxC: number[];
-  outdoor: FrostCalendar;
-  greenhouse: FrostCalendar;
 };
 
 export type Place = {
@@ -72,11 +63,14 @@ export type WindowFit = {
   inWindow: boolean;
   yearRound: boolean;
   season: Season;
+  meanC: number;
+  nightC: number;
+  preferredMinC: number;
+  preferredMaxC: number;
 };
 
 export type ScoredPlant = {
   plant: Plant;
   outdoor: WindowFit;
-  greenhouse: WindowFit;
   sortScore: number;
 };

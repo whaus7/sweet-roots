@@ -174,7 +174,8 @@ export function LocationPicker({ currentPlace, latitude, longitude }: Props) {
           </>
         ) : (
           <span className="text-sm text-[var(--ink-muted)]">
-            {status ?? "Detecting your location, or search for a city."}
+            {status ??
+              "Search a city — we could not estimate your location from the network."}
           </span>
         )}
         {status && currentPlace ? (

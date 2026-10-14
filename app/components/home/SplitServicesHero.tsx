@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 type Stamp = {
@@ -93,10 +94,12 @@ function HeroPanel({
   title,
   stamps,
   align,
+  href,
 }: {
   title: string;
   stamps: Stamp[];
   align: "left" | "right";
+  href: string;
 }) {
   const [activeId, setActiveId] = useState(stamps[0].id);
   const active = stamps.find((stamp) => stamp.id === activeId) ?? stamps[0];
@@ -147,6 +150,12 @@ function HeroPanel({
           );
         })}
       </div>
+      <Link
+        href={href}
+        className="mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80 underline-offset-4 transition hover:text-white hover:underline"
+      >
+        Learn more
+      </Link>
     </div>
   );
 }
@@ -183,7 +192,12 @@ export function SplitServicesHero() {
             />
           </div>
           <div className="relative h-full lg:w-[52%]">
-            <HeroPanel title="Beds that stay" stamps={BED_STAMPS} align="left" />
+            <HeroPanel
+              title="Beds that stay"
+              stamps={BED_STAMPS}
+              align="left"
+              href="/beds"
+            />
           </div>
         </div>
 
@@ -210,6 +224,7 @@ export function SplitServicesHero() {
               title="Soil that lives"
               stamps={SOIL_STAMPS}
               align="right"
+              href="/soil"
             />
           </div>
         </div>

@@ -1,19 +1,18 @@
 .planting-schedule {
-  --paper: #f3eee4;
-  --paper-raised: #faf6ee;
-  --ink: #2a2418;
-  --ink-muted: #6b6155;
-  --ink-faint: #8a8073;
-  --rule: #d9d0c1;
-  --sage: #5e6f4e;
-  --sage-wash: #e7eadc;
-  --amber: #c4a35a;
-  --terracotta: #a35d3f;
-  --bar-track: #e4dccf;
+  --paper: #fcfcfc;
+  --paper-raised: #ffffff;
+  --ink: #171717;
+  --ink-muted: #4b5563;
+  --ink-faint: #9ca3af;
+  --rule: #e5e7eb;
+  --sage: #16a34a;
+  --sage-wash: #f0fdf4;
+  --amber: #ca8a04;
+  --terracotta: #16a34a;
+  --bar-track: #e5e7eb;
   min-height: 100%;
-  background: var(--paper);
+  background: #fcfcfc;
   color: var(--ink);
-  font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 }
 
 .planting-schedule ::selection {

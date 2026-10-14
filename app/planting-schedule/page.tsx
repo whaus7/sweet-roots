@@ -1,3 +1,4 @@
+import HeroBanner from "@/app/components/HeroBanner";
 import { LocationPicker } from "@/app/planting-schedule/components/location-picker";
 import { PlantList } from "@/app/planting-schedule/components/plant-list";
 import { UnitToggle } from "@/app/planting-schedule/components/unit-provider";
@@ -51,69 +52,65 @@ export default async function PlantingSchedulePage({
       : null;
 
   const today = climate ? todayInTimeZone(climate.timezone) : null;
-  const items = climate ? scorePlants(loadPlants(), climate, today ?? undefined) : [];
+  const items =
+    climate && today ? scorePlants(loadPlants(), climate, today) : [];
   const inWindowCount = items.filter(isVarietyInWindow).length;
 
   return (
-    <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col px-5 pb-20 pt-10 sm:px-8">
-      <header className="flex flex-col gap-8 border-b border-[var(--rule)] pb-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--terracotta)]">
-              Year-round planting assistant
-            </p>
-            <h1 className="mt-2 font-serif text-4xl tracking-tight text-[var(--ink)] sm:text-5xl">
-              What to plant today
-            </h1>
-          </div>
-          <div className="flex items-center gap-3">
-            {today ? (
-              <p className="text-sm text-[var(--ink-muted)]">
-                {formatLongDate(today)}
-              </p>
-            ) : null}
-            <UnitToggle />
-          </div>
-        </div>
-        <p className="max-w-2xl text-[var(--ink-muted)]">
-          Unique and lesser-known vegetables, fruit, and herbs with serious
-          flavor — especially Asian winter greens and kitchen crops from India,
-          Africa, and Italy — ranked by how ideal they are to sow in your
-          climate right now, outdoors and under an unheated greenhouse.
-        </p>
-        <div className="flex flex-col gap-1">
+    <div className="min-h-screen" style={{ background: "#fcfcfc" }}>
+      <HeroBanner
+        title="What to plant today"
+        subtitle="Unique and lesser-known vegetables, fruit, and herbs with serious flavor — especially Asian winter greens and kitchen crops from India, Africa, and Italy — ranked by how well recent average temperatures match each crop, not frost calendars."
+        backgroundImage="/images/planting-produce-watercolor.jpg"
+        altText="Watercolor collage of fruits and vegetables on a white background"
+        ink="dark"
+      />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <LocationPicker
             currentPlace={placeName}
             latitude={latitude ?? undefined}
             longitude={longitude ?? undefined}
           />
-          {climate ? (
-            <p className="text-sm text-[var(--ink-muted)]">
-              {describeClimate(climate)}
-            </p>
-          ) : null}
+          <div className="flex items-center gap-3 pb-1">
+            {today ? (
+              <p className="text-sm text-gray-600">{formatLongDate(today)}</p>
+            ) : null}
+            <UnitToggle />
+          </div>
         </div>
-      </header>
+        <p className="mt-2 text-sm text-gray-600">
+          Location is estimated from your network. Search to change it.
+        </p>
+        {climate && today ? (
+          <p className="mt-1 text-sm text-gray-600">
+            {describeClimate(climate, today)}
+          </p>
+        ) : null}
 
-      <div className="mt-8 flex-1">
-        {climateError ? (
-          <p className="rounded-2xl border border-dashed border-[var(--rule)] px-6 py-16 text-center text-[var(--ink-muted)]">
-            {climateError}
-          </p>
-        ) : latitude == null || longitude == null ? (
-          <p className="rounded-2xl border border-dashed border-[var(--rule)] px-6 py-16 text-center text-[var(--ink-muted)]">
-            Search for a city to see varieties in a good planting window.
-          </p>
-        ) : (
-          <>
-            <p className="mb-4 text-sm text-[var(--ink-muted)]">
-              {inWindowCount}{" "}
-              {inWindowCount === 1 ? "variety is" : "varieties are"} in a
-              plantable window today, sorted from most ideal to least.
+        <div className="mt-8">
+          {climateError ? (
+            <p className="rounded-2xl border border-dashed border-gray-200 px-6 py-16 text-center text-gray-600">
+              {climateError}
             </p>
-            <PlantList items={items} />
-          </>
-        )}
+          ) : latitude == null || longitude == null ? (
+            <p className="rounded-2xl border border-dashed border-gray-200 px-6 py-16 text-center text-gray-600">
+              We couldn&apos;t estimate your location from the network (common on
+              localhost). Search a city to see what to plant.
+            </p>
+          ) : (
+            <>
+              <p className="mb-4 text-sm text-gray-600">
+                {inWindowCount}{" "}
+                {inWindowCount === 1 ? "variety is" : "varieties are"} in range
+                for recent temperatures this month, sorted from best match to
+                least.
+              </p>
+              <PlantList items={items} />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

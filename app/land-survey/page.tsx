@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import MapComponent from "@/app/components/map/MapComponent";
-import HeroBanner from "@/app/components/HeroBannerNew";
+import HeroBanner from "@/app/components/HeroBanner";
 
 export default function LandSurveyPage() {
   return (
@@ -10,8 +10,9 @@ export default function LandSurveyPage() {
       <HeroBanner
         title="Water Flow"
         subtitle="Water is the cornerstone for productive land. Use this tool to help sequester water, prevent excessive runoff from your property and colloborate with neighbors for larger watershed management."
-        backgroundImage="/images/water-flow-banner.webp"
-        altText="Water Survey Banner"
+        backgroundImage="/images/water-flow-watercolor-v2.jpg"
+        altText="Watercolor of a river winding through a meadow with birds and clouds"
+        ink="dark"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

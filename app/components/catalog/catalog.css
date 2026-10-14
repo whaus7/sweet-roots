@@ -1,0 +1,11 @@
+.catalog {
+  --catalog-paper: #f4efe4;
+  --catalog-ink: #1c1812;
+  --catalog-muted: #5c5348;
+  background: var(--catalog-paper);
+  color: var(--catalog-ink);
+}
+
+.catalog-display {
+  font-family: var(--font-catalog-serif), ui-serif, Georgia, serif;
+}

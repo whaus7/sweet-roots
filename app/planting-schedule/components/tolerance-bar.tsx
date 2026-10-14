@@ -3,7 +3,7 @@ import { isWindowActive, barPosition, windowRangeLabel } from "@/app/planting-sc
 
 type Props = {
   fit: WindowFit;
-  caption: string;
+  caption?: string;
 };
 
 export function ToleranceBar({ fit, caption }: Props) {
@@ -13,15 +13,19 @@ export function ToleranceBar({ fit, caption }: Props) {
   return (
     <div className={muted ? "opacity-55" : undefined}>
       <div className="flex items-baseline justify-between gap-2">
-        <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--ink-muted)]">
-          {caption}
-        </p>
+        {caption ? (
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--ink-muted)]">
+            {caption}
+          </p>
+        ) : (
+          <span />
+        )}
         <p className="text-xs text-[var(--ink)]">{fit.label}</p>
       </div>
       <div
         className="relative mt-2 h-2.5 overflow-visible rounded-full bg-[var(--bar-track)]"
         role="img"
-        aria-label={`${caption}: ${fit.label}`}
+        aria-label={caption ? `${caption}: ${fit.label}` : fit.label}
       >
         <div
           className="absolute inset-0 rounded-full"

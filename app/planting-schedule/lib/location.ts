@@ -210,6 +210,16 @@ function isLoopback(ip: string): boolean {
   );
 }
 
+function parseHeaderCoord(value?: string | null): number | null {
+  if (value == null || value.trim() === "") return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function isNullIsland(lat: number, lon: number): boolean {
+  return Math.abs(lat) < 0.2 && Math.abs(lon) < 0.2;
+}
+
 export async function lookupIpLocation(options: {
   ip?: string | null;
   vercel?: {
@@ -221,9 +231,13 @@ export async function lookupIpLocation(options: {
   };
 }): Promise<Place | null> {
   const vercel = options.vercel;
-  const vLat = Number(vercel?.latitude);
-  const vLon = Number(vercel?.longitude);
-  if (Number.isFinite(vLat) && Number.isFinite(vLon)) {
+  const vLat = parseHeaderCoord(vercel?.latitude);
+  const vLon = parseHeaderCoord(vercel?.longitude);
+  if (
+    vLat != null &&
+    vLon != null &&
+    !isNullIsland(vLat, vLon)
+  ) {
     const name = decodeURIComponent(vercel?.city || "Your location");
     return {
       name,
@@ -246,7 +260,11 @@ export async function lookupIpLocation(options: {
   if (data.success === false || data.latitude == null || data.longitude == null) {
     return null;
   }
-  const name = data.city || "Your location";
+  if (isNullIsland(data.latitude, data.longitude)) {
+    return null;
+  }
+  if (!data.city) return null;
+  const name = data.city;
   return {
     name,
     displayName: formatDisplayName({

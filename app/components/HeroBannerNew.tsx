@@ -17,7 +17,7 @@ export default function HeroBannerNew({
     <>
       <div className="relative w-full md:h-[50px] lg:h-[80px] mb-4 border border-slate-300">
         {/* Container with max-width constraint */}
-        <div className="max-w-[1100px] mx-auto h-full relative">
+        <div className="mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-8 relative">
           {/* Flexbox layout for title and image */}
           <div className="flex h-full">
             {/* Left side - Content */}
@@ -90,7 +90,7 @@ export default function HeroBannerNew({
         </div>
       </div> */}
       </div>
-      <div className="max-w-[1100px] mx-auto h-full px-4 relative mb-4">
+      <div className="mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-8 relative mb-4">
         <p className="text-md text-gray-600 leading-relaxed">{subtitle}</p>
       </div>
     </>

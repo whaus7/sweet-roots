@@ -8,6 +8,7 @@ import {
 } from "@/app/planting-schedule/lib/temperature";
 import type { ScoredPlant } from "@/app/planting-schedule/lib/types";
 import { seasonDisplayName } from "@/app/planting-schedule/lib/windows";
+import { GreenhouseBadge } from "./greenhouse-badge";
 import { useTempUnit } from "./unit-provider";
 
 const TAG_LABELS: Record<string, string> = {
@@ -25,7 +26,7 @@ type Props = {
 };
 
 export function PlantDetail({ item, onClose }: Props) {
-  const { plant, outdoor, greenhouse } = item;
+  const { plant, outdoor } = item;
   const unit = useTempUnit();
 
   return (
@@ -40,6 +41,11 @@ export function PlantDetail({ item, onClose }: Props) {
           >
             {plant.varietyName}
           </a>
+          {plant.prefersGreenhouse ? (
+            <p className="mt-1">
+              <GreenhouseBadge />
+            </p>
+          ) : null}
           <p className="mt-1 text-sm text-[var(--ink-muted)]">
             {plant.commonName} · <em>{plant.scientificName}</em>
           </p>
@@ -88,13 +94,8 @@ export function PlantDetail({ item, onClose }: Props) {
             Why it is on the list today
           </p>
           <p>
-            <span className="font-medium">Outdoor:</span> {outdoor.label}
+            {outdoor.label}
             {outdoor.inWindow ? ` (${seasonDisplayName(outdoor.season)})` : ""}
-          </p>
-          <p>
-            <span className="font-medium">Unheated greenhouse:</span>{" "}
-            {greenhouse.label}
-            {greenhouse.inWindow ? ` (${seasonDisplayName(greenhouse.season)})` : ""}
           </p>
         </div>
         <ul className="mt-6 flex flex-wrap gap-2">

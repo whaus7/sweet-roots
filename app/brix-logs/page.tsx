@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import BrixLogEntry from "../components/BrixLogEntry";
 import BrixReadingCard from "../components/BrixReadingCard";
 import { Tile } from "../components/Tile";
-import HeroBanner from "../components/HeroBannerNew";
+import HeroBanner from "../components/HeroBanner";
 import { brixApi } from "../services/brixApi";
 import { plantBrixData, PlantBrixData } from "../data/plantBrixData";
 import styles from "./brix-logs.module.css";

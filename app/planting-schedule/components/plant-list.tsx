@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react";
 import { categoryLabel } from "@/app/planting-schedule/lib/plants";
 import { googleImagesUrl } from "@/app/planting-schedule/lib/search";
-import { formatTempDelta, GREENHOUSE_OFFSET_C } from "@/app/planting-schedule/lib/temperature";
 import type { ScoredPlant } from "@/app/planting-schedule/lib/types";
+import { GreenhouseBadge } from "./greenhouse-badge";
 import { PlantDetail } from "./plant-detail";
 import { ToleranceBar } from "./tolerance-bar";
-import { useTempUnit } from "./unit-provider";
 
 type Props = {
   items: ScoredPlant[];
@@ -16,8 +15,6 @@ type Props = {
 export function PlantList({ items }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selected = items.find((item) => item.plant.id === selectedId) ?? null;
-  const unit = useTempUnit();
-  const greenhouseOffset = formatTempDelta(GREENHOUSE_OFFSET_C, unit);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -30,18 +27,17 @@ export function PlantList({ items }: Props) {
   if (items.length === 0) {
     return (
       <p className="rounded-2xl border border-dashed border-[var(--rule)] px-6 py-16 text-center text-[var(--ink-muted)]">
-        Nothing in this catalog is in a plantable window here today. Try another
-        city, or check back as the season turns.
+        Nothing in this catalog matches recent temperatures here this month.
+        Try another city, or check back as the season turns.
       </p>
     );
   }
 
   return (
     <>
-      <div className="hidden grid-cols-[minmax(0,1.4fr)_1fr_1fr] gap-6 border-b border-[var(--rule)] px-2 pb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--ink-faint)] md:grid">
+      <div className="hidden grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)] gap-6 border-b border-[var(--rule)] px-2 pb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--ink-faint)] md:grid">
         <span>Variety</span>
-        <span>Outdoor</span>
-        <span>Unheated greenhouse (~{greenhouseOffset})</span>
+        <span>Temperature fit</span>
       </div>
       <ul className="divide-y divide-[var(--rule)]">
         {items.map((item) => {
@@ -58,24 +54,27 @@ export function PlantList({ items }: Props) {
                     setSelectedId(active ? null : item.plant.id);
                   }
                 }}
-                className={`grid w-full cursor-pointer grid-cols-1 gap-5 px-2 py-5 text-left transition md:grid-cols-[minmax(0,1.4fr)_1fr_1fr] md:items-center ${
+                className={`grid w-full cursor-pointer grid-cols-1 gap-5 px-2 py-5 text-left transition md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)] md:items-center ${
                   active ? "bg-[var(--sage-wash)]" : "hover:bg-[var(--paper-raised)]"
                 }`}
               >
                 <div>
-                  <a
-                    href={googleImagesUrl(
-                      item.plant.varietyName,
-                      item.plant.commonName,
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={`Google images: ${item.plant.varietyName} ${item.plant.commonName}`}
-                    onClick={(event) => event.stopPropagation()}
-                    className="font-serif text-xl text-[var(--ink)] underline-offset-4 hover:underline"
-                  >
-                    {item.plant.varietyName}
-                  </a>
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <a
+                      href={googleImagesUrl(
+                        item.plant.varietyName,
+                        item.plant.commonName,
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Google images: ${item.plant.varietyName} ${item.plant.commonName}`}
+                      onClick={(event) => event.stopPropagation()}
+                      className="font-serif text-xl text-[var(--ink)] underline-offset-4 hover:underline"
+                    >
+                      {item.plant.varietyName}
+                    </a>
+                    {item.plant.prefersGreenhouse ? <GreenhouseBadge /> : null}
+                  </div>
                   <p className="mt-1 text-sm text-[var(--ink-muted)]">
                     {item.plant.commonName}
                     <span className="text-[var(--ink-faint)]">
@@ -87,11 +86,7 @@ export function PlantList({ items }: Props) {
                     {item.plant.flavor}
                   </p>
                 </div>
-                <ToleranceBar fit={item.outdoor} caption="Outdoor" />
-                <ToleranceBar
-                  fit={item.greenhouse}
-                  caption="Greenhouse"
-                />
+                <ToleranceBar fit={item.outdoor} />
               </div>
             </li>
           );
