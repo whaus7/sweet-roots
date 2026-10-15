@@ -4,7 +4,7 @@ import { CatalogShell } from "@/app/components/catalog/CatalogShell";
 export const metadata: Metadata = {
   title: "Living Soil",
   description:
-    "Vermicast, tea, and living-soil repair — how JördHaus rebuilds the biology under the garden.",
+    "Living soil for new beds or a full reset of existing ones, plus optional monthly bed care — JördHaus in Bellevue.",
 };
 
 export default function SoilLayout({ children }: { children: React.ReactNode }) {

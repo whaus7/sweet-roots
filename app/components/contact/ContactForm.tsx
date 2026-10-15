@@ -18,8 +18,8 @@ const inputClass =
   "w-full rounded-md border border-[#00340c]/20 bg-white px-4 py-2.5 text-[#171717] shadow-sm transition focus:border-[#d4a017] focus:outline-none focus:ring-2 focus:ring-[#d4a017]/30";
 
 export function ContactForm({
-  heading = "Get in touch",
-  subheading = "Tell us about your yard. We install raised beds in Bellevue — we don't ship panels.",
+  heading,
+  subheading,
   source = "contact",
 }: ContactFormProps) {
   const formId = useId();
@@ -91,15 +91,21 @@ export function ContactForm({
 
   return (
     <div>
-      <div className="mb-5">
-        <h2
-          className="text-xl font-bold sm:text-2xl"
-          style={{ color: FOREST }}
-        >
-          {heading}
-        </h2>
-        <p className="mt-2 text-sm text-gray-700 sm:text-base">{subheading}</p>
-      </div>
+      {heading ? (
+        <div className="mb-5">
+          <h2
+            className="text-xl font-bold sm:text-2xl"
+            style={{ color: FOREST }}
+          >
+            {heading}
+          </h2>
+          {subheading ? (
+            <p className="mt-2 text-sm text-gray-700 sm:text-base">
+              {subheading}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="hidden" aria-hidden="true">

@@ -69,24 +69,24 @@ function HeroPhoto({
 
 const SOIL_STAMPS: Stamp[] = [
   {
-    id: "amend",
-    label: "Amend",
-    line: "Fresh vermicast worked into depleted beds and in-ground plots.",
+    id: "prep",
+    label: "Prep",
+    line: "New beds, or strip existing soil and start over.",
   },
   {
-    id: "repair",
-    label: "Repair",
-    line: "Rebuild soil after synthetics burned through the microbiome.",
+    id: "hugel",
+    label: "Hugel",
+    line: "Wood and compost as the water-holding engine.",
   },
   {
-    id: "kickstart",
-    label: "Kickstart",
-    line: "A biology restart — organisms and food, not another salt hit.",
+    id: "worms",
+    label: "Worms",
+    line: "About 1,000 red wigglers. The bed is the bin.",
   },
   {
-    id: "tea",
-    label: "Tea",
-    line: "Vermicast tea drenched through the root zone to wake the web.",
+    id: "feed",
+    label: "Feed",
+    line: "Kitchen scraps in rotating corners, or we come feed.",
   },
 ];
 

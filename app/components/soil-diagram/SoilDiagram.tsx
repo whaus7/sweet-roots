@@ -4,8 +4,8 @@ import { SOIL_DIAGRAM_HOTSPOTS } from "@/app/data/soilDiagramHotspots";
 export function SoilDiagram() {
   return (
     <PhotoDiagramScene
-      layout="split"
-      heading="How worms and vermicast build living soil"
+      layout="hero"
+      heading="Biology, not salt, does the work."
       headingLevel="h2"
       hoverHint="Hover a point to explore the soil food web"
       tapHint="Tap a point to explore the soil food web"

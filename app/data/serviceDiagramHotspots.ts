@@ -16,7 +16,7 @@ export const SERVICE_DIAGRAM_TOPICS: DiagramHotspot[] = [
     id: "hugelkultur",
     title: "Hugelkultur prep",
     summary: "The soil engine inside the bed, not a separate product.",
-    body: "Before we fill a bed, we layer logs, branches, and compost so the wood slowly breaks down, holds water, and feeds fungi. The growing mix on top is a living soil — not a bag of potting dirt sitting on plywood.",
+    body: "Before we fill a bed we layer logs, branches, and compost so the wood slowly breaks down, holds water, and feeds fungi. Then we stock about a thousand red wigglers and cap the bed with vermicast. The growing mix is a living soil — not a bag of potting dirt sitting on plywood.",
   },
   {
     id: "lawn",
@@ -27,8 +27,8 @@ export const SERVICE_DIAGRAM_TOPICS: DiagramHotspot[] = [
   {
     id: "amend",
     title: "Garden soil amending",
-    summary: "Fresh vermicast and organics for beds you already have.",
-    body: "Existing raised beds and in-ground plots get a living top-dress: fresh vermicast, compost, and organic fertilizers worked into the root zone. We are building crumb, microbes, and plant-available minerals — not dumping a quick NPK hit.",
+    summary: "A full reset — the same worm-bin system as a new bed.",
+    body: "Existing raised beds are stripped to a clean interior, then rebuilt with hugelkultur, about a thousand red wigglers, and a vermicast-and-compost cap. We are not top-dressing leftover chemistry. The bed becomes its own worm bin, fed with kitchen scraps in rotating corners — or we come feed it.",
   },
   {
     id: "consult",

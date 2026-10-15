@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+const IRRIGATION_PRICE = 480;
+
 const FINISHES = [
   {
     id: "cedar",
     name: "Cedar cap",
-    price: "$4,800",
+    amount: 2600,
     line: "Cast concrete panels with a simple cedar rim. The finish we build most.",
     image: "/images/beds-catalog-cedar.jpg",
     alt: "Cast concrete raised bed with a cedar cap in a backyard garden",
@@ -16,19 +18,25 @@ const FINISHES = [
   {
     id: "concrete",
     name: "Concrete rim",
-    price: "$3,900",
+    amount: 1900,
     line: "The same panels without the wood top — a cleaner line, a lower starting point.",
     image: "/images/beds-catalog-concrete.jpg",
     alt: "Cast concrete raised bed with a plain concrete rim in a backyard garden",
   },
 ] as const;
 
+function money(amount: number) {
+  return `$${amount.toLocaleString("en-US")}`;
+}
+
 export default function BedsPage() {
   const [selectedId, setSelectedId] = useState<(typeof FINISHES)[number]["id"]>(
     "cedar",
   );
+  const [irrigation, setIrrigation] = useState(false);
   const selected =
     FINISHES.find((finish) => finish.id === selectedId) ?? FINISHES[0];
+  const total = selected.amount + (irrigation ? IRRIGATION_PRICE : 0);
 
   return (
     <section
@@ -72,7 +80,8 @@ export default function BedsPage() {
             Beds that stay
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
-            Heavy cast panels, built on site. Not a kit. Not a season.
+            Heavy cast panels, built on site. Install included. Not a kit. Not a
+            season.
           </p>
 
           <div className="mt-8 space-y-3" role="listbox" aria-label="Finish">
@@ -95,7 +104,9 @@ export default function BedsPage() {
                     <span className="text-sm font-semibold uppercase tracking-[0.16em]">
                       {finish.name}
                     </span>
-                    <span className="catalog-display text-xl">{finish.price}</span>
+                    <span className="catalog-display text-xl">
+                      {money(finish.amount)}
+                    </span>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-white/70">
                     {finish.line}
@@ -105,9 +116,54 @@ export default function BedsPage() {
             })}
           </div>
 
+          <div className="mt-5 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em]">
+                Irrigation
+                <span className="ml-2 font-normal normal-case tracking-normal text-white/55">
+                  +{money(IRRIGATION_PRICE)}
+                </span>
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-white/55">
+                Drip run to this bed, installed with the frame.
+              </p>
+            </div>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={irrigation}
+              aria-label="Add irrigation"
+              onClick={() => setIrrigation((on) => !on)}
+              className={`inline-flex h-7 w-12 shrink-0 items-center rounded-full p-0.5 transition-colors ${
+                irrigation ? "justify-end bg-white" : "justify-start bg-white/25"
+              }`}
+            >
+              <span
+                aria-hidden
+                className={`h-6 w-6 rounded-full shadow ${
+                  irrigation ? "bg-black" : "bg-white"
+                }`}
+              />
+            </button>
+          </div>
+
+          {irrigation ? (
+            <p className="mt-4 flex items-baseline justify-between text-sm text-white/80">
+              <span>Total with irrigation</span>
+              <span className="catalog-display text-2xl text-white">
+                {money(total)}
+              </span>
+            </p>
+          ) : null}
+
           <p className="mt-6 text-xs leading-relaxed text-white/50">
-            Starting points for a typical install in Bellevue. We build on site
-            — we do not ship panels.
+            Starting points for a typical bed in Bellevue. Install is included
+            — we build on site, we do not ship panels. Hugelkultur and worm work
+            live on the{" "}
+            <Link href="/soil" className="underline hover:text-white">
+              living-soil
+            </Link>{" "}
+            side.
           </p>
 
           <Link
