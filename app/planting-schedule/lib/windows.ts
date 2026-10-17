@@ -1,7 +1,6 @@
 import {
   addDays,
   calendarDate,
-  clamp,
   diffDays,
   toIsoDate,
 } from "./dates";
@@ -9,20 +8,6 @@ import type { ClimateStats, Plant, Season, WindowFit } from "./types";
 
 const IN_RANGE_SLACK_C = 1;
 const SCORE_FALL_OFF_C = 3.5;
-const MONTH_SHORT = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 
 export function seasonDisplayName(season: Season): string {
   return season === "cool" ? "cool-season" : "warm-season";
@@ -169,6 +154,17 @@ export function fitPlantToClimate(
   const score = inWindow ? thisScore * 0.8 + nextScore * 0.2 : 0;
   const band = monthsInPreferredBand(plant, climate);
   const window = seasonWindow(today, band.length > 0 ? band : [thisMonth]);
+  const suitableMonths = Array.from({ length: 12 }, (_, month) =>
+    band.includes(month),
+  );
+  const daysToHarvest = Math.round(
+    (plant.daysToMaturity.min + plant.daysToMaturity.max) / 2,
+  );
+  const remainingSuitableMonths = consecutiveSuitableMonthsFrom(
+    thisMonth,
+    suitableMonths,
+  );
+  const monthsNeeded = Math.max(1, Math.ceil(daysToHarvest / 30));
 
   return {
     score,
@@ -184,26 +180,23 @@ export function fitPlantToClimate(
     nightC,
     preferredMinC: plant.preferredTempC.min,
     preferredMaxC: plant.preferredTempC.max,
+    suitableMonths,
+    daysToHarvest,
+    remainingSuitableMonths,
+    canFinishHarvest: remainingSuitableMonths >= monthsNeeded,
   };
 }
 
-export function windowRangeLabel(fit: WindowFit): string {
-  if (fit.yearRound) return "Most months stay in range";
-  const start = MONTH_SHORT[new Date(`${fit.windowStart}T00:00:00Z`).getUTCMonth()];
-  const end = MONTH_SHORT[new Date(`${fit.windowEnd}T00:00:00Z`).getUTCMonth()];
-  if (start === end) return `${start} · ${seasonDisplayName(fit.season)}`;
-  return `${start} – ${end} · ${seasonDisplayName(fit.season)}`;
-}
-
-export function barPosition(fit: WindowFit): number {
-  const span = Math.max(fit.preferredMaxC - fit.preferredMinC, 1);
-  const t = (fit.meanC - fit.preferredMinC) / span;
-  if (fit.inWindow) {
-    return clamp(20 + t * 60, 12, 88);
+function consecutiveSuitableMonthsFrom(
+  startMonth: number,
+  suitableMonths: boolean[],
+): number {
+  let count = 0;
+  for (let step = 0; step < 12; step += 1) {
+    if (!suitableMonths[(startMonth + step) % 12]) break;
+    count += 1;
   }
-  if (t < 0) return 8;
-  if (t > 1) return 92;
-  return clamp(20 + t * 60, 8, 92);
+  return count;
 }
 
 export function isWindowActive(fit: WindowFit): boolean {

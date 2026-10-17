@@ -41,9 +41,9 @@ export default function WormStorePage() {
       <HeroBanner
         title="European Red Wigglers"
         subtitle="Live Eisenia fetida for composting, vermicast, and living soil — shipped from Sweet Roots"
-        backgroundImage="/images/store/worm-farm-banner-v2.jpg"
-        altText="Cartoon worms with stick-figure arms and legs farming a landscape of mixed crops and a tractor"
-        burnAmount={0.28}
+        backgroundImage="/images/store/worm-compost-wallpaper.jpg"
+        altText="Black-and-white wallpaper pattern of compost worms, greens, and vegetable scraps"
+        ink="black"
         frameClassName="h-48 md:h-64 lg:h-80"
       />
 

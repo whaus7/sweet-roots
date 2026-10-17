@@ -14,22 +14,17 @@ const BED_STAMPS: Stamp[] = [
   {
     id: "panels",
     label: "Panels",
-    line: "Cast concrete with a simple cedar cap — built to stay for decades.",
+    line: "Interlocking cast concrete panels with am optional cedar cap. For raised beds or landscape features.",
   },
   {
     id: "install",
     label: "Install",
-    line: "We set new beds in the yard, level and ready for living soil.",
+    line: "Install is included or buy the kit and do it yourself.",
   },
   {
     id: "remove",
     label: "Remove",
-    line: "Tired wood boxes and rotting frames come out clean.",
-  },
-  {
-    id: "replace",
-    label: "Replace",
-    line: "Old beds out, the new system in — same footprint, longer life.",
+    line: "We'll remove old rotted beds and replace them with beds that stay.",
   },
 ];
 
@@ -71,22 +66,22 @@ const SOIL_STAMPS: Stamp[] = [
   {
     id: "prep",
     label: "Prep",
-    line: "New beds, or strip existing soil and start over.",
+    line: "We prepare beds that will provide sustainable soil biology for decades.",
   },
   {
     id: "hugel",
     label: "Hugel",
-    line: "Wood and compost as the water-holding engine.",
+    line: "Hugelkultur provides long lasting food for biology and mycorrhiza. It also acts as a water battery through dryer times.",
   },
   {
     id: "worms",
     label: "Worms",
-    line: "About 1,000 red wigglers. The bed is the bin.",
+    line: "We bring in over 1,000 red wigglers per bed. Every bed essentially becomes a worm bin.",
   },
   {
     id: "feed",
     label: "Feed",
-    line: "Kitchen scraps in rotating corners, or we come feed.",
+    line: "Worms need to be fed to stay healthy. Dispose of your kitchen scraps sustainably and easily. Just bury it in alternating locations of the bed and let the worms do the rest.",
   },
 ];
 

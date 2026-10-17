@@ -60,13 +60,13 @@ export default async function PlantingSchedulePage({
     <div className="min-h-screen" style={{ background: "#fcfcfc" }}>
       <HeroBanner
         title="What to plant today"
-        subtitle="Unique and lesser-known vegetables, fruit, and herbs with serious flavor — especially Asian winter greens and kitchen crops from India, Africa, and Italy — ranked by how well recent average temperatures match each crop, not frost calendars."
+        subtitle="Unique and lesser-known vegetables, fruit, asian greens and herbs with serious flavor ranked by how well recent average temperatures match each crop."
         backgroundImage="/images/planting-produce-watercolor.jpg"
         altText="Watercolor collage of fruits and vegetables on a white background"
         ink="dark"
       />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20 mt-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <LocationPicker
             currentPlace={placeName}
@@ -104,8 +104,8 @@ export default async function PlantingSchedulePage({
               <p className="mb-4 text-sm text-gray-600">
                 {inWindowCount}{" "}
                 {inWindowCount === 1 ? "variety is" : "varieties are"} in range
-                for recent temperatures this month, sorted from best match to
-                least.
+                for recent temperatures this month, sorted by whether a sowing
+                today can finish before the good months run out.
               </p>
               <PlantList items={items} />
             </>

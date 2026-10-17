@@ -12,15 +12,15 @@ export default function LandSurveyPage() {
         subtitle="Water is the cornerstone for productive land. Use this tool to help sequester water, prevent excessive runoff from your property and colloborate with neighbors for larger watershed management."
         backgroundImage="/images/water-flow-watercolor-v2.jpg"
         altText="Watercolor of a river winding through a meadow with birds and clouds"
-        ink="dark"
+        ink="black"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <p className="mb-4 text-base text-gray-800 md:text-lg">
+          Zoom into the area to survey, select the Water Flow button and
+          discover how water moves on your property or neighborhood!
+        </p>
         <MapComponent />
-      </div>
-
-      <div className="max-w-[1100] mx-auto px-4">
-        {/* Water Flow Algorithm Explanation - Always visible below map */}
         <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <div className="flex items-start gap-3">
             <div className="flex-shrink-0 mt-1">

@@ -1,5 +1,19 @@
 import type { WindowFit } from "@/app/planting-schedule/lib/types";
-import { isWindowActive, barPosition, windowRangeLabel } from "@/app/planting-schedule/lib/windows";
+
+const MONTH_LABELS = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+] as const;
 
 type Props = {
   fit: WindowFit;
@@ -7,42 +21,57 @@ type Props = {
 };
 
 export function ToleranceBar({ fit, caption }: Props) {
-  const position = barPosition(fit);
-  const muted = !isWindowActive(fit);
+  const currentMonth = new Date(`${fit.today}T00:00:00Z`).getUTCMonth();
+  const suitableLabels = MONTH_LABELS.filter(
+    (_, month) => fit.suitableMonths[month],
+  );
+  const ariaLabel = [
+    caption,
+    fit.label,
+    suitableLabels.length > 0
+      ? `suitable months: ${suitableLabels.join(", ")}`
+      : "no suitable months",
+  ]
+    .filter(Boolean)
+    .join(". ");
 
   return (
-    <div className={muted ? "opacity-55" : undefined}>
+    <div>
       <div className="flex items-baseline justify-between gap-2">
-        {caption ? (
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--ink-muted)]">
-            {caption}
-          </p>
-        ) : (
-          <span />
-        )}
+        <p className="text-[11px] font-medium text-[var(--ink-muted)]">
+          {caption ? (
+            <span className="uppercase tracking-[0.14em]">{caption}</span>
+          ) : (
+            <>
+              {fit.daysToHarvest} days seed to harvest
+              {fit.canFinishHarvest ? "" : " · tight window"}
+            </>
+          )}
+        </p>
         <p className="text-xs text-[var(--ink)]">{fit.label}</p>
       </div>
       <div
-        className="relative mt-2 h-2.5 overflow-visible rounded-full bg-[var(--bar-track)]"
+        className="mt-2 grid grid-cols-12 gap-0.5 sm:gap-1"
         role="img"
-        aria-label={caption ? `${caption}: ${fit.label}` : fit.label}
+        aria-label={ariaLabel}
       >
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--amber) 0%, var(--sage) 50%, var(--amber) 100%)",
-            opacity: muted ? 0.45 : 0.9,
-          }}
-        />
-        <span
-          className="absolute top-1/2 size-3.5 rounded-full border-2 border-[var(--paper)] bg-[var(--ink)] shadow-sm"
-          style={{ left: `${position}%`, transform: "translate(-50%, -50%)" }}
-        />
+        {MONTH_LABELS.map((label, month) => {
+          const suitable = Boolean(fit.suitableMonths[month]);
+          const current = month === currentMonth;
+          return (
+            <span
+              key={label}
+              className={`flex aspect-square items-center justify-center overflow-hidden whitespace-nowrap rounded-[3px] text-[8px] font-semibold uppercase leading-none tracking-tight sm:text-[9px] ${
+                suitable
+                  ? "bg-[var(--sage)] text-white"
+                  : "border border-[var(--rule)] bg-[var(--bar-track)] text-[var(--ink-faint)]"
+              } ${current ? "ring-2 ring-[var(--ink)] ring-offset-1 ring-offset-[var(--paper)]" : ""}`}
+            >
+              {label}
+            </span>
+          );
+        })}
       </div>
-      <p className="mt-1.5 text-[11px] text-[var(--ink-faint)]">
-        {windowRangeLabel(fit)}
-      </p>
     </div>
   );
 }

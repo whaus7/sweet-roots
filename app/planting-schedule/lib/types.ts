@@ -67,6 +67,10 @@ export type WindowFit = {
   nightC: number;
   preferredMinC: number;
   preferredMaxC: number;
+  suitableMonths: boolean[];
+  daysToHarvest: number;
+  remainingSuitableMonths: number;
+  canFinishHarvest: boolean;
 };
 
 export type ScoredPlant = {

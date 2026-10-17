@@ -6,6 +6,7 @@ import { googleImagesUrl } from "@/app/planting-schedule/lib/search";
 import type { ScoredPlant } from "@/app/planting-schedule/lib/types";
 import { GreenhouseBadge } from "./greenhouse-badge";
 import { PlantDetail } from "./plant-detail";
+import { PlantPhotos, usePlantPhotos } from "./plant-photos";
 import { ToleranceBar } from "./tolerance-bar";
 
 type Props = {
@@ -37,7 +38,7 @@ export function PlantList({ items }: Props) {
     <>
       <div className="hidden grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)] gap-6 border-b border-[var(--rule)] px-2 pb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--ink-faint)] md:grid">
         <span>Variety</span>
-        <span>Temperature fit</span>
+        <span>Growing months</span>
       </div>
       <ul className="divide-y divide-[var(--rule)]">
         {items.map((item) => {
@@ -94,22 +95,48 @@ export function PlantList({ items }: Props) {
       </ul>
 
       {selected ? (
-        <div className="fixed inset-0 z-40 flex justify-end">
-          <button
-            type="button"
-            aria-label="Close variety details"
-            className="absolute inset-0 bg-[var(--ink)]/25"
-            onClick={() => setSelectedId(null)}
-          />
-          <aside
-            role="dialog"
-            aria-modal="true"
-            className="relative z-10 h-full w-full max-w-md bg-[var(--paper-raised)] shadow-2xl"
-          >
-            <PlantDetail item={selected} onClose={() => setSelectedId(null)} />
-          </aside>
-        </div>
+        <PlantDrawer item={selected} onClose={() => setSelectedId(null)} />
       ) : null}
     </>
+  );
+}
+
+function PlantDrawer({
+  item,
+  onClose,
+}: {
+  item: ScoredPlant;
+  onClose: () => void;
+}) {
+  const photos = usePlantPhotos(item.plant.commonName, item.plant.scientificName);
+  const photoProps = {
+    photos,
+    commonName: item.plant.commonName,
+    varietyName: item.plant.varietyName,
+  };
+
+  return (
+    <div className="fixed inset-0 z-40 flex justify-end">
+      <button
+        type="button"
+        aria-label="Close variety details"
+        className="absolute inset-0 bg-[var(--ink)]/25"
+        onClick={onClose}
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="relative z-10 flex h-full w-full md:w-auto"
+      >
+        <PlantPhotos {...photoProps} layout="rail" />
+        <aside className="h-full w-full max-w-md bg-[var(--paper-raised)] shadow-2xl">
+          <PlantDetail
+            item={item}
+            onClose={onClose}
+            photos={<PlantPhotos {...photoProps} layout="stack" />}
+          />
+        </aside>
+      </div>
+    </div>
   );
 }

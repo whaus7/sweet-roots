@@ -7,7 +7,7 @@ interface HeroBannerProps {
   altText?: string;
   burnAmount?: number;
   frameClassName?: string;
-  ink?: "light" | "dark";
+  ink?: "light" | "dark" | "black";
 }
 
 export default function HeroBanner({
@@ -19,7 +19,8 @@ export default function HeroBanner({
   frameClassName = "h-48 md:h-64 lg:h-80",
   ink = "light",
 }: HeroBannerProps) {
-  const dark = ink === "dark";
+  const dark = ink === "dark" || ink === "black";
+  const solidBlack = ink === "black";
   const clampedBurnAmount = dark ? 0 : Math.max(0, Math.min(1, burnAmount));
   const dramaticBurn = Math.pow(clampedBurnAmount, 0.7);
 
@@ -62,18 +63,22 @@ export default function HeroBanner({
           <div className="text-center px-6">
             <h1
               className={`text-2xl md:text-4xl lg:text-5xl font-bold mb-2 ${
-                dark
-                  ? "text-gray-900"
-                  : "text-white drop-shadow-lg"
+                solidBlack
+                  ? "text-black"
+                  : dark
+                    ? "text-gray-900"
+                    : "text-white drop-shadow-lg"
               }`}
             >
               {title}
             </h1>
             <p
               className={`text-sm md:text-lg lg:text-xl max-w-3xl mx-auto ${
-                dark
-                  ? "text-gray-600"
-                  : "text-white/90 drop-shadow-md"
+                solidBlack
+                  ? "text-black"
+                  : dark
+                    ? "text-gray-600"
+                    : "text-white/90 drop-shadow-md"
               }`}
             >
               {subtitle}

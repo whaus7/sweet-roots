@@ -3532,5 +3532,150 @@
         "endOffsetDays": 42
       }
     ]
+  },
+  {
+    "id": "chioggia-beet",
+    "commonName": "Beet",
+    "varietyName": "Chioggia",
+    "scientificName": "Beta vulgaris",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Candy-stripe rings of rose and ivory. Sweeter and milder than a grocery beet, with a clean earthiness that does not stain the whole kitchen.",
+    "notes": "Direct sow. Harvest young for tender roots; greens are as good as chard. Fall crops sweeten after frost. An old Venetian market beet, not a storage workhorse.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 60
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
+  },
+  {
+    "id": "kintoki-carrot",
+    "commonName": "Carrot",
+    "varietyName": "Kintoki",
+    "scientificName": "Daucus carota",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "Kyoto’s red carrot: deep scarlet to the core, dense and sweet, with a resinous, almost mango perfume that orange supermarket carrots never reach.",
+    "notes": "The kintoki of Kansai kitchens and New Year simmered dishes. Direct sow; do not transplant. Cool nights concentrate sugar. Keep soil even so roots stay straight.",
+    "daysToMaturity": {
+      "min": 60,
+      "max": 75
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -7,
+        "endOffsetDays": 56
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -98,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "sulmona-red-garlic",
+    "commonName": "Garlic",
+    "varietyName": "Sulmona Red",
+    "scientificName": "Allium sativum",
+    "category": "vegetable",
+    "tags": [
+      "italian",
+      "unique"
+    ],
+    "flavor": "Aglio Rosso di Sulmona: rich, lasting heat with a sweet roasted finish. The red-skinned garlic of Abruzzo, not a mild supermarket bulb.",
+    "notes": "Plant cloves in fall for a midsummer harvest. Needs a cold winter to bulb well. Hardneck; scapes in late spring are a first harvest. Cure in shade.",
+    "daysToMaturity": {
+      "min": 220,
+      "max": 270
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -25,
+    "minSoilTempC": 0,
+    "preferredTempC": {
+      "min": 0,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -42,
+        "endOffsetDays": 21
+      }
+    ]
+  },
+  {
+    "id": "gigante-kohlrabi",
+    "commonName": "Kohlrabi",
+    "varietyName": "Gigante",
+    "scientificName": "Brassica oleracea var. gongylodes",
+    "category": "vegetable",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "Superschmelz-type bulbs that stay crisp and apple-sweet even at softball size. Milder than cabbage, juicier than a turnip — the kohlrabi that converts skeptics.",
+    "notes": "Direct sow or transplant. Does not get woody the way small purple types do if you wait. Fall crops are the sweetest. Leaves cook like kale.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 70
+    },
+    "sowMethod": "both",
+    "frostHardinessC": -8,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
   }
 ]

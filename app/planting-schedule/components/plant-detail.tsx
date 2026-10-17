@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { categoryLabel, sowLabel } from "@/app/planting-schedule/lib/plants";
 import { googleImagesUrl } from "@/app/planting-schedule/lib/search";
 import {
@@ -23,9 +24,10 @@ const TAG_LABELS: Record<string, string> = {
 type Props = {
   item: ScoredPlant;
   onClose: () => void;
+  photos?: ReactNode;
 };
 
-export function PlantDetail({ item, onClose }: Props) {
+export function PlantDetail({ item, onClose, photos }: Props) {
   const { plant, outdoor } = item;
   const unit = useTempUnit();
 
@@ -59,6 +61,7 @@ export function PlantDetail({ item, onClose }: Props) {
         </button>
       </div>
       <div className="flex-1 overflow-y-auto px-6 py-5">
+        {photos}
         <p className="font-serif text-lg leading-relaxed text-[var(--ink)]">
           {plant.flavor}
         </p>

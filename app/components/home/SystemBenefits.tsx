@@ -14,9 +14,7 @@ export function SystemBenefits() {
           A bed that stays. Soil that works.
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-700 sm:text-lg">
-          Structure and biology are two jobs. Concrete holds the line for
-          decades. Living soil — wood, worms, and vermicast — feeds the plants
-          after we leave.
+          All concrete beds are made with high strength concrete and a steel reinforcement grid. Built to last for decades. Living soil comprised of wood, worms, and vermicast provides the biology for just as long.
         </p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16">
@@ -26,16 +24,10 @@ export function SystemBenefits() {
             </h3>
             <ul className="mt-4 space-y-3 text-base leading-relaxed text-gray-700">
               <li>
-                Cast panels, built on site. Cedar cap or a clean concrete rim —
-                not a kit that racks and rots.
+                The Cedar cap makes for a sharp look, or keep it simple and go without.
               </li>
               <li>
-                Install is included. We set the frame level in the yard. We do
-                not ship panels.
-              </li>
-              <li>
-                Heavy enough to stay. A drip run can go in with the frame if you
-                want water at the bed.
+                Install is included or buy the kit and do it yourself.
               </li>
             </ul>
             <Link
