@@ -28,40 +28,6 @@ const BED_STAMPS: Stamp[] = [
   },
 ];
 
-// 0 = slide photo left, 100 = slide photo right. 50 is centered.
-const BED_IMAGE_X = 100;
-const SOIL_IMAGE_X = 100;
-const IMAGE_PAN_RANGE = 0;
-
-function HeroPhoto({
-  src,
-  alt,
-  x,
-  priority = false,
-}: {
-  src: string;
-  alt: string;
-  x: number;
-  priority?: boolean;
-}) {
-  const shift = -((Math.min(100, Math.max(0, x)) / 100) * IMAGE_PAN_RANGE);
-  return (
-    <div
-      className="absolute inset-y-0"
-      style={{ width: `${100 + IMAGE_PAN_RANGE}%`, left: `${shift}%` }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(min-width: 1024px) 70vw, 100vw"
-        className="object-cover"
-        priority={priority}
-      />
-    </div>
-  );
-}
-
 const SOIL_STAMPS: Stamp[] = [
   {
     id: "prep",
@@ -85,36 +51,94 @@ const SOIL_STAMPS: Stamp[] = [
   },
 ];
 
+function HeroPhoto({
+  src,
+  alt,
+  objectPosition = "50% 50%",
+  priority = false,
+  sizes,
+  frame = "full",
+  offsetX = 0,
+}: {
+  src: string;
+  alt: string;
+  objectPosition?: string;
+  priority?: boolean;
+  sizes: string;
+  frame?: "full" | "right";
+  offsetX?: number;
+}) {
+  const isRight = frame === "right";
+  const shiftLeft = !isRight && offsetX < 0;
+  return (
+    <div
+      className={
+        isRight
+          ? "absolute inset-0 lg:left-auto lg:w-[36%]"
+          : shiftLeft
+            ? "absolute inset-0 lg:-left-[200px] lg:w-[calc(100%+200px)]"
+            : "absolute inset-0"
+      }
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className="object-cover"
+        style={{ objectPosition }}
+        priority={priority}
+      />
+    </div>
+  );
+}
+
 function HeroPanel({
   title,
   stamps,
   align,
   href,
+  compact = false,
 }: {
   title: string;
   stamps: Stamp[];
   align: "left" | "right";
   href: string;
+  compact?: boolean;
 }) {
   const [activeId, setActiveId] = useState(stamps[0].id);
   const active = stamps.find((stamp) => stamp.id === activeId) ?? stamps[0];
 
   return (
     <div
-      className={`relative z-10 flex h-full flex-col justify-end px-6 py-8 sm:px-8 lg:py-12 ${
+      className={`relative z-10 flex h-full flex-col justify-end ${
+        compact
+          ? "px-4 py-6 sm:px-5 lg:px-5 lg:py-10"
+          : "px-6 py-8 sm:px-8 lg:py-12"
+      } ${
         align === "left"
-          ? "items-start text-left lg:pr-24"
-          : "items-start text-left lg:items-end lg:pl-24 lg:text-right"
+          ? "items-start text-left lg:pr-10"
+          : "items-start text-left lg:items-end lg:text-right"
       }`}
     >
       <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
         {align === "left" ? "Structure" : "Biology"}
       </p>
-      <h2 className="mt-2 text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
+      <h2
+        className={`mt-2 font-bold tracking-tight text-white drop-shadow-sm ${
+          compact
+            ? "text-3xl sm:text-4xl lg:text-[2.1rem] lg:leading-tight"
+            : "text-4xl sm:text-5xl"
+        }`}
+      >
         {title}
       </h2>
       <p
-        className="mt-4 min-h-[3.5rem] max-w-sm text-sm leading-relaxed text-white/90 sm:text-base"
+        className={`mt-4 text-sm leading-relaxed text-white/90 sm:text-base ${
+          compact
+            ? "min-h-[4.5rem] max-w-[16rem] lg:text-sm"
+            : "min-h-[3.5rem] max-w-sm"
+        }`}
         aria-live="polite"
       >
         {active.line}
@@ -135,8 +159,12 @@ function HeroPanel({
               onClick={() => setActiveId(stamp.id)}
               className={`cursor-pointer font-semibold uppercase tracking-[0.18em] transition ${
                 isActive
-                  ? "text-lg text-white sm:text-xl"
-                  : "text-sm text-white/55 hover:text-white sm:text-base"
+                  ? compact
+                    ? "text-base text-white sm:text-lg"
+                    : "text-lg text-white sm:text-xl"
+                  : compact
+                    ? "text-xs text-white/55 hover:text-white sm:text-sm"
+                    : "text-sm text-white/55 hover:text-white sm:text-base"
               }`}
               aria-pressed={isActive}
             >
@@ -162,31 +190,29 @@ export function SplitServicesHero() {
       style={{ height: "min(900px, calc(100svh - 4rem))" }}
       aria-label="Beds and living soil"
     >
-      <h1 className="sr-only">
-        Raised bed install and living-soil repair
-      </h1>
+      <h1 className="sr-only">Raised bed install and living-soil repair</h1>
 
       <div className="flex h-full flex-col lg:block">
-        <div className="relative min-h-[50%] flex-1 lg:absolute lg:inset-0">
-          <div
-            className="absolute inset-0 lg:[clip-path:polygon(0_0,56%_0,44%_100%,0_100%)]"
-          >
+        <div className="relative min-h-[62%] flex-[7] lg:absolute lg:inset-0 lg:min-h-0 lg:flex-none">
+          <div className="absolute inset-0 lg:[clip-path:polygon(0_0,74%_0,66%_100%,0_100%)]">
             <HeroPhoto
-              src="/images/services-diagram/backyard-hero-vines-cedar.webp"
-              alt="Finished concrete raised bed with a cedar cap in a backyard garden"
-              x={BED_IMAGE_X}
+              src="/images/services-diagram/backyard-hero-cedar-bed-2x1-v2.jpg"
+              alt="Two-panel-long interlocking cast concrete raised bed with recessed panels and a cedar cap"
+              objectPosition="46% 58%"
+              sizes="(min-width: 1024px) 74vw, 100vw"
+              offsetX={-200}
               priority
             />
             <div
-              className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent"
+              className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/15"
               aria-hidden="true"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"
+              className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent"
               aria-hidden="true"
             />
           </div>
-          <div className="relative h-full lg:w-[52%]">
+          <div className="relative h-full lg:w-[64%]">
             <HeroPanel
               title="Beds that stay"
               stamps={BED_STAMPS}
@@ -196,30 +222,31 @@ export function SplitServicesHero() {
           </div>
         </div>
 
-        <div className="relative min-h-[50%] flex-1 lg:absolute lg:inset-0">
-          <div
-            className="absolute inset-0 lg:[clip-path:polygon(56%_0,100%_0,100%_100%,44%_100%)]"
-          >
+        <div className="relative min-h-[38%] flex-[3] lg:absolute lg:inset-0 lg:min-h-0 lg:flex-none">
+          <div className="absolute inset-0 lg:[clip-path:polygon(74%_0,100%_0,100%_100%,66%_100%)]">
             <HeroPhoto
-              src="/images/services-diagram/soil-amend-hero.jpg"
-              alt="Vermicast tea poured onto living garden soil"
-              x={SOIL_IMAGE_X}
+              src="/images/services-diagram/hugel-slice-worms-v4.jpg"
+              alt="Hugelkultur layer stack with split logs, sticks, leaves, compost, soil, and red wiggler worms"
+              objectPosition="42% 55%"
+              sizes="(min-width: 1024px) 36vw, 100vw"
+              frame="right"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-l from-black/65 via-black/25 to-transparent"
+              className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10"
               aria-hidden="true"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"
+              className="absolute inset-0 bg-gradient-to-l from-black/40 via-transparent to-transparent"
               aria-hidden="true"
             />
           </div>
-          <div className="relative ml-auto h-full lg:w-[52%]">
+          <div className="relative ml-auto h-full lg:w-[34%]">
             <HeroPanel
               title="Soil that lives"
               stamps={SOIL_STAMPS}
               align="right"
               href="/soil"
+              compact
             />
           </div>
         </div>
@@ -228,7 +255,7 @@ export function SplitServicesHero() {
           className="pointer-events-none absolute inset-0 z-20 hidden lg:block"
           aria-hidden="true"
         >
-          <div className="absolute inset-0 [clip-path:polygon(55.35%_0,56.65%_0,44.65%_100%,43.35%_100%)] bg-white/80 shadow-[0_0_24px_rgba(0,0,0,0.35)]" />
+          <div className="absolute inset-0 [clip-path:polygon(73.35%_0,74.65%_0,66.65%_100%,65.35%_100%)] bg-white/80 shadow-[0_0_24px_rgba(0,0,0,0.35)]" />
         </div>
       </div>
     </section>

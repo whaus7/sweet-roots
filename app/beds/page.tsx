@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { SystemBenefits } from "@/app/components/home/SystemBenefits";
 
 const IRRIGATION_PRICE = 480;
 
@@ -39,7 +40,8 @@ export default function BedsPage() {
   const total = selected.amount + (irrigation ? IRRIGATION_PRICE : 0);
 
   return (
-    <section
+    <>
+      <section
       className="relative isolate overflow-hidden bg-black text-white"
       style={{ minHeight: "calc(100svh - 4rem)" }}
       aria-label="Raised bed collection"
@@ -174,6 +176,8 @@ export default function BedsPage() {
           </Link>
         </div>
       </div>
-    </section>
+      </section>
+      <SystemBenefits />
+    </>
   );
 }

@@ -13,12 +13,14 @@
     "@googlemaps/markerclusterer": "^2.6.2",
     "@next/third-parties": "^15.5.23",
     "@react-oauth/google": "^0.12.2",
+    "@upstash/redis": "^1.39.0",
     "next": "^15.5.23",
     "nodemailer": "^10.0.16",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-spring": "^10.0.1",
-    "recharts": "^3.1.0"
+    "recharts": "^3.1.0",
+    "twilio": "^6.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

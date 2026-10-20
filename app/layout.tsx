@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { ChatWidget } from "./components/chat/ChatWidget";
 import { UserProvider } from "./contexts/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -36,6 +37,7 @@ export default function RootLayout({
             <Header />
             <main>{children}</main>
             <Footer />
+            <ChatWidget />
           </UserProvider>
         </GoogleOAuthProvider>
       </body>
