@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useId, useState } from "react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -172,6 +173,40 @@ export function ContactForm({
             rows={5}
             className={inputClass}
           />
+        </div>
+
+        <div className="flex items-start gap-2.5">
+          <input
+            type="checkbox"
+            id={`${formId}-sms-consent`}
+            name="smsConsent"
+            className="mt-1 h-4 w-4 rounded border-[#00340c]/30 text-[#00340c] focus:ring-[#d4a017]"
+          />
+          <label
+            htmlFor={`${formId}-sms-consent`}
+            className="text-xs leading-relaxed text-gray-600"
+          >
+            By checking this box and providing your phone number, you agree to
+            receive conversational SMS text messages from JördHaus regarding
+            your inquiry, quotes, and scheduling. Consent is not a condition of
+            purchase. Message frequency varies. Message &amp; data rates may
+            apply. Reply <strong>STOP</strong> to opt out or{" "}
+            <strong>HELP</strong> for help. View our{" "}
+            <Link
+              href="/privacy"
+              className="font-semibold text-[#00340c] underline"
+            >
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/terms"
+              className="font-semibold text-[#00340c] underline"
+            >
+              Terms &amp; Conditions
+            </Link>
+            .
+          </label>
         </div>
 
         {state === "error" && (
