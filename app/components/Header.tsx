@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { CartButton } from "./cart/CartButton";
 import { useUser } from "../contexts/UserContext";
 
-const SERVICES = [
-  { href: "/beds", label: "Raised Beds" },
-  { href: "/soil", label: "Living Soil System" },
+const STORE = [
+  { href: "/store/composting-worms", label: "Composting Worms" },
+  { href: "/store/raised-bed-panels", label: "Raised Bed Panels" },
 ];
 
 const TOOLS = [
@@ -23,18 +24,18 @@ const navLinkClass =
 export function Header() {
   const { user, logout } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isStoreOpen, setIsStoreOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isMobileStoreOpen, setIsMobileStoreOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
-  const servicesRef = useRef<HTMLDivElement>(null);
+  const storeRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onPointer(event: MouseEvent) {
       const target = event.target as Node;
-      if (!servicesRef.current?.contains(target)) {
-        setIsServicesOpen(false);
+      if (!storeRef.current?.contains(target)) {
+        setIsStoreOpen(false);
       }
       if (!toolsRef.current?.contains(target)) {
         setIsToolsOpen(false);
@@ -65,21 +66,21 @@ export function Header() {
             <Link href="/" className={navLinkClass}>
               Home
             </Link>
-            <div ref={servicesRef} className="relative">
+            <div ref={storeRef} className="relative">
               <button
                 type="button"
                 className={`${navLinkClass} inline-flex items-center gap-1`}
-                aria-expanded={isServicesOpen}
+                aria-expanded={isStoreOpen}
                 aria-haspopup="true"
                 onClick={() => {
-                  setIsServicesOpen((open) => !open);
+                  setIsStoreOpen((open) => !open);
                   setIsToolsOpen(false);
                 }}
               >
-                Services
+                Store
                 <svg
                   className={`h-4 w-4 transition-transform ${
-                    isServicesOpen ? "rotate-180" : ""
+                    isStoreOpen ? "rotate-180" : ""
                   }`}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -93,24 +94,21 @@ export function Header() {
                   />
                 </svg>
               </button>
-              {isServicesOpen ? (
-                <div className="absolute left-0 top-full z-50 mt-1 min-w-48 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
-                  {SERVICES.map((service) => (
+              {isStoreOpen ? (
+                <div className="absolute right-0 top-full z-50 mt-1 min-w-52 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+                  {STORE.map((item) => (
                     <Link
-                      key={service.href}
-                      href={service.href}
+                      key={item.href}
+                      href={item.href}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
-                      onClick={() => setIsServicesOpen(false)}
+                      onClick={() => setIsStoreOpen(false)}
                     >
-                      {service.label}
+                      {item.label}
                     </Link>
                   ))}
                 </div>
               ) : null}
             </div>
-            <Link href="/store" className={navLinkClass}>
-              Store
-            </Link>
             <div ref={toolsRef} className="relative">
               <button
                 type="button"
@@ -119,7 +117,7 @@ export function Header() {
                 aria-haspopup="true"
                 onClick={() => {
                   setIsToolsOpen((open) => !open);
-                  setIsServicesOpen(false);
+                  setIsStoreOpen(false);
                 }}
               >
                 Tools
@@ -160,6 +158,7 @@ export function Header() {
             <Link href="/contact" className={navLinkClass}>
               Get in Touch
             </Link>
+            <CartButton />
 
             {user ? (
               <div className="flex items-center space-x-3">
@@ -205,7 +204,8 @@ export function Header() {
             )}
           </nav>
 
-          <div className="md:hidden">
+          <div className="flex items-center gap-1 md:hidden">
+            <CartButton />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 hover:text-green-600 focus:outline-none focus:text-green-600"
@@ -253,13 +253,13 @@ export function Header() {
             <button
               type="button"
               className={`${navLinkClass} flex w-full items-center justify-between text-left`}
-              aria-expanded={isMobileServicesOpen}
-              onClick={() => setIsMobileServicesOpen((open) => !open)}
+              aria-expanded={isMobileStoreOpen}
+              onClick={() => setIsMobileStoreOpen((open) => !open)}
             >
-              Services
+              Store
               <svg
                 className={`h-4 w-4 transition-transform ${
-                  isMobileServicesOpen ? "rotate-180" : ""
+                  isMobileStoreOpen ? "rotate-180" : ""
                 }`}
                 fill="none"
                 viewBox="0 0 24 24"
@@ -273,25 +273,18 @@ export function Header() {
                 />
               </svg>
             </button>
-            {isMobileServicesOpen
-              ? SERVICES.map((service) => (
+            {isMobileStoreOpen
+              ? STORE.map((item) => (
                   <Link
-                    key={service.href}
-                    href={service.href}
+                    key={item.href}
+                    href={item.href}
                     className="text-gray-600 hover:text-green-600 px-6 py-2 rounded-md text-sm font-medium"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {service.label}
+                    {item.label}
                   </Link>
                 ))
               : null}
-            <Link
-              href="/store"
-              className={navLinkClass}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Store
-            </Link>
             <button
               type="button"
               className={`${navLinkClass} flex w-full items-center justify-between text-left`}

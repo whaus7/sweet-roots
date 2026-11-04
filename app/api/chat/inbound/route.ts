@@ -15,23 +15,54 @@ function twiml() {
   );
 }
 
+function inboundUrls(request: Request): string[] {
+  const path = "/api/chat/inbound";
+  const urls = new Set<string>();
+
+  const add = (value: string | null | undefined) => {
+    if (!value) return;
+    try {
+      const url = new URL(value.includes("://") ? value : `https://${value}`);
+      urls.add(`${url.origin}${path}`);
+    } catch {
+      return;
+    }
+  };
+
+  const configured = process.env.CHAT_PUBLIC_URL?.replace(/\/$/, "");
+  if (configured) add(`${configured}${path}`);
+
+  const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
+  const host = forwardedHost || request.headers.get("host");
+  const proto =
+    request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() || "https";
+  if (host) add(`${proto}://${host}${path}`);
+  add(request.url);
+
+  for (const url of [...urls]) {
+    const parsed = new URL(url);
+    parsed.hostname = parsed.hostname.startsWith("www.")
+      ? parsed.hostname.slice(4)
+      : `www.${parsed.hostname}`;
+    urls.add(`${parsed.origin}${path}`);
+  }
+
+  return [...urls];
+}
+
 export async function POST(request: Request) {
   if (!chatConfigured()) {
     return new NextResponse("Chat is not configured", { status: 503 });
   }
 
-  const form = await request.formData();
-  const params: Record<string, string> = {};
-  form.forEach((value, key) => {
-    if (typeof value === "string") params[key] = value;
-  });
+  const raw = await request.text();
+  const params = Object.fromEntries(new URLSearchParams(raw));
 
   const signature = request.headers.get("x-twilio-signature");
-  const url = process.env.CHAT_PUBLIC_URL
-    ? `${process.env.CHAT_PUBLIC_URL.replace(/\/$/, "")}/api/chat/inbound`
-    : request.url;
-
-  if (!validateTwilioRequest(signature, url, params)) {
+  const urls = inboundUrls(request);
+  const valid = urls.some((url) => validateTwilioRequest(signature, url, params));
+  if (!valid) {
+    console.error("[chat] invalid twilio signature", { urls });
     return new NextResponse("Invalid signature", { status: 403 });
   }
 

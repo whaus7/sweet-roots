@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { categoryLabel, sowLabel } from "@/app/planting-schedule/lib/plants";
+import { plantType, plantTypeLabel, sowLabel } from "@/app/planting-schedule/lib/plants";
 import { googleImagesUrl } from "@/app/planting-schedule/lib/search";
 import {
   formatTemp,
@@ -69,7 +69,7 @@ export function PlantDetail({ item, onClose, photos }: Props) {
           {plant.notes}
         </p>
         <dl className="mt-6 grid grid-cols-2 gap-3 text-sm">
-          <Fact label="Type" value={categoryLabel(plant.category)} />
+          <Fact label="Type" value={plantTypeLabel(plantType(plant))} />
           <Fact label="Sow" value={sowLabel(plant.sowMethod)} />
           <Fact
             label="Days to maturity"

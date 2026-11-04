@@ -20,6 +20,7 @@
     "react-dom": "^19.0.0",
     "react-spring": "^10.0.1",
     "recharts": "^3.1.0",
+    "stripe": "^23.0.1",
     "twilio": "^6.2.0"
   },
   "devDependencies": {

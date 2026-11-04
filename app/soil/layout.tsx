@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Living Soil",
   description:
     "Living soil for new beds or a full reset of existing ones, plus optional monthly bed care — JördHaus in Bellevue.",
+  robots: { index: false, follow: false },
 };
 
 export default function SoilLayout({ children }: { children: React.ReactNode }) {

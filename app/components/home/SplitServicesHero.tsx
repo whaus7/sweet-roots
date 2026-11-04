@@ -196,8 +196,8 @@ export function SplitServicesHero() {
         <div className="relative min-h-[62%] flex-[7] lg:absolute lg:inset-0 lg:min-h-0 lg:flex-none">
           <div className="absolute inset-0 lg:[clip-path:polygon(0_0,74%_0,66%_100%,0_100%)]">
             <HeroPhoto
-              src="/images/services-diagram/backyard-hero-cedar-bed-2x1-v2.jpg"
-              alt="Two-panel-long interlocking cast concrete raised bed with recessed panels and a cedar cap"
+              src="/images/services-diagram/backyard-hero-cedar-bed-2x3-4vert.jpg"
+              alt="Two-panel-long interlocking cast concrete raised bed with tall 2x3 panels, four vertical recessed insets per panel, and a cedar cap"
               objectPosition="46% 58%"
               sizes="(min-width: 1024px) 74vw, 100vw"
               offsetX={-200}

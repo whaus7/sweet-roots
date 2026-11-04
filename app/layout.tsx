@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ChatWidget } from "./components/chat/ChatWidget";
+import { CartDrawer } from "./components/cart/CartDrawer";
+import { CartProvider } from "./contexts/CartContext";
 import { UserProvider } from "./contexts/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -34,10 +36,13 @@ export default function RootLayout({
         <GoogleAnalytics gaId="G-GKQ7ZP4C3Q" />
         <GoogleOAuthProvider clientId={googleClientId || ""}>
           <UserProvider>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <ChatWidget />
+            <CartProvider>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+              <CartDrawer />
+              <ChatWidget />
+            </CartProvider>
           </UserProvider>
         </GoogleOAuthProvider>
       </body>

@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { categoryLabel } from "@/app/planting-schedule/lib/plants";
+import {
+  PLANT_TYPES,
+  plantType,
+  plantTypeLabel,
+  type PlantType,
+} from "@/app/planting-schedule/lib/plants";
 import { googleImagesUrl } from "@/app/planting-schedule/lib/search";
 import type { ScoredPlant } from "@/app/planting-schedule/lib/types";
 import { GreenhouseBadge } from "./greenhouse-badge";
@@ -15,7 +20,10 @@ type Props = {
 
 export function PlantList({ items }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = items.find((item) => item.plant.id === selectedId) ?? null;
+  const [type, setType] = useState<PlantType | "all">("all");
+  const visible =
+    type === "all" ? items : items.filter((item) => plantType(item.plant) === type);
+  const selected = visible.find((item) => item.plant.id === selectedId) ?? null;
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -34,14 +42,46 @@ export function PlantList({ items }: Props) {
     );
   }
 
+  const activeLabel =
+    type === "all" ? "these plants" : plantTypeLabel(type).toLowerCase();
+
   return (
     <>
+      <div
+        role="group"
+        aria-label="Plant type"
+        className="mb-5 flex flex-wrap gap-2"
+      >
+        <TypePill
+          pressed={type === "all"}
+          count={items.length}
+          onClick={() => setType("all")}
+        >
+          All
+        </TypePill>
+        {PLANT_TYPES.map((option) => (
+          <TypePill
+            key={option.id}
+            pressed={type === option.id}
+            count={items.filter((item) => plantType(item.plant) === option.id).length}
+            onClick={() => setType(option.id)}
+          >
+            {option.label}
+          </TypePill>
+        ))}
+      </div>
+      {visible.length === 0 ? (
+        <p className="rounded-2xl border border-dashed border-[var(--rule)] px-6 py-16 text-center text-[var(--ink-muted)]">
+          Nothing in {activeLabel} is in range for recent temperatures this month.
+        </p>
+      ) : (
+        <>
       <div className="hidden grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)] gap-6 border-b border-[var(--rule)] px-2 pb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--ink-faint)] md:grid">
         <span>Variety</span>
         <span>Growing months</span>
       </div>
       <ul className="divide-y divide-[var(--rule)]">
-        {items.map((item) => {
+        {visible.map((item) => {
           const active = item.plant.id === selectedId;
           return (
             <li key={item.plant.id}>
@@ -80,7 +120,7 @@ export function PlantList({ items }: Props) {
                     {item.plant.commonName}
                     <span className="text-[var(--ink-faint)]">
                       {" "}
-                      · {categoryLabel(item.plant.category)}
+                      · {plantTypeLabel(plantType(item.plant))}
                     </span>
                   </p>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--ink-muted)]">
@@ -93,11 +133,44 @@ export function PlantList({ items }: Props) {
           );
         })}
       </ul>
+        </>
+      )}
 
       {selected ? (
         <PlantDrawer item={selected} onClose={() => setSelectedId(null)} />
       ) : null}
     </>
+  );
+}
+
+function TypePill({
+  pressed,
+  count,
+  onClick,
+  children,
+}: {
+  pressed: boolean;
+  count: number;
+  onClick: () => void;
+  children: string;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={pressed}
+      onClick={onClick}
+      className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
+        pressed
+          ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]"
+          : "border-[var(--rule)] bg-[var(--paper-raised)] text-[var(--ink-muted)] hover:border-[var(--ink)] hover:text-[var(--ink)]"
+      }`}
+    >
+      {children}
+      <span className={pressed ? "text-white/70" : "text-[var(--ink-faint)]"}>
+        {" "}
+        {count}
+      </span>
+    </button>
   );
 }
 

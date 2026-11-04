@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Raised Beds",
   description:
     "Cast concrete raised beds, built on site in Bellevue. Cedar cap or concrete rim — meant to stay for decades.",
+  robots: { index: false, follow: false },
 };
 
 export default function BedsLayout({ children }: { children: React.ReactNode }) {

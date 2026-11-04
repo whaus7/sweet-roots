@@ -3677,5 +3677,80 @@
         "endOffsetDays": -7
       }
     ]
+  },
+  {
+    "id": "hakurei-turnip",
+    "commonName": "Turnip",
+    "varietyName": "Hakurei",
+    "scientificName": "Brassica rapa var. rapa",
+    "category": "vegetable",
+    "tags": [
+      "asian",
+      "unique"
+    ],
+    "flavor": "The salad turnip. Smooth white globes, crisp and sweet like a mild apple, with none of the sulfur bite of a storage turnip.",
+    "notes": "Also called Tokyo turnip. Direct sow and pull them small, about golf-ball size. The greens are tender enough for a salad. Heat makes the roots woody and sharp.",
+    "daysToMaturity": {
+      "min": 35,
+      "max": 45
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -4,
+    "minSoilTempC": 7,
+    "preferredTempC": {
+      "min": 7,
+      "max": 18
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -21,
+        "endOffsetDays": 21
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -70,
+        "endOffsetDays": -14
+      }
+    ]
+  },
+  {
+    "id": "badger-flame-beet",
+    "commonName": "Beet",
+    "varietyName": "Badger Flame",
+    "scientificName": "Beta vulgaris",
+    "category": "vegetable",
+    "tags": [
+      "unique"
+    ],
+    "flavor": "A long, torch-shaped beet bred to be eaten raw. Sweet and mild, with a citrus-carrot brightness and almost none of the earthy bite of a red storage beet.",
+    "notes": "A University of Wisconsin release. Direct sow. The elongated roots stay tender past baby size, and the greens are edible, but the point is the raw root. Cool weather keeps the flavor clean.",
+    "daysToMaturity": {
+      "min": 50,
+      "max": 60
+    },
+    "sowMethod": "direct",
+    "frostHardinessC": -6,
+    "minSoilTempC": 5,
+    "preferredTempC": {
+      "min": 5,
+      "max": 22
+    },
+    "windows": [
+      {
+        "season": "spring",
+        "relativeTo": "lastFrost",
+        "startOffsetDays": -14,
+        "endOffsetDays": 42
+      },
+      {
+        "season": "fall",
+        "relativeTo": "firstFrost",
+        "startOffsetDays": -84,
+        "endOffsetDays": -7
+      }
+    ]
   }
 ]

@@ -7,8 +7,8 @@ const ACCENT = "#d4a017";
 
 const EXPLORE_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/store", label: "Store" },
+  { href: "/store/composting-worms", label: "Composting Worms" },
+  { href: "/store/raised-bed-panels", label: "Raised Bed Panels" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
