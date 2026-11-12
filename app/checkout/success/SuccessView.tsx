@@ -42,7 +42,7 @@ export function SuccessView({ sessionId }: { sessionId?: string }) {
       </h1>
       <p className="mt-4 text-gray-700">
         Thank you{summary?.name ? `, ${summary.name}` : ""}. We will follow up
-        about Bellevue pickup or delivery
+        about Redmond pickup or delivery
         {summary?.email ? ` at ${summary.email}` : ""}.
       </p>
       {summary?.lines?.length ? (

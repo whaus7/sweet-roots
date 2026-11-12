@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { AddToCartButton } from "@/app/components/cart/AddToCartButton";
+import { QuestionsChatLink } from "@/app/components/chat/QuestionsChatLink";
 import { centsToAmount, PRODUCTS } from "@/app/lib/store/catalog";
 
 const TRAY_PRICE = centsToAmount(PRODUCTS["microgreen-radish"].priceCents);
@@ -144,7 +144,7 @@ export function MicrogreenStorefront() {
             Microgreens
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
-            Cut at the bench in Bellevue. One full tray, grown to order.
+            Cut at the bench in Redmond. One full tray, grown to order.
           </p>
           <p className="catalog-display mt-4 text-3xl">
             {money(TRAY_PRICE)}
@@ -196,12 +196,7 @@ export function MicrogreenStorefront() {
 
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
             <AddToCartButton productId={`microgreen-${selected.id}`} />
-            <Link
-              href="/contact"
-              className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition hover:text-white"
-            >
-              Questions?
-            </Link>
+            <QuestionsChatLink className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition hover:text-white" />
           </div>
         </div>
       </div>

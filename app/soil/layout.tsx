@@ -4,7 +4,7 @@ import { CatalogShell } from "@/app/components/catalog/CatalogShell";
 export const metadata: Metadata = {
   title: "Living Soil",
   description:
-    "Living soil for new beds or a full reset of existing ones, plus optional monthly bed care — JördHaus in Bellevue.",
+    "Living soil for new beds or a full reset of existing ones, plus optional monthly bed care — JördHaus in Redmond.",
   robots: { index: false, follow: false },
 };
 

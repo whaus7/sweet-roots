@@ -125,11 +125,6 @@ export function CartDrawer() {
               <p>Your cart is empty.</p>
               <ul className="space-y-2 font-semibold text-[#00340c]">
                 <li>
-                  <Link href="/" onClick={closeCart} className="hover:text-[#d4a017]">
-                    Microgreen trays
-                  </Link>
-                </li>
-                <li>
                   <Link
                     href="/store/composting-worms"
                     onClick={closeCart}
@@ -140,11 +135,20 @@ export function CartDrawer() {
                 </li>
                 <li>
                   <Link
-                    href="/store/raised-bed-panels"
+                    href="/store/continuous-flow-bins"
                     onClick={closeCart}
                     className="hover:text-[#d4a017]"
                   >
-                    Raised bed panels
+                    Continuous-flow beds
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/store/microgreens"
+                    onClick={closeCart}
+                    className="hover:text-[#d4a017]"
+                  >
+                    Microgreens
                   </Link>
                 </li>
               </ul>
@@ -234,7 +238,7 @@ export function CartDrawer() {
                 </span>
               </div>
               <p className="mt-2 text-xs leading-relaxed text-gray-500">
-                Pickup from the Bellevue farm, or we will follow up about
+                Pickup from the Redmond farm, or we will follow up about
                 delivery after checkout. Cards run through Stripe.
               </p>
               {error ? (

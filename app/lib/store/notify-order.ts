@@ -50,7 +50,7 @@ export async function notifyPaidOrder(order: PaidOrder) {
     "",
     `Total: ${formatUsd(order.amountCents)}`,
     "",
-    "Follow up about Bellevue pickup or delivery.",
+    "Follow up about Redmond pickup or delivery.",
   ];
 
   const host = process.env.SMTP_HOST;

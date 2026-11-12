@@ -149,7 +149,7 @@ export function SoilStore() {
           ) : null}
 
           <p className="mt-6 text-xs leading-relaxed text-white/50">
-            Starting points for a typical bed in Bellevue. The frame is on the{" "}
+            Starting points for a typical bed in Redmond. The frame is on the{" "}
             <Link href="/beds" className="underline hover:text-white">
               raised-bed
             </Link>{" "}

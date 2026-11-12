@@ -6,7 +6,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/microgreen-store",
-        destination: "/store",
+        destination: "/store/microgreens",
+        permanent: true,
+      },
+      {
+        source: "/store/continuous-flow-beds",
+        destination: "/store/continuous-flow-bins",
         permanent: true,
       },
     ];

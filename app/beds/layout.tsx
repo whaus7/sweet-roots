@@ -4,7 +4,7 @@ import { CatalogShell } from "@/app/components/catalog/CatalogShell";
 export const metadata: Metadata = {
   title: "Raised Beds",
   description:
-    "Cast concrete raised beds, built on site in Bellevue. Cedar cap or concrete rim — meant to stay for decades.",
+    "Cast concrete raised beds, built on site in Redmond. Cedar cap or concrete rim — meant to stay for decades.",
   robots: { index: false, follow: false },
 };
 

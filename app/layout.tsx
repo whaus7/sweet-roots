@@ -9,18 +9,33 @@ import { CartProvider } from "./contexts/CartContext";
 import { UserProvider } from "./contexts/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { JsonLd } from "./components/seo/JsonLd";
+import { site } from "./lib/site";
+import { localBusinessJsonLd } from "./lib/seo";
 
 const outfit = Outfit({
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
-    default: "Jordhaus | Raised Beds in Bellevue, WA",
-    template: "%s | Jordhaus",
+    default: `${site.name} | Worms, continuous-flow beds, and microgreens`,
+    template: `%s | ${site.name}`,
   },
-  description:
-    "Raised bed installation in Bellevue, WA. Cast concrete beds and living-soil work, built on site — we don't ship panels.",
+  description: site.description,
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    url: site.url,
+    title: `${site.name} | Worms, continuous-flow beds, and microgreens`,
+    description: site.description,
+    images: [{ url: site.shareImage, alt: site.shareImageAlt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [site.shareImage],
+  },
 };
 
 export default function RootLayout({
@@ -33,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.className} antialiased`}>
+        <JsonLd data={localBusinessJsonLd()} />
         <GoogleAnalytics gaId="G-GKQ7ZP4C3Q" />
         <GoogleOAuthProvider clientId={googleClientId || ""}>
           <UserProvider>

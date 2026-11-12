@@ -159,7 +159,7 @@ export default function BedsPage() {
           ) : null}
 
           <p className="mt-6 text-xs leading-relaxed text-white/50">
-            Starting points for a typical bed in Bellevue. Install is included
+            Starting points for a typical bed in Redmond. Install is included
             — we build on site, we do not ship panels. Hugelkultur and worm work
             live on the{" "}
             <Link href="/soil" className="underline hover:text-white">

@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy and SMS disclosure for JördHaus raised bed installation and living-soil services in Bellevue, WA.",
+    "Privacy Policy and SMS disclosure for JördHaus raised bed installation and living-soil services in Redmond, WA.",
 };
 
 export default function PrivacyPage() {
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
             <p>
               We use the information you provide solely to respond to your
               inquiries, schedule consultations, prepare quotes, and coordinate
-              raised-bed installation or living-soil services in the Bellevue,
+              raised-bed installation or living-soil services in the Redmond,
               WA area.
             </p>
           </section>

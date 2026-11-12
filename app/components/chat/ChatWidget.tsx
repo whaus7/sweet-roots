@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { OPEN_CHAT_EVENT } from "@/app/lib/chat/open";
 import type { ChatMessage, ChatSnapshot, ChatStatus } from "@/app/lib/chat/types";
 
 const POLL_MS = 2500;
+const GREET_AFTER_MS = 25_000;
+const GREET_KEY = "jh-chat-greet";
+const ACTIVE_KEY = "jh-chat-active-at";
 
 function formatTime(at: number) {
   return new Date(at).toLocaleTimeString([], {
@@ -20,7 +25,12 @@ export function ChatWidget() {
   const [draft, setDraft] = useState("");
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+  const openRef = useRef(false);
+  const openedOnContact = useRef(false);
+  const pathname = usePathname();
+  openRef.current = open;
 
   const applySnapshot = useCallback((snap: ChatSnapshot) => {
     setStatus(snap.status);
@@ -55,6 +65,156 @@ export function ChatWidget() {
     const el = listRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages, open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const id = window.requestAnimationFrame(() => {
+      document.getElementById("site-chat-input")?.focus();
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [open]);
+
+  const finishGreeting = useCallback(() => {
+    setShowGreeting(false);
+    try {
+      sessionStorage.setItem(GREET_KEY, "done");
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const openChat = useCallback(() => {
+    setOpen(true);
+    finishGreeting();
+    void refresh();
+  }, [finishGreeting, refresh]);
+
+  useEffect(() => {
+    const ready = status !== "loading" && status !== "unconfigured";
+    if (ready) document.documentElement.dataset.chatReady = "1";
+    else delete document.documentElement.dataset.chatReady;
+    return () => {
+      delete document.documentElement.dataset.chatReady;
+    };
+  }, [status]);
+
+  useEffect(() => {
+    if (pathname !== "/contact") {
+      openedOnContact.current = false;
+      return;
+    }
+    if (status === "loading" || status === "unconfigured") return;
+    if (openedOnContact.current) return;
+    openedOnContact.current = true;
+    setOpen(true);
+    finishGreeting();
+    void refresh();
+  }, [pathname, status, finishGreeting, refresh]);
+
+  useEffect(() => {
+    if (status === "loading" || status === "unconfigured") return;
+    const onOpen = () => {
+      setOpen(true);
+      finishGreeting();
+      void refresh();
+    };
+    window.addEventListener(OPEN_CHAT_EVENT, onOpen);
+    return () => window.removeEventListener(OPEN_CHAT_EVENT, onOpen);
+  }, [status, finishGreeting, refresh]);
+
+  useEffect(() => {
+    if (status === "loading" || status === "unconfigured") return;
+    let greeted = false;
+    try {
+      greeted = sessionStorage.getItem(GREET_KEY) === "done";
+    } catch {
+      return;
+    }
+    if (greeted) return;
+
+    let timer = 0;
+    let cancelled = false;
+    let onVisible: (() => void) | null = null;
+
+    const show = () => {
+      if (cancelled) return;
+      try {
+        if (sessionStorage.getItem(GREET_KEY) === "done") return;
+      } catch {
+        return;
+      }
+      if (openRef.current) {
+        try {
+          sessionStorage.setItem(GREET_KEY, "done");
+        } catch {
+          /* ignore */
+        }
+        return;
+      }
+      if (document.hidden) {
+        if (onVisible) return;
+        onVisible = () => {
+          if (document.hidden) return;
+          document.removeEventListener("visibilitychange", onVisible!);
+          onVisible = null;
+          show();
+        };
+        document.addEventListener("visibilitychange", onVisible);
+        return;
+      }
+      setShowGreeting(true);
+    };
+
+    const arm = () => {
+      let start = 0;
+      try {
+        start = Number(sessionStorage.getItem(ACTIVE_KEY) || "0");
+        if (!start) {
+          start = Date.now();
+          sessionStorage.setItem(ACTIVE_KEY, String(start));
+        }
+      } catch {
+        return;
+      }
+      window.clearTimeout(timer);
+      timer = window.setTimeout(show, Math.max(0, GREET_AFTER_MS - (Date.now() - start)));
+    };
+
+    try {
+      if (sessionStorage.getItem(ACTIVE_KEY)) arm();
+    } catch {
+      /* ignore */
+    }
+
+    let lastMove = 0;
+    const onActivity = () => {
+      if (document.hidden) return;
+      arm();
+    };
+    const onMove = () => {
+      const now = Date.now();
+      if (now - lastMove < 1000) return;
+      lastMove = now;
+      onActivity();
+    };
+
+    window.addEventListener("pointerdown", onActivity, { passive: true });
+    window.addEventListener("keydown", onActivity);
+    window.addEventListener("scroll", onActivity, { passive: true });
+    window.addEventListener("touchstart", onActivity, { passive: true });
+    window.addEventListener("pointermove", onMove, { passive: true });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+      if (onVisible) document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pointerdown", onActivity);
+      window.removeEventListener("keydown", onActivity);
+      window.removeEventListener("scroll", onActivity);
+      window.removeEventListener("touchstart", onActivity);
+      window.removeEventListener("pointermove", onMove);
+    };
+  }, [status]);
 
   async function send(event: FormEvent) {
     event.preventDefault();
@@ -114,6 +274,37 @@ export function ChatWidget() {
 
   return (
     <div className="pointer-events-none fixed right-4 bottom-4 z-50 flex flex-col items-end gap-3 sm:right-6 sm:bottom-6">
+      {showGreeting && !open ? (
+        <div
+          className="pointer-events-auto relative w-[min(18rem,calc(100vw-2rem))] rounded-lg bg-white px-4 py-3 text-[#1c1812] shadow-2xl ring-1 ring-[#00340c]/10"
+          role="status"
+        >
+          <button
+            type="button"
+            onClick={finishGreeting}
+            className="absolute right-2 top-2 rounded p-1 text-[#1c1812]/50 hover:text-[#1c1812]"
+            aria-label="Dismiss greeting"
+          >
+            <span aria-hidden className="block text-base leading-none">
+              ×
+            </span>
+          </button>
+          <p className="pr-5 text-sm font-semibold leading-snug">
+            Questions about worms, beds, or microgreens?
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-[#1c1812]/75">
+            Send a note and it reaches the farm.
+          </p>
+          <button
+            type="button"
+            onClick={openChat}
+            className="mt-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#00340c] underline"
+          >
+            Start a chat
+          </button>
+        </div>
+      ) : null}
+
       {open ? (
         <section
           id="site-chat-panel"
@@ -173,8 +364,7 @@ export function ChatWidget() {
 
             {status === "open" && messages.length === 0 ? (
               <p className="text-sm leading-relaxed text-gray-700">
-                Send a message and it will text the shop. Replies from our phone
-                show up here.
+                Talk to an actual human, text us with any questions or comments!
               </p>
             ) : null}
 
@@ -240,12 +430,15 @@ export function ChatWidget() {
 
       <button
         type="button"
-        className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#00340c] text-white shadow-lg transition hover:bg-[#004d12]"
+        className="pointer-events-auto flex h-16 items-center gap-2.5 rounded-full bg-[#00340c] px-5 text-white shadow-[0_12px_32px_rgba(0,52,12,0.45)] ring-2 ring-[#d4a017] transition hover:bg-[#004d12]"
         aria-expanded={open}
         aria-controls="site-chat-panel"
         onClick={() => {
-          setOpen((was) => !was);
-          if (!open) void refresh();
+          if (open) {
+            setOpen(false);
+            return;
+          }
+          openChat();
         }}
       >
         <span className="sr-only">{open ? "Close chat" : "Open chat"}</span>
@@ -254,21 +447,15 @@ export function ChatWidget() {
             ×
           </span>
         ) : (
-          <svg
-            aria-hidden
-            viewBox="0 0 24 24"
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-          >
+          <svg aria-hidden viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor">
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M7 8h10M7 12h6m8 1a9 9 0 11-3.5-7.1L21 4v5h-5"
+              fillRule="evenodd"
+              d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z"
+              clipRule="evenodd"
             />
           </svg>
         )}
+        <span className="text-sm font-semibold tracking-wide">{open ? "Close" : "Chat"}</span>
       </button>
     </div>
   );

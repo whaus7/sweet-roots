@@ -13,7 +13,7 @@ const PANELS = [
     image: "/images/beds-catalog-cedar.jpg",
     alt: "Cast concrete raised bed with a cedar cap in a backyard garden",
     story:
-      "Interlocking cast concrete panels with a cedar cap. The finish we build most — a kit you can set, or talk through with us in Bellevue.",
+      "Interlocking cast concrete panels with a cedar cap. The finish we build most — a kit you can set, or talk through with us in Redmond.",
   },
   {
     id: "concrete",

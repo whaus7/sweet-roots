@@ -1,3 +1,4 @@
+import { site, streetAddress } from "@/app/lib/site";
 import { ContactFormPanel } from "./ContactFormPanel";
 
 type ContactBandProps = {
@@ -19,25 +20,31 @@ export function ContactBand({
 
           <aside className="space-y-4 lg:pt-2">
             <Title className="text-2xl font-bold text-[#00340c] sm:text-3xl">
-              Contact JördHaus
+              Contact {site.name}
             </Title>
             <p className="text-gray-700">
-              Microgreens, composting worms, and raised bed panels from our
-              Bellevue farm.
+              Questions about our organic farming, worms, continuous-flow beds, or microgreens? Use the form to email or text an actual human with the chat widget!
             </p>
             <ul className="space-y-3 text-base font-semibold text-[#00340c]">
-              <li>Bellevue, WA</li>
               <li>
-                <a href="tel:3124151093" className="hover:text-[#d4a017]">
-                  312-415-1093
+                {site.name}
+                {streetAddress() ? (
+                  <>
+                    <br />
+                    {streetAddress()}
+                  </>
+                ) : null}
+                <br />
+                {site.city}, {site.region}
+              </li>
+              <li>
+                <a href={`tel:${site.phoneTel}`} className="hover:text-[#d4a017]">
+                  {site.phoneDisplay}
                 </a>
               </li>
               <li>
-                <a
-                  href="mailto:contact@jordhaus.com"
-                  className="hover:text-[#d4a017]"
-                >
-                  contact@jordhaus.com
+                <a href={`mailto:${site.email}`} className="hover:text-[#d4a017]">
+                  {site.email}
                 </a>
               </li>
             </ul>

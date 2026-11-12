@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { ContactBand } from "@/app/components/contact/ContactBand";
+import { pageMeta } from "@/app/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Contact",
   description:
-    "Get in touch with JördHaus for raised bed installation and living-soil work in Bellevue, WA.",
-};
+    "Contact Jord Haus Farms in Redmond for composting worms, continuous-flow beds, and microgreens.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

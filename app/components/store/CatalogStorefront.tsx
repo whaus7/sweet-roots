@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { AddToCartButton } from "@/app/components/cart/AddToCartButton";
+import { QuestionsChatLink } from "@/app/components/chat/QuestionsChatLink";
 
 export type CatalogChoice = {
   id: string;
@@ -10,24 +10,27 @@ export type CatalogChoice = {
   caption: string;
   thumb?: string;
   thumbAlt?: string;
+  stack?: readonly [string, string];
 };
 
 type CatalogStorefrontProps = {
   label: string;
   title: string;
   intro: string;
-  price: number;
-  priceNote: string;
+  price?: number;
+  priceNote?: string;
   photoSrc: string;
   photoAlt: string;
+  photoDim?: string;
   overlaySrc?: string;
   overlayAlt?: string;
+  overlayFit?: "cover" | "contain";
   overlayUnoptimized?: boolean;
-  choices: readonly CatalogChoice[];
-  selectedId: string;
-  onSelect: (id: string) => void;
+  choices?: readonly CatalogChoice[];
+  selectedId?: string;
+  onSelect?: (id: string) => void;
   story: string;
-  productId: string;
+  productId?: string;
   choiceColumns?: 2 | 3;
 };
 
@@ -44,10 +47,12 @@ export function CatalogStorefront({
   priceNote,
   photoSrc,
   photoAlt,
+  photoDim = "bg-black/55",
   overlaySrc,
   overlayAlt,
+  overlayFit = "cover",
   overlayUnoptimized = false,
-  choices,
+  choices = [],
   selectedId,
   onSelect,
   story,
@@ -77,7 +82,7 @@ export function CatalogStorefront({
           sizes="(min-width: 1024px) 54vw, 100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/55" aria-hidden />
+        <div className={`absolute inset-0 ${photoDim}`} aria-hidden />
       </div>
 
       <div
@@ -89,18 +94,26 @@ export function CatalogStorefront({
 
       {overlaySrc ? (
         <>
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-[26rem] lg:hidden">
+          <div
+            className={`pointer-events-none absolute inset-x-0 top-0 z-[5] h-[26rem] lg:hidden ${
+              overlayFit === "contain" ? "p-6" : ""
+            }`}
+          >
             <Image
               src={overlaySrc}
               alt={overlayAlt ?? ""}
               fill
               unoptimized={overlayUnoptimized}
               sizes="100vw"
-              className="object-cover"
+              className={overlayFit === "contain" ? "object-contain" : "object-cover"}
             />
           </div>
           <div
-            className="pointer-events-none absolute inset-0 z-[5] hidden lg:block lg:[clip-path:polygon(0_0,54%_0,46%_100%,0_100%)]"
+            className={`pointer-events-none absolute inset-y-0 left-0 z-[5] hidden lg:block ${
+              overlayFit === "contain"
+                ? "w-[46%] p-8 xl:p-12"
+                : "inset-0 lg:[clip-path:polygon(0_0,54%_0,46%_100%,0_100%)]"
+            }`}
             aria-hidden
           >
             <Image
@@ -109,7 +122,11 @@ export function CatalogStorefront({
               fill
               unoptimized={overlayUnoptimized}
               sizes="54vw"
-              className="object-cover"
+              className={
+                overlayFit === "contain"
+                  ? "object-contain object-center"
+                  : "object-cover"
+              }
             />
           </div>
         </>
@@ -126,13 +143,16 @@ export function CatalogStorefront({
           <p className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
             {intro}
           </p>
-          <p className="catalog-display mt-4 text-3xl">
-            {money(price)}
-            <span className="ml-2 font-sans text-sm font-normal tracking-normal text-white/60">
-              {priceNote}
-            </span>
-          </p>
+          {price != null ? (
+            <p className="catalog-display mt-4 text-3xl">
+              {money(price)}
+              <span className="ml-2 font-sans text-sm font-normal tracking-normal text-white/60">
+                {priceNote}
+              </span>
+            </p>
+          ) : null}
 
+          {choices.length > 0 ? (
           <div
             className={`mt-6 grid ${columns} gap-3`}
             role="listbox"
@@ -146,10 +166,25 @@ export function CatalogStorefront({
                   type="button"
                   role="option"
                   aria-selected={active}
-                  onClick={() => onSelect(choice.id)}
+                  onClick={() => onSelect?.(choice.id)}
                   className="text-left"
                 >
-                  {choice.thumb ? (
+                  {choice.stack ? (
+                    <span
+                      className={`flex aspect-[4/3] flex-col items-center justify-center gap-1 border bg-transparent px-3 text-center text-white transition ${
+                        active
+                          ? "border-2 border-white"
+                          : "border-white/80 hover:border-white"
+                      }`}
+                    >
+                      <span className="catalog-display text-4xl leading-none sm:text-5xl">
+                        {choice.stack[0]}
+                      </span>
+                      <span className="text-sm font-semibold uppercase tracking-[0.18em]">
+                        {choice.stack[1]}
+                      </span>
+                    </span>
+                  ) : choice.thumb ? (
                     <span
                       className={`relative flex aspect-square items-center justify-center overflow-hidden border transition ${
                         active
@@ -176,9 +211,11 @@ export function CatalogStorefront({
                       <span className="sr-only">{choice.name}</span>
                     </span>
                   )}
+                  {choice.stack ? null : (
                   <span className="mt-2 block text-lg font-semibold uppercase leading-tight tracking-[0.08em] sm:text-xl">
                     {choice.name}
                   </span>
+                  )}
                   <span className="mt-1 block text-base leading-snug text-white/80">
                     {choice.caption}
                   </span>
@@ -186,17 +223,13 @@ export function CatalogStorefront({
               );
             })}
           </div>
+          ) : null}
 
           <p className="mt-6 text-lg leading-relaxed text-white">{story}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <AddToCartButton productId={productId} />
-            <Link
-              href="/contact"
-              className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition hover:text-white"
-            >
-              Questions?
-            </Link>
+            {productId ? <AddToCartButton productId={productId} /> : null}
+            <QuestionsChatLink className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 transition hover:text-white" />
           </div>
         </div>
       </div>

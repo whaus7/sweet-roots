@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "Terms and Conditions and SMS messaging terms for JördHaus raised bed installation and living-soil services in Bellevue, WA.",
+    "Terms and Conditions and SMS messaging terms for JördHaus raised bed installation and living-soil services in Redmond, WA.",
 };
 
 export default function TermsPage() {
@@ -32,7 +32,7 @@ export default function TermsPage() {
                 www.jordhaus.com
               </Link>{" "}
               and inquiries for raised-bed installation, living-soil services,
-              and related products provided by JördHaus in Bellevue, WA.
+              and related products provided by JördHaus in Redmond, WA.
               On-site installation scopes, pricing, and schedules are confirmed
               in writing prior to work beginning.
             </p>
@@ -131,7 +131,7 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="text-xl font-bold text-[#00340c]">4. Contact</h2>
             <p>
-              JördHaus — Bellevue, WA. Email{" "}
+              JördHaus — Redmond, WA. Email{" "}
               <a
                 href="mailto:contact@jordhaus.com"
                 className="font-semibold text-[#00340c] underline"

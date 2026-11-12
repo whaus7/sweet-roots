@@ -7,15 +7,83 @@ import { CartButton } from "./cart/CartButton";
 import { useUser } from "../contexts/UserContext";
 
 const STORE = [
+  { href: "/store/microgreens", label: "Microgreens" },
+  { href: "/store/continuous-flow-bins", label: "Continuous-flow Beds" },
   { href: "/store/composting-worms", label: "Composting Worms" },
-  { href: "/store/raised-bed-panels", label: "Raised Bed Panels" },
 ];
 
+const EDUCATION_SECTIONS = [
+  {
+    title: "Soil tests",
+    items: [
+      { href: "/details/compaction", label: "Compaction" },
+      { href: "/details/brix", label: "Brix" },
+      { href: "/details/plfa", label: "PLFA" },
+      { href: "/details/npk", label: "NPK" },
+      { href: "/details/microscopy", label: "Microscopy" },
+      { href: "/details/cnratio", label: "Carbon to nitrogen" },
+    ],
+  },
+  {
+    title: "Microgreens",
+    items: [
+      { href: "/store/microgreens#winter-greens", label: "Winter nutrition" },
+    ],
+  },
+  {
+    title: "Continuous-flow bins",
+    items: [
+      {
+        href: "/store/continuous-flow-bins#one-bin",
+        label: "One bin, not a stack",
+      },
+    ],
+  },
+  {
+    title: "Composting worms",
+    items: [
+      {
+        href: "/store/composting-worms#bioreactors",
+        label: "Nature's bioreactors",
+      },
+    ],
+  },
+];
+
+function EducationLinks({
+  onNavigate,
+  linkClassName,
+  titleClassName,
+}: {
+  onNavigate: () => void;
+  linkClassName: string;
+  titleClassName: string;
+}) {
+  return (
+    <>
+      {EDUCATION_SECTIONS.map((section) => (
+        <div key={section.title} role="group" aria-label={section.title}>
+          <p className={titleClassName}>{section.title}</p>
+          {section.items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={linkClassName}
+              onClick={onNavigate}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      ))}
+    </>
+  );
+}
+
 const TOOLS = [
-  { href: "/soil-tests", label: "Soil Tests" },
-  { href: "/brix-logs", label: "Brix Logs" },
-  { href: "/land-survey", label: "Water Flow" },
   { href: "/planting-schedule", label: "Planting" },
+  { href: "/land-survey", label: "Water Flow" },
+  { href: "/brix-logs", label: "Brix Logs" },
 ];
 
 const navLinkClass =
@@ -25,17 +93,32 @@ export function Header() {
   const { user, logout } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
+  const [isEducationOpen, setIsEducationOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [isMobileStoreOpen, setIsMobileStoreOpen] = useState(false);
+  const [isMobileEducationOpen, setIsMobileEducationOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
   const storeRef = useRef<HTMLDivElement>(null);
+  const educationRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
+  const pronunciationRef = useRef<HTMLAudioElement | null>(null);
+
+  function playPronunciation() {
+    const audio =
+      pronunciationRef.current ?? new Audio("/audio/jordhaus.wav");
+    pronunciationRef.current = audio;
+    audio.currentTime = 0;
+    void audio.play();
+  }
 
   useEffect(() => {
     function onPointer(event: MouseEvent) {
       const target = event.target as Node;
       if (!storeRef.current?.contains(target)) {
         setIsStoreOpen(false);
+      }
+      if (!educationRef.current?.contains(target)) {
+        setIsEducationOpen(false);
       }
       if (!toolsRef.current?.contains(target)) {
         setIsToolsOpen(false);
@@ -49,8 +132,8 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
+          <div className="group relative flex items-center pr-8">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/images/jordhaus-logo.svg"
                 alt="JördHaus"
@@ -60,6 +143,25 @@ export function Header() {
                 priority
               />
             </Link>
+            <button
+              type="button"
+              onClick={playPronunciation}
+              aria-label="Hear how to say JördHaus"
+              className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full p-1 text-[#00340c] opacity-0 pointer-events-none transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 hover:bg-green-50 [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                aria-hidden
+              >
+                <path d="M4 10v4h3.5L12 18.5v-13L7.5 10H4z" strokeLinejoin="round" />
+                <path d="M15.5 9.5a3.2 3.2 0 0 1 0 5" strokeLinecap="round" />
+                <path d="M17.8 7.2a6.2 6.2 0 0 1 0 9.6" strokeLinecap="round" />
+              </svg>
+            </button>
           </div>
 
           <nav className="hidden md:flex items-center space-x-2 lg:space-x-4">
@@ -74,6 +176,7 @@ export function Header() {
                 aria-haspopup="true"
                 onClick={() => {
                   setIsStoreOpen((open) => !open);
+                  setIsEducationOpen(false);
                   setIsToolsOpen(false);
                 }}
               >
@@ -109,6 +212,45 @@ export function Header() {
                 </div>
               ) : null}
             </div>
+            <div ref={educationRef} className="relative">
+              <button
+                type="button"
+                className={`${navLinkClass} inline-flex items-center gap-1`}
+                aria-expanded={isEducationOpen}
+                aria-haspopup="true"
+                onClick={() => {
+                  setIsEducationOpen((open) => !open);
+                  setIsStoreOpen(false);
+                  setIsToolsOpen(false);
+                }}
+              >
+                Education
+                <svg
+                  className={`h-4 w-4 transition-transform ${
+                    isEducationOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              {isEducationOpen ? (
+                <div className="absolute left-0 top-full z-50 mt-1 min-w-56 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                  <EducationLinks
+                    onNavigate={() => setIsEducationOpen(false)}
+                    titleClassName="px-4 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-400"
+                    linkClassName="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
+                  />
+                </div>
+              ) : null}
+            </div>
             <div ref={toolsRef} className="relative">
               <button
                 type="button"
@@ -118,6 +260,7 @@ export function Header() {
                 onClick={() => {
                   setIsToolsOpen((open) => !open);
                   setIsStoreOpen(false);
+                  setIsEducationOpen(false);
                 }}
               >
                 Tools
@@ -152,9 +295,6 @@ export function Header() {
                 </div>
               ) : null}
             </div>
-            <Link href="/about" className={navLinkClass}>
-              About Us
-            </Link>
             <Link href="/contact" className={navLinkClass}>
               Get in Touch
             </Link>
@@ -288,6 +428,36 @@ export function Header() {
             <button
               type="button"
               className={`${navLinkClass} flex w-full items-center justify-between text-left`}
+              aria-expanded={isMobileEducationOpen}
+              onClick={() => setIsMobileEducationOpen((open) => !open)}
+            >
+              Education
+              <svg
+                className={`h-4 w-4 transition-transform ${
+                  isMobileEducationOpen ? "rotate-180" : ""
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {isMobileEducationOpen ? (
+              <EducationLinks
+                onNavigate={() => setIsMenuOpen(false)}
+                titleClassName="px-6 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-400"
+                linkClassName="block text-gray-600 hover:text-green-600 px-8 py-2 rounded-md text-sm font-medium"
+              />
+            ) : null}
+            <button
+              type="button"
+              className={`${navLinkClass} flex w-full items-center justify-between text-left`}
               aria-expanded={isMobileToolsOpen}
               onClick={() => setIsMobileToolsOpen((open) => !open)}
             >
@@ -320,13 +490,6 @@ export function Header() {
                   </Link>
                 ))
               : null}
-            <Link
-              href="/about"
-              className={navLinkClass}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About Us
-            </Link>
             <Link
               href="/contact"
               className={navLinkClass}

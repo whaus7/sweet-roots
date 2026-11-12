@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Mountains from "@/app/components/footer/Mountains";
+import { site, streetAddress } from "@/app/lib/site";
 
 const FOOTER_GREEN = "#00340c";
 const ACCENT = "#d4a017";
@@ -8,16 +9,22 @@ const ACCENT = "#d4a017";
 const EXPLORE_LINKS = [
   { href: "/", label: "Home" },
   { href: "/store/composting-worms", label: "Composting Worms" },
-  { href: "/store/raised-bed-panels", label: "Raised Bed Panels" },
+  { href: "/store/continuous-flow-bins", label: "Continuous-flow Beds" },
+  { href: "/store/microgreens", label: "Microgreens" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
+const GUIDE_LINKS = [
+  { href: "/store/composting-worms#bioreactors", label: "Worm bioreactors" },
+  { href: "/store/continuous-flow-bins#one-bin", label: "One bin, not a stack" },
+  { href: "/store/microgreens#winter-greens", label: "Winter microgreens" },
+];
+
 const TOOL_LINKS = [
-  { href: "/soil-tests", label: "Soil Tests" },
-  { href: "/brix-logs", label: "Brix Logs" },
-  { href: "/land-survey", label: "Water Flow" },
   { href: "/planting-schedule", label: "Planting" },
+  { href: "/land-survey", label: "Water Flow" },
+  { href: "/brix-logs", label: "Brix Logs" },
 ];
 
 function FooterLinkColumn({
@@ -128,27 +135,35 @@ export function Footer() {
                 <div className="flex items-start gap-3">
                   <IconPin />
                   <p className="text-base font-semibold leading-relaxed text-white sm:text-lg">
-                    Bellevue, WA
+                    {site.name}
+                    {streetAddress() ? (
+                      <>
+                        <br />
+                        {streetAddress()}
+                      </>
+                    ) : null}
+                    <br />
+                    {site.city}, {site.region}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <IconPhone />
                   <a
-                    href="tel:3124151093"
+                    href={`tel:${site.phoneTel}`}
                     className="text-xl font-bold text-white transition hover:text-[#d4a017] sm:text-2xl"
                   >
-                    312-415-1093
+                    {site.phoneDisplay}
                   </a>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <IconMail />
                   <a
-                    href="mailto:contact@jordhaus.com"
+                    href={`mailto:${site.email}`}
                     className="text-base font-semibold text-white transition hover:text-[#d4a017]"
                   >
-                    contact@jordhaus.com
+                    {site.email}
                   </a>
                 </div>
               </address>
@@ -156,9 +171,10 @@ export function Footer() {
 
             <nav
               aria-label="Footer navigation"
-              className="grid gap-8 sm:grid-cols-2 lg:gap-12"
+              className="grid gap-8 sm:grid-cols-3 lg:gap-10"
             >
               <FooterLinkColumn title="Explore" links={EXPLORE_LINKS} />
+              <FooterLinkColumn title="Guides" links={GUIDE_LINKS} />
               <FooterLinkColumn title="Tools" links={TOOL_LINKS} />
             </nav>
           </div>
@@ -166,7 +182,7 @@ export function Footer() {
 
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-            <p>&copy; {new Date().getFullYear()} JördHaus. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
             <div className="flex gap-6">
               <Link href="/privacy" className="transition hover:text-white">
                 Privacy Policy

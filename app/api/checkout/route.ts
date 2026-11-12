@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       custom_text: {
         submit: {
           message:
-            "We'll confirm Bellevue pickup or delivery after this order.",
+            "We'll confirm Redmond pickup or delivery after this order.",
         },
       },
       metadata: {

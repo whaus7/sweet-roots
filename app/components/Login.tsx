@@ -86,7 +86,7 @@ export default function Login({
           <div className="text-center">
             <div className="text-6xl mb-4">🌱</div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome to Sweet Roots
+              Welcome to Jord Haus Farms
             </h2>
             <p className="text-gray-600 mb-8">
               Sign in to track your Brix readings and monitor your soil health
