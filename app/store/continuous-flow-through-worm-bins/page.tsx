@@ -4,29 +4,31 @@ import { StoreArticle } from "@/app/components/store/StoreArticle";
 import { pageMeta } from "@/app/lib/site";
 import { productJsonLd } from "@/app/lib/seo";
 
+const path = "/store/continuous-flow-through-worm-bins";
+
 const description =
-  "Continuous-flow worm bin kits from Jord Haus Farms. Feed the top, harvest castings from the bottom. Kits ship in the United States.";
+  "Continuous flow-through (CFT) vermicomposting bins from Jord Haus Farms. Feed the top and harvest castings from the bottom. Kits ship in the United States.";
 
 export const metadata = pageMeta({
-  title: "Continuous-flow worm bin kits",
+  title: "Continuous flow-through (CFT) vermicomposting bins",
   description,
-  path: "/store/continuous-flow-bins",
+  path,
 });
 
-export default function ContinuousFlowBedsPage() {
+export default function ContinuousFlowThroughWormBinsPage() {
   return (
     <>
     <JsonLd
       data={productJsonLd({
-        name: "Continuous-flow worm bin",
+        name: "Continuous flow-through (CFT) vermicomposting bins",
         description,
-        path: "/store/continuous-flow-bins",
+        path,
         image: "/images/store/continuous-flow-bin.jpg",
       })}
     />
     <CatalogStorefront
       label="The farm"
-      title="Continuous-flow beds"
+      title="Continuous flow-through (CFT) vermicomposting bins"
       intro="A raised bed that stays in production. Feed the top, harvest castings from the bottom, and keep the surface planted."
       photoSrc="/images/home/market-farm.jpg"
       photoAlt="Overhead view of the market farm, with planted rows and hoop houses"
@@ -37,9 +39,9 @@ export default function ContinuousFlowBedsPage() {
     />
     <StoreArticle
       id="one-bin"
-      kicker="Continuous-flow beds"
+      kicker="Continuous flow-through bins"
       title="One bin, not a stack of boxes"
-      lede="A continuous-flow bin stays in production. Harvest the bottom, add to the top, and leave the worms where they are."
+      lede="A continuous flow-through (CFT) vermicomposting bin stays in production. Harvest the bottom, add to the top, and leave the worms where they are."
       sections={[
         {
           heading: "Less to manage",

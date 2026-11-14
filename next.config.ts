@@ -11,7 +11,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/store/continuous-flow-beds",
-        destination: "/store/continuous-flow-bins",
+        destination: "/store/continuous-flow-through-worm-bins",
+        permanent: true,
+      },
+      {
+        source: "/store/continuous-flow-bins",
+        destination: "/store/continuous-flow-through-worm-bins",
         permanent: true,
       },
     ];

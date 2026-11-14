@@ -293,7 +293,7 @@ export function ChatWidget() {
             Questions about worms, beds, or microgreens?
           </p>
           <p className="mt-1 text-sm leading-relaxed text-[#1c1812]/75">
-            Send a note and it reaches the farm.
+            Text an actual human with any questions or comments!
           </p>
           <button
             type="button"

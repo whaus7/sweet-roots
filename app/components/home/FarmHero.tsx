@@ -10,7 +10,7 @@ const PRODUCTS = [
     alt: "White muslin drawstring bag stamped with the JördHaus logo beside red wigglers in coco coir",
   },
   {
-    href: "/store/continuous-flow-bins",
+    href: "/store/continuous-flow-through-worm-bins",
     title: "Continuous-flow beds",
     line: "A bed that stays in production.",
     image: "/images/store/continuous-flow-bin.jpg",

@@ -9,7 +9,7 @@ const ACCENT = "#d4a017";
 const EXPLORE_LINKS = [
   { href: "/", label: "Home" },
   { href: "/store/composting-worms", label: "Composting Worms" },
-  { href: "/store/continuous-flow-bins", label: "Continuous-flow Beds" },
+  { href: "/store/continuous-flow-through-worm-bins", label: "Continuous-flow Beds" },
   { href: "/store/microgreens", label: "Microgreens" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -17,7 +17,7 @@ const EXPLORE_LINKS = [
 
 const GUIDE_LINKS = [
   { href: "/store/composting-worms#bioreactors", label: "Worm bioreactors" },
-  { href: "/store/continuous-flow-bins#one-bin", label: "One bin, not a stack" },
+  { href: "/store/continuous-flow-through-worm-bins#one-bin", label: "One bin, not a stack" },
   { href: "/store/microgreens#winter-greens", label: "Winter microgreens" },
 ];
 

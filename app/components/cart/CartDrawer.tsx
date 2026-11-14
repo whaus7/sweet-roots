@@ -135,7 +135,7 @@ export function CartDrawer() {
                 </li>
                 <li>
                   <Link
-                    href="/store/continuous-flow-bins"
+                    href="/store/continuous-flow-through-worm-bins"
                     onClick={closeCart}
                     className="hover:text-[#d4a017]"
                   >

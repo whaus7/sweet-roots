@@ -8,7 +8,7 @@ import { useUser } from "../contexts/UserContext";
 
 const STORE = [
   { href: "/store/microgreens", label: "Microgreens" },
-  { href: "/store/continuous-flow-bins", label: "Continuous-flow Beds" },
+  { href: "/store/continuous-flow-through-worm-bins", label: "Continuous-flow Beds" },
   { href: "/store/composting-worms", label: "Composting Worms" },
 ];
 
@@ -34,7 +34,7 @@ const EDUCATION_SECTIONS = [
     title: "Continuous-flow bins",
     items: [
       {
-        href: "/store/continuous-flow-bins#one-bin",
+        href: "/store/continuous-flow-through-worm-bins#one-bin",
         label: "One bin, not a stack",
       },
     ],
