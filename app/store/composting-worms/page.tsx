@@ -23,7 +23,7 @@ export default function CompostingWormsPage() {
           description,
           path: "/store/composting-worms",
           image: "/images/worms/red-wigglers.webp",
-          lowPrice: "19.95",
+          lowPrice: "2.00",
           highPrice: "34.95",
           shipsInUs: true,
         })}

@@ -85,7 +85,7 @@ export const PRODUCTS = {
     name: "Composting worms, 100 count",
     description:
       "A starter herd of European red wigglers for a bin, raised bed, or small compost pile.",
-    priceCents: 1995,
+    priceCents: 200,
     image: "/images/worms/red-wigglers.webp",
     href: "/store/composting-worms",
     category: "worms",

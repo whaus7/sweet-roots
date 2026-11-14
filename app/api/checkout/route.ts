@@ -36,26 +36,17 @@ export async function POST(request: Request) {
     const origin = getSiteUrl(request);
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
+      ui_mode: "hosted_page",
       mode: "payment",
+      billing_address_collection: "auto",
+      phone_number_collection: { enabled: false },
+      automatic_tax: { enabled: false },
+      allow_promotion_codes: false,
+      submit_type: "auto",
+      integration_identifier: "hosted_web_0001",
+      origin_context: "web",
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout/cancel`,
-      billing_address_collection: "required",
-      phone_number_collection: { enabled: true },
-      shipping_address_collection: { allowed_countries: ["US"] },
-      allow_promotion_codes: true,
-      customer_creation: "if_required",
-      custom_text: {
-        submit: {
-          message:
-            "We'll confirm Redmond pickup or delivery after this order.",
-        },
-      },
-      metadata: {
-        source: "jordhaus-web",
-        skus: items
-          .map((line) => `${PRODUCTS[line.productId].sku}x${line.quantity}`)
-          .join(","),
-      },
       line_items: items.map((line) => {
         const product = PRODUCTS[line.productId];
         const image = productImageUrl(origin, product.image);

@@ -54,15 +54,26 @@ function EducationLinks({
   onNavigate,
   linkClassName,
   titleClassName,
+  layout = "stack",
 }: {
   onNavigate: () => void;
   linkClassName: string;
   titleClassName: string;
+  layout?: "row" | "stack";
 }) {
   return (
-    <>
+    <div className={layout === "row" ? "flex items-start" : undefined}>
       {EDUCATION_SECTIONS.map((section) => (
-        <div key={section.title} role="group" aria-label={section.title}>
+        <div
+          key={section.title}
+          role="group"
+          aria-label={section.title}
+          className={
+            layout === "row"
+              ? "min-w-44 border-l border-gray-100 px-1 first:border-l-0"
+              : undefined
+          }
+        >
           <p className={titleClassName}>{section.title}</p>
           {section.items.map((item) => (
             <Link
@@ -76,14 +87,13 @@ function EducationLinks({
           ))}
         </div>
       ))}
-    </>
+    </div>
   );
 }
 
 const TOOLS = [
-  { href: "/planting-schedule", label: "Planting" },
+  { href: "/planting-schedule", label: "Planting Schedule" },
   { href: "/land-survey", label: "Water Flow" },
-  { href: "/brix-logs", label: "Brix Logs" },
 ];
 
 const navLinkClass =
@@ -102,6 +112,30 @@ export function Header() {
   const educationRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
   const pronunciationRef = useRef<HTMLAudioElement | null>(null);
+  const closeMenuTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function clearCloseMenuTimer() {
+    if (closeMenuTimer.current) {
+      clearTimeout(closeMenuTimer.current);
+      closeMenuTimer.current = null;
+    }
+  }
+
+  function showDesktopMenu(menu: "store" | "education" | "tools") {
+    clearCloseMenuTimer();
+    setIsStoreOpen(menu === "store");
+    setIsEducationOpen(menu === "education");
+    setIsToolsOpen(menu === "tools");
+  }
+
+  function scheduleCloseDesktopMenu(menu: "store" | "education" | "tools") {
+    clearCloseMenuTimer();
+    closeMenuTimer.current = setTimeout(() => {
+      if (menu === "store") setIsStoreOpen(false);
+      if (menu === "education") setIsEducationOpen(false);
+      if (menu === "tools") setIsToolsOpen(false);
+    }, 140);
+  }
 
   function playPronunciation() {
     const audio =
@@ -125,7 +159,10 @@ export function Header() {
       }
     }
     window.addEventListener("mousedown", onPointer);
-    return () => window.removeEventListener("mousedown", onPointer);
+    return () => {
+      window.removeEventListener("mousedown", onPointer);
+      clearCloseMenuTimer();
+    };
   }, []);
 
   return (
@@ -168,17 +205,23 @@ export function Header() {
             <Link href="/" className={navLinkClass}>
               Home
             </Link>
-            <div ref={storeRef} className="relative">
+            <div
+              ref={storeRef}
+              className="relative"
+              onMouseEnter={() => showDesktopMenu("store")}
+              onMouseLeave={() => scheduleCloseDesktopMenu("store")}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                  setIsStoreOpen(false);
+                }
+              }}
+            >
               <button
                 type="button"
                 className={`${navLinkClass} inline-flex items-center gap-1`}
                 aria-expanded={isStoreOpen}
                 aria-haspopup="true"
-                onClick={() => {
-                  setIsStoreOpen((open) => !open);
-                  setIsEducationOpen(false);
-                  setIsToolsOpen(false);
-                }}
+                onFocus={() => showDesktopMenu("store")}
               >
                 Store
                 <svg
@@ -198,31 +241,39 @@ export function Header() {
                 </svg>
               </button>
               {isStoreOpen ? (
-                <div className="absolute right-0 top-full z-50 mt-1 min-w-52 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
-                  {STORE.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
-                      onClick={() => setIsStoreOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                <div className="absolute right-0 top-full z-50 pt-1">
+                  <div className="min-w-52 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+                    {STORE.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
+                        onClick={() => setIsStoreOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
-            <div ref={educationRef} className="relative">
+            <div
+              ref={educationRef}
+              className="relative"
+              onMouseEnter={() => showDesktopMenu("education")}
+              onMouseLeave={() => scheduleCloseDesktopMenu("education")}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                  setIsEducationOpen(false);
+                }
+              }}
+            >
               <button
                 type="button"
                 className={`${navLinkClass} inline-flex items-center gap-1`}
                 aria-expanded={isEducationOpen}
                 aria-haspopup="true"
-                onClick={() => {
-                  setIsEducationOpen((open) => !open);
-                  setIsStoreOpen(false);
-                  setIsToolsOpen(false);
-                }}
+                onFocus={() => showDesktopMenu("education")}
               >
                 Education
                 <svg
@@ -242,28 +293,37 @@ export function Header() {
                 </svg>
               </button>
               {isEducationOpen ? (
-                <div className="absolute left-0 top-full z-50 mt-1 min-w-56 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
-                  <EducationLinks
-                    onNavigate={() => setIsEducationOpen(false)}
-                    titleClassName="px-4 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-400"
-                    linkClassName="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
-                  />
+                <div className="absolute left-1/2 top-full z-50 w-max -translate-x-1/2 pt-1">
+                  <div className="rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                    <EducationLinks
+                      layout="row"
+                      onNavigate={() => setIsEducationOpen(false)}
+                      titleClassName="whitespace-nowrap px-4 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-400"
+                      linkClassName="block whitespace-nowrap px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
+                    />
+                  </div>
                 </div>
               ) : null}
             </div>
-            <div ref={toolsRef} className="relative">
+            <div
+              ref={toolsRef}
+              className="relative"
+              onMouseEnter={() => showDesktopMenu("tools")}
+              onMouseLeave={() => scheduleCloseDesktopMenu("tools")}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                  setIsToolsOpen(false);
+                }
+              }}
+            >
               <button
                 type="button"
                 className={`${navLinkClass} inline-flex items-center gap-1`}
                 aria-expanded={isToolsOpen}
                 aria-haspopup="true"
-                onClick={() => {
-                  setIsToolsOpen((open) => !open);
-                  setIsStoreOpen(false);
-                  setIsEducationOpen(false);
-                }}
+                onFocus={() => showDesktopMenu("tools")}
               >
-                Tools
+                Farm & Garden Apps
                 <svg
                   className={`h-4 w-4 transition-transform ${
                     isToolsOpen ? "rotate-180" : ""
@@ -281,17 +341,19 @@ export function Header() {
                 </svg>
               </button>
               {isToolsOpen ? (
-                <div className="absolute left-0 top-full z-50 mt-1 min-w-44 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
-                  {TOOLS.map((tool) => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
-                      onClick={() => setIsToolsOpen(false)}
-                    >
-                      {tool.label}
-                    </Link>
-                  ))}
+                <div className="absolute left-0 top-full z-50 pt-1">
+                  <div className="min-w-52 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+                    {TOOLS.map((tool) => (
+                      <Link
+                        key={tool.href}
+                        href={tool.href}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700"
+                        onClick={() => setIsToolsOpen(false)}
+                      >
+                        {tool.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -461,7 +523,7 @@ export function Header() {
               aria-expanded={isMobileToolsOpen}
               onClick={() => setIsMobileToolsOpen((open) => !open)}
             >
-              Tools
+              Farm & Garden Apps
               <svg
                 className={`h-4 w-4 transition-transform ${
                   isMobileToolsOpen ? "rotate-180" : ""

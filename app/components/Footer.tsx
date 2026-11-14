@@ -22,9 +22,8 @@ const GUIDE_LINKS = [
 ];
 
 const TOOL_LINKS = [
-  { href: "/planting-schedule", label: "Planting" },
+  { href: "/planting-schedule", label: "Planting Schedule" },
   { href: "/land-survey", label: "Water Flow" },
-  { href: "/brix-logs", label: "Brix Logs" },
 ];
 
 function FooterLinkColumn({
@@ -175,7 +174,7 @@ export function Footer() {
             >
               <FooterLinkColumn title="Explore" links={EXPLORE_LINKS} />
               <FooterLinkColumn title="Guides" links={GUIDE_LINKS} />
-              <FooterLinkColumn title="Tools" links={TOOL_LINKS} />
+              <FooterLinkColumn title="Farm & Garden Apps" links={TOOL_LINKS} />
             </nav>
           </div>
         </div>
