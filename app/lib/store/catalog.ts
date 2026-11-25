@@ -85,7 +85,7 @@ export const PRODUCTS = {
     name: "Composting worms, 100 count",
     description:
       "A starter herd of European red wigglers for a bin, raised bed, or small compost pile.",
-    priceCents: 200,
+    priceCents: 1995,
     image: "/images/worms/red-wigglers.webp",
     href: "/store/composting-worms",
     category: "worms",
@@ -130,6 +130,19 @@ export const PRODUCTS = {
 } as const satisfies Record<string, Product>;
 
 export type ProductId = keyof typeof PRODUCTS;
+
+/** Flat US shipping for a checkout that includes live worms. */
+export const WORM_SHIPPING_CENTS = 600;
+
+export function cartIncludesWorms(lines: CartLine[]) {
+  return lines.some((line) => PRODUCTS[line.productId].category === "worms");
+}
+
+/** Stripe Tax category. Grocery food for trays; tangible goods for worms and panels. */
+export function productTaxCode(category: ProductCategory) {
+  if (category === "microgreens") return "txcd_40040000";
+  return "txcd_99999999";
+}
 
 export type CartLine = {
   productId: ProductId;

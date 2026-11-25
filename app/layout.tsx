@@ -20,7 +20,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Worms, continuous-flow beds, and microgreens`,
+    default: `${site.name} | CSA produce, microgreens, worms, and flow-through bins`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: site.name,
     url: site.url,
-    title: `${site.name} | Worms, continuous-flow beds, and microgreens`,
+    title: `${site.name} | CSA produce, microgreens, worms, and flow-through bins`,
     description: site.description,
     images: [{ url: site.shareImage, alt: site.shareImageAlt }],
   },

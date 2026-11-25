@@ -3,6 +3,7 @@ import { site } from "@/app/lib/site";
 
 const PATHS = [
   "/",
+  "/csa",
   "/store/composting-worms",
   "/store/continuous-flow-through-worm-bins",
   "/store/microgreens",

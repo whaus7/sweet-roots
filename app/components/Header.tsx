@@ -7,12 +7,17 @@ import { CartButton } from "./cart/CartButton";
 import { useUser } from "../contexts/UserContext";
 
 const STORE = [
+  { href: "/csa", label: "CSA Produce" },
   { href: "/store/microgreens", label: "Microgreens" },
   { href: "/store/continuous-flow-through-worm-bins", label: "Continuous-flow Beds" },
   { href: "/store/composting-worms", label: "Composting Worms" },
 ];
 
 const EDUCATION_SECTIONS = [
+  {
+    title: "CSA",
+    items: [{ href: "/csa#how-it-works", label: "How a share works" }],
+  },
   {
     title: "Soil tests",
     items: [
@@ -370,7 +375,7 @@ export function Header() {
                       src={user.avatarUrl}
                       alt={
                         user.name === "William Hausman"
-                          ? "Sweet Roots Farm"
+                          ? "Jord Haus Farms"
                           : user.name
                       }
                       width={32}
@@ -381,14 +386,14 @@ export function Header() {
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                       <span className="text-green-600 text-sm font-medium">
                         {user.name === "William Hausman"
-                          ? "Sweet Roots Farm"
+                          ? "JH"
                           : user.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                   <span className="text-sm text-gray-700 hidden lg:block">
                     {user.name === "William Hausman"
-                      ? "Sweet Roots Farm"
+                      ? "Jord Haus Farms"
                       : user.name}
                   </span>
                 </div>

@@ -1,4 +1,5 @@
-import { site, streetAddress } from "@/app/lib/site";
+import { GooglePlaceLinks } from "@/app/components/google/GooglePlaceLinks";
+import { cityLine, site, streetAddress } from "@/app/lib/site";
 import { ContactFormPanel } from "./ContactFormPanel";
 
 type ContactBandProps = {
@@ -23,7 +24,9 @@ export function ContactBand({
               Contact {site.name}
             </Title>
             <p className="text-gray-700">
-              Questions about our organic farming, worms, continuous-flow beds, or microgreens? Use the form to email or text an actual human with the chat widget!
+              Questions about CSA produce, microgreens, composting worms, or
+              continuous-flow beds? Use the form, or text an actual human with
+              the chat widget.
             </p>
             <ul className="space-y-3 text-base font-semibold text-[#00340c]">
               <li>
@@ -35,8 +38,9 @@ export function ContactBand({
                   </>
                 ) : null}
                 <br />
-                {site.city}, {site.region}
+                {cityLine()}
               </li>
+              <li>{site.hoursDisplay}</li>
               <li>
                 <a href={`tel:${site.phoneTel}`} className="hover:text-[#d4a017]">
                   {site.phoneDisplay}
@@ -48,6 +52,7 @@ export function ContactBand({
                 </a>
               </li>
             </ul>
+            <GooglePlaceLinks />
           </aside>
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function TermsPage() {
           Terms &amp; Conditions
         </h1>
         <p className="mt-2 text-sm text-gray-500">
-          Last updated: October 25, 2026
+          Last updated: November 25, 2026
         </p>
 
         <div className="mt-8 space-y-6 text-base leading-relaxed text-gray-700">
@@ -128,8 +128,30 @@ export default function TermsPage() {
             </p>
           </section>
 
+          <section id="returns" className="space-y-3">
+            <h2 className="text-xl font-bold text-[#00340c]">4. Returns</h2>
+            <p>
+              If there is any issue with an order, we refund it in full. No
+              questions asked. Email{" "}
+              <a
+                href="mailto:contact@jordhaus.com"
+                className="font-semibold text-[#00340c] underline"
+              >
+                contact@jordhaus.com
+              </a>{" "}
+              or call{" "}
+              <a
+                href="tel:3124151093"
+                className="font-semibold text-[#00340c] underline"
+              >
+                312-415-1093
+              </a>
+              . There is no fee and no deadline.
+            </p>
+          </section>
+
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-[#00340c]">4. Contact</h2>
+            <h2 className="text-xl font-bold text-[#00340c]">5. Contact</h2>
             <p>
               JördHaus — Redmond, WA. Email{" "}
               <a

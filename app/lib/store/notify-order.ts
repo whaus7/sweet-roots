@@ -8,6 +8,9 @@ export type PaidOrder = {
   name?: string;
   phone?: string;
   amountCents: number;
+  shippingCents?: number;
+  taxCents?: number;
+  shipTo?: string;
   lines: { name: string; quantity: number; amountCents: number }[];
   paymentStatus: string;
 };
@@ -48,9 +51,13 @@ export async function notifyPaidOrder(order: PaidOrder) {
         `- ${line.quantity} × ${line.name} (${formatUsd(line.amountCents)})`,
     ),
     "",
+    `Shipping: ${formatUsd(order.shippingCents ?? 0)}`,
+    `Sales tax: ${formatUsd(order.taxCents ?? 0)}`,
     `Total: ${formatUsd(order.amountCents)}`,
     "",
-    "Follow up about Redmond pickup or delivery.",
+    order.shipTo
+      ? `Ship worms to:\n${order.shipTo}\n\nMicrogreens are pickup at the Redmond farm.`
+      : "Pickup at the Redmond farm. This order has no ship-to address.",
   ];
 
   const host = process.env.SMTP_HOST;

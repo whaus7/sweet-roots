@@ -33,7 +33,7 @@ export function WormsStorefront() {
     <CatalogStorefront
       label="The farm"
       title="Composting worms"
-      intro="Live Eisenia fetida — European red wigglers for composting, vermicast, and living soil."
+      intro="Live Eisenia fetida, European red wigglers for composting, vermicast, and living soil."
       price={centsToAmount(PRODUCTS[selected.productId].priceCents)}
       priceNote={selected.name}
       photoSrc="/images/worms/red-wigglers.webp"

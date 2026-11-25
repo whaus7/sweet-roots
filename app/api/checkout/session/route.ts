@@ -31,7 +31,7 @@ export async function GET(request: Request) {
       session.line_items?.data.map((item) => ({
         name: item.description || "Item",
         quantity: item.quantity ?? 1,
-        amount: formatUsd(item.amount_total ?? 0),
+        amount: formatUsd(item.amount_subtotal ?? 0),
       })) ?? [];
 
     return NextResponse.json({
@@ -41,6 +41,8 @@ export async function GET(request: Request) {
       email: session.customer_details?.email ?? session.customer_email,
       name: session.customer_details?.name,
       amount: formatUsd(session.amount_total ?? 0),
+      shipping: formatUsd(session.total_details?.amount_shipping ?? 0),
+      tax: formatUsd(session.total_details?.amount_tax ?? 0),
       lines,
     });
   } catch (error) {

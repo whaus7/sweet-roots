@@ -238,8 +238,9 @@ export function CartDrawer() {
                 </span>
               </div>
               <p className="mt-2 text-xs leading-relaxed text-gray-500">
-                Pickup from the Redmond farm, or we will follow up about
-                delivery after checkout. Cards run through Stripe.
+                Worm orders add $6 US shipping at checkout. Microgreens are
+                pickup at the Redmond farm. Sales tax is added on the payment
+                page.
               </p>
               {error ? (
                 <p className="mt-3 text-sm text-red-700" role="alert">

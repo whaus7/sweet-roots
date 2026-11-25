@@ -51,18 +51,36 @@ export async function POST(request: Request) {
       expand: ["line_items"],
     });
 
+    const address = full.collected_information?.shipping_details?.address;
+    const shipTo = address
+      ? [
+          full.collected_information?.shipping_details?.name,
+          address.line1,
+          address.line2,
+          [address.city, address.state, address.postal_code]
+            .filter(Boolean)
+            .join(", "),
+          address.country,
+        ]
+          .filter(Boolean)
+          .join("\n")
+      : undefined;
+
     await notifyPaidOrder({
       sessionId: full.id,
       email: full.customer_details?.email ?? full.customer_email ?? undefined,
       name: full.customer_details?.name ?? undefined,
       phone: full.customer_details?.phone ?? undefined,
       amountCents: full.amount_total ?? 0,
+      shippingCents: full.total_details?.amount_shipping ?? 0,
+      taxCents: full.total_details?.amount_tax ?? 0,
+      shipTo,
       paymentStatus: full.payment_status,
       lines:
         full.line_items?.data.map((item) => ({
           name: item.description || "Item",
           quantity: item.quantity ?? 1,
-          amountCents: item.amount_total ?? 0,
+          amountCents: item.amount_subtotal ?? 0,
         })) ?? [],
     });
   } catch (error) {

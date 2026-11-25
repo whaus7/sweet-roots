@@ -82,9 +82,10 @@ export function ContactForm({
   if (state === "success") {
     return (
       <div className="rounded-lg border border-green-200 bg-green-50 p-6 text-[#00340c]">
-        <p className="font-semibold">Thank you — we got your message.</p>
+        <p className="font-semibold">Thank you. We got your message.</p>
         <p className="mt-2 text-sm">
-          We will be in touch shortly about your raised beds and soil work.
+          We will be in touch shortly about the farm, CSA, worms, beds, or
+          microgreens.
         </p>
       </div>
     );

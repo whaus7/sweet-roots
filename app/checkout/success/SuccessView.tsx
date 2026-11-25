@@ -9,6 +9,8 @@ type OrderSummary = {
   email?: string | null;
   name?: string | null;
   amount?: string;
+  shipping?: string;
+  tax?: string;
   lines?: { name: string; quantity: number; amount: string }[];
 };
 
@@ -41,9 +43,9 @@ export function SuccessView({ sessionId }: { sessionId?: string }) {
         {summary?.paid === false ? "Payment still processing" : "Order received"}
       </h1>
       <p className="mt-4 text-gray-700">
-        Thank you{summary?.name ? `, ${summary.name}` : ""}. We will follow up
-        about Redmond pickup or delivery
-        {summary?.email ? ` at ${summary.email}` : ""}.
+        Thank you{summary?.name ? `, ${summary.name}` : ""}. Worms ship to the
+        address from checkout. Microgreens are pickup at the Redmond farm.
+        {summary?.email ? `A receipt goes to ${summary.email}.` : ""}
       </p>
       {summary?.lines?.length ? (
         <ul className="mt-6 space-y-2 border-t border-[#00340c]/10 pt-4 text-sm text-[#00340c]">
@@ -55,6 +57,18 @@ export function SuccessView({ sessionId }: { sessionId?: string }) {
               <span>{line.amount}</span>
             </li>
           ))}
+          {summary.shipping && summary.shipping !== "$0" ? (
+            <li className="flex justify-between gap-4">
+              <span>US shipping</span>
+              <span>{summary.shipping}</span>
+            </li>
+          ) : null}
+          {summary.tax && summary.tax !== "$0" ? (
+            <li className="flex justify-between gap-4">
+              <span>Sales tax</span>
+              <span>{summary.tax}</span>
+            </li>
+          ) : null}
           {summary.amount ? (
             <li className="flex justify-between gap-4 border-t border-[#00340c]/10 pt-2 font-semibold">
               <span>Total</span>

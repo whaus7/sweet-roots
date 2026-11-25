@@ -1,6 +1,8 @@
 import { MicrogreenStorefront } from "@/app/components/home/MicrogreenStorefront";
 import { JsonLd } from "@/app/components/seo/JsonLd";
 import { StoreArticle } from "@/app/components/store/StoreArticle";
+import { StoreFaq } from "@/app/components/store/StoreFaq";
+import { MICROGREEN_FAQS } from "@/app/lib/faqs";
 import { pageMeta } from "@/app/lib/site";
 import { productJsonLd } from "@/app/lib/seo";
 
@@ -48,10 +50,12 @@ export default function MicrogreensPage() {
             heading: "Cut the day you eat it",
             paragraphs: [
               "We sow after you order and cut the tray at the bench when it is ready. Pickup is at the farm. We do not ship trays, because they are at their best the day they are cut.",
+              "If there is any issue with the order, we refund it in full. No questions asked.",
             ],
           },
         ]}
       />
+      <StoreFaq faqs={MICROGREEN_FAQS} heading="Microgreen questions" />
     </>
   );
 }

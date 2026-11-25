@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import Mountains from "@/app/components/footer/Mountains";
-import { site, streetAddress } from "@/app/lib/site";
+import { cityLine, site, streetAddress } from "@/app/lib/site";
 
 const FOOTER_GREEN = "#00340c";
 const ACCENT = "#d4a017";
 
 const EXPLORE_LINKS = [
   { href: "/", label: "Home" },
+  { href: "/csa", label: "CSA Produce" },
   { href: "/store/composting-worms", label: "Composting Worms" },
   { href: "/store/continuous-flow-through-worm-bins", label: "Continuous-flow Beds" },
   { href: "/store/microgreens", label: "Microgreens" },
@@ -16,6 +17,7 @@ const EXPLORE_LINKS = [
 ];
 
 const GUIDE_LINKS = [
+  { href: "/csa#how-it-works", label: "How the CSA works" },
   { href: "/store/composting-worms#bioreactors", label: "Worm bioreactors" },
   { href: "/store/continuous-flow-through-worm-bins#one-bin", label: "One bin, not a stack" },
   { href: "/store/microgreens#winter-greens", label: "Winter microgreens" },
@@ -142,7 +144,9 @@ export function Footer() {
                       </>
                     ) : null}
                     <br />
-                    {site.city}, {site.region}
+                    {cityLine()}
+                    <br />
+                    {site.hoursDisplay}
                   </p>
                 </div>
 
@@ -165,6 +169,16 @@ export function Footer() {
                     {site.email}
                   </a>
                 </div>
+                <p>
+                  <a
+                    href={site.mapsUrl}
+                    className="text-base font-semibold text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#d4a017] hover:decoration-[#d4a017]"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Find us on Google
+                  </a>
+                </p>
               </address>
             </div>
 
