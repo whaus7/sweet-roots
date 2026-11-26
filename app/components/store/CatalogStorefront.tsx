@@ -22,6 +22,7 @@ type CatalogStorefrontProps = {
   photoSrc: string;
   photoAlt: string;
   photoDim?: string;
+  photoPosition?: string;
   overlaySrc?: string;
   overlayAlt?: string;
   overlayFit?: "cover" | "contain";
@@ -48,6 +49,7 @@ export function CatalogStorefront({
   photoSrc,
   photoAlt,
   photoDim = "bg-black/55",
+  photoPosition = "object-center",
   overlaySrc,
   overlayAlt,
   overlayFit = "cover",
@@ -80,7 +82,7 @@ export function CatalogStorefront({
           fill
           priority
           sizes="(min-width: 1024px) 54vw, 100vw"
-          className="object-cover object-center"
+          className={`object-cover ${photoPosition}`}
         />
         <div className={`absolute inset-0 ${photoDim}`} aria-hidden />
       </div>

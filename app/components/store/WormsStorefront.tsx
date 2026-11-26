@@ -36,8 +36,9 @@ export function WormsStorefront() {
       intro="Live Eisenia fetida, European red wigglers for composting, vermicast, and living soil."
       price={centsToAmount(PRODUCTS[selected.productId].priceCents)}
       priceNote={selected.name}
-      photoSrc="/images/worms/red-wigglers.webp"
-      photoAlt="Close view of dark living soil"
+      photoSrc="/images/worms/soil-sprout-tall.jpg"
+      photoAlt="A young seedling rising from dark crumbly soil"
+      photoPosition="object-center"
       photoDim="bg-black/75"
       overlaySrc="/images/store/worm-bag-coir.jpg"
       overlayAlt="White muslin drawstring bag stamped with the JördHaus logo beside red wigglers in coco coir"

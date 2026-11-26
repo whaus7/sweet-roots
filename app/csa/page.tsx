@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CatalogShell } from "@/app/components/catalog/CatalogShell";
 import { ContactBand } from "@/app/components/contact/ContactBand";
@@ -33,6 +34,15 @@ export default function CsaPage() {
             published prices. Tell us you want in and we will walk you through
             the season.
           </p>
+
+          <Image
+            src="/images/csa/harvest-crate.jpg"
+            alt="A harvest crate of tomatoes, cucumbers, beans, peppers, and blackberries from the farm"
+            width={768}
+            height={1024}
+            priority
+            className="mt-10 h-auto w-full"
+          />
 
           <div className="mt-12 space-y-10" id="how-it-works">
             <section>

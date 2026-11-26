@@ -38,6 +38,12 @@ export default function CompostingWormsPage() {
         kicker="Composting worms"
         title="Nature's bioreactors"
         lede="A red wiggler is a living bioreactor. Scraps go in one end. The gut turns them into castings a bed can use."
+        image={{
+          src: "/images/worms/worms-in-scraps.jpg",
+          alt: "Red wigglers working through corn scraps and soil",
+          width: 1024,
+          height: 936,
+        }}
         sections={[
           {
             heading: "The gut does the work",

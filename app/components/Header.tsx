@@ -362,6 +362,9 @@ export function Header() {
                 </div>
               ) : null}
             </div>
+            <Link href="/about" className={navLinkClass}>
+              About us
+            </Link>
             <Link href="/contact" className={navLinkClass}>
               Get in Touch
             </Link>
@@ -404,11 +407,7 @@ export function Header() {
                   Logout
                 </button>
               </div>
-            ) : (
-              <Link href="/login" className={navLinkClass}>
-                Login
-              </Link>
-            )}
+            ) : null}
           </nav>
 
           <div className="flex items-center gap-1 md:hidden">
@@ -558,6 +557,13 @@ export function Header() {
                 ))
               : null}
             <Link
+              href="/about"
+              className={navLinkClass}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About us
+            </Link>
+            <Link
               href="/contact"
               className={navLinkClass}
               onClick={() => setIsMenuOpen(false)}
@@ -597,15 +603,7 @@ export function Header() {
                   </button>
                 </div>
               </>
-            ) : (
-              <Link
-                href="/login"
-                className={navLinkClass}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Login
-              </Link>
-            )}
+            ) : null}
           </nav>
         </div>
       </div>

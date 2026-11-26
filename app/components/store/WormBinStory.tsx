@@ -7,7 +7,7 @@ const STAGES = [
     id: "scraps",
     label: "Scraps",
     kicker: "Day one",
-    title: "The bin is still dinner",
+    title: "Kitchen scraps go in the top",
     body: "Peels, leaves, and a little bedding. The worms are already at the edges, pulling the soft pieces under.",
   },
   {
@@ -23,6 +23,13 @@ const STAGES = [
     kicker: "The finish",
     title: "Scraps, rewritten",
     body: "The pile is dark, crumbly, and smells like a forest floor. That handful is what goes back into the bed.",
+  },
+  {
+    id: "harvest",
+    label: "Harvest",
+    kicker: "The take",
+    title: "It leaves through the bottom",
+    body: "Finished castings drop through the holes. The worms stay up with the food, and the bin keeps working while the black gold comes out.",
   },
 ] as const;
 
@@ -60,19 +67,46 @@ const BENEFITS = [
 ] as const;
 
 const WORMS = [
-  { scraps: ["18%", "22%", -14], working: ["28%", "46%", 16], gold: ["20%", "64%", -8] },
-  { scraps: ["58%", "30%", 10], working: ["62%", "58%", -18], gold: ["48%", "72%", 12] },
-  { scraps: ["34%", "48%", -6], working: ["18%", "70%", 8], gold: ["70%", "58%", -16] },
-  { scraps: ["72%", "18%", 20], working: ["44%", "36%", -10], gold: ["30%", "80%", 6] },
-  { scraps: ["46%", "64%", 4], working: ["74%", "78%", 14], gold: ["58%", "48%", -4] },
+  { scraps: ["18%", "22%", -14], working: ["28%", "46%", 16], gold: ["20%", "64%", -8], harvest: ["12%", "1%", -12] },
+  { scraps: ["58%", "30%", 10], working: ["62%", "58%", -18], gold: ["48%", "72%", 12], harvest: ["42%", "0%", 8] },
+  { scraps: ["34%", "48%", -6], working: ["18%", "70%", 8], gold: ["70%", "58%", -16], harvest: ["64%", "3%", -6] },
+  { scraps: ["72%", "18%", 20], working: ["44%", "36%", -10], gold: ["30%", "80%", 6], harvest: ["78%", "1%", 14] },
+  { scraps: ["46%", "64%", 4], working: ["74%", "78%", 14], gold: ["58%", "48%", -4], harvest: ["28%", "4%", 6] },
+] as const;
+
+const HOLES = [16, 38, 62, 84] as const;
+
+const CRUMBS = [
+  [6, 18, 11, 0],
+  [14, 42, 16, 1],
+  [22, 70, 8, 2],
+  [28, 28, 13, 1],
+  [36, 56, 18, 0],
+  [44, 22, 7, 2],
+  [48, 78, 14, 1],
+  [56, 40, 12, 0],
+  [62, 64, 20, 2],
+  [70, 18, 9, 1],
+  [74, 48, 15, 0],
+  [82, 30, 12, 2],
+  [88, 72, 8, 1],
+  [12, 84, 13, 0],
+  [33, 88, 9, 2],
+  [66, 86, 11, 1],
+  [90, 52, 7, 0],
+  [8, 58, 6, 2],
 ] as const;
 
 function goldHeight(stage: number) {
-  return stage === 0 ? "10%" : stage === 1 ? "42%" : "80%";
+  return ["12%", "42%", "82%", "42%"][stage];
 }
 
 function scrapHeight(stage: number) {
-  return stage === 0 ? "70%" : stage === 1 ? "28%" : "0%";
+  return ["84%", "34%", "0%", "30%"][stage];
+}
+
+function bedHeight(stage: number) {
+  return ["22%", "74%", "94%", "74%"][stage];
 }
 
 export function WormBinStory() {
@@ -117,10 +151,16 @@ export function WormBinStory() {
           from { transform: scaleY(0.2); opacity: 0; }
           to { transform: scaleY(1); opacity: 1; }
         }
+        @keyframes casting-fall {
+          0% { transform: translateY(-8px) scale(0.75); opacity: 0; }
+          16% { opacity: 1; }
+          100% { transform: translateY(62px) scale(1); opacity: 0.15; }
+        }
         .worm-wiggle { animation: worm-wiggle 1.6s ease-in-out infinite; transform-origin: center; }
         .sprout-rise { animation: sprout-rise 900ms ease-out both; transform-origin: bottom center; }
+        .casting-fall { animation: casting-fall 1.45s ease-in infinite; }
         @media (prefers-reduced-motion: reduce) {
-          .worm-wiggle, .sprout-rise { animation: none; }
+          .worm-wiggle, .sprout-rise, .casting-fall { animation: none; }
         }
       `}</style>
 
@@ -144,87 +184,109 @@ export function WormBinStory() {
         <div className="mt-12 grid items-start gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#5c5348]">
-              Side slice of a bin
+              Continous Flow Through (CFT) Worm Bin
             </p>
             <div className="relative mt-4">
-              <div className="relative z-10 mx-4 h-4 rounded-t-md bg-[#5a3b24] shadow-[0_8px_16px_rgba(40,24,12,0.18)]" />
+              <div className="relative z-10 mx-4 h-4 rounded-t-md bg-[#6b4a30] shadow-[0_8px_16px_rgba(40,24,12,0.16)]" />
               <div
-                className="relative -mt-px overflow-hidden rounded-b-2xl p-3 pt-2 shadow-[0_18px_40px_rgba(40,24,12,0.18)]"
+                className="relative -mt-px rounded-b-2xl p-3 pt-2 shadow-[0_18px_40px_rgba(40,24,12,0.16)]"
                 style={{
                   backgroundImage:
-                    "repeating-linear-gradient(90deg, #6b4428 0 18px, #7a5232 18px 20px, #623e24 20px 34px)",
+                    "repeating-linear-gradient(90deg, #6d4a30 0 18px, #7d5840 18px 20px, #624228 20px 34px)",
                 }}
               >
-                <div className="relative h-[26rem] overflow-hidden rounded-b-lg bg-[#d9c4a2] sm:h-[30rem]">
-                  <div
-                    className="absolute inset-x-0 bottom-0 bg-[#6b4a32] transition-[height] duration-[1600ms] ease-in-out"
-                    style={{
-                      height: stage === 0 ? "18%" : stage === 1 ? "74%" : "92%",
-                    }}
-                  />
-
-                  <div
-                    className="absolute inset-x-0 bottom-0 transition-[height] duration-[1600ms] ease-in-out"
-                    style={{ height: goldHeight(stage) }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#24180f] to-[#100c09]" />
-                    <Crumbs />
-                    <div className="absolute inset-x-0 top-0 h-3 bg-gradient-to-b from-[#8d6a45] to-transparent" />
-                  </div>
-
-                  <MixBits show={stage === 1} />
-
-                  <div
-                    className="absolute inset-x-0 top-0 overflow-hidden transition-all duration-[1600ms] ease-in-out"
-                    style={{ height: scrapHeight(stage), opacity: stage === 2 ? 0 : 1 }}
-                  >
-                    <Scraps faded={stage === 1} />
-                  </div>
-
-                  {WORMS.map((worm, index) => {
-                    const spot =
-                      stage === 0 ? worm.scraps : stage === 1 ? worm.working : worm.gold;
-                    return (
-                      <div
-                        key={index}
-                        className="absolute z-10 transition-all duration-[1600ms] ease-in-out"
-                        style={{
-                          left: spot[0],
-                          top: spot[1],
-                          transform: `rotate(${spot[2]}deg)`,
-                        }}
-                      >
-                        <span
-                          className="block"
-                          style={{ transform: index % 2 === 1 ? "scaleX(-1)" : undefined }}
-                        >
-                          <WormGraphic delay={index * 0.18} />
-                        </span>
-                      </div>
-                    );
-                  })}
-
-                  {stage === 2 ? (
+                <div className="flex h-[30rem] flex-col sm:h-[34rem]">
+                  <div className="relative min-h-0 flex-1 overflow-hidden bg-[#f0e2cc]">
                     <div
-                      className="sprout-rise absolute left-[46%] z-20 w-8"
-                      style={{ bottom: "78%" }}
-                    >
-                      <Sprout />
-                    </div>
-                  ) : null}
+                      className="absolute inset-x-0 bottom-0 bg-[#6a4c34] transition-[height] duration-[1600ms] ease-in-out"
+                      style={{ height: bedHeight(stage) }}
+                    />
 
+                    <div
+                      className="absolute inset-x-0 bottom-0 transition-[height] duration-[1600ms] ease-in-out"
+                      style={{ height: goldHeight(stage) }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#3a2a1c] via-[#1a120e] to-[#0c0a08]" />
+                      <Crumbs />
+                      <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-[#8d6a45]/80 to-transparent" />
+                    </div>
+
+                    <div
+                      className="absolute inset-x-0 top-0 overflow-hidden transition-all duration-[1600ms] ease-in-out [mask-image:linear-gradient(to_bottom,#000_86%,transparent)]"
+                      style={{
+                        height: scrapHeight(stage),
+                        opacity: stage === 2 ? 0 : 1,
+                      }}
+                    >
+                      <Scraps faded={stage === 1} />
+                    </div>
+
+                    {WORMS.map((worm, index) => {
+                      const spot =
+                        stage === 0
+                          ? worm.scraps
+                          : stage === 1
+                            ? worm.working
+                            : stage === 2
+                              ? worm.gold
+                              : worm.harvest;
+                      return (
+                        <div
+                          key={index}
+                          className="absolute z-10 transition-all duration-[1600ms] ease-in-out"
+                          style={{
+                            left: spot[0],
+                            top: spot[1],
+                            transform: `rotate(${spot[2]}deg)`,
+                          }}
+                        >
+                          <span
+                            className="block"
+                            style={{ transform: index % 2 === 1 ? "scaleX(-1)" : undefined }}
+                          >
+                            <WormGraphic delay={index * 0.18} />
+                          </span>
+                        </div>
+                      );
+                    })}
+
+                    {stage === 2 ? (
+                      <div
+                        className="sprout-rise absolute left-[43%] z-20 w-10"
+                        style={{ bottom: "76%" }}
+                      >
+                        <img
+                          src="/images/worms/bin-art/bin-sprout.png?v=2"
+                          alt=""
+                          className="h-auto w-full"
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <BinFloor open={stage === 3} />
+
+                  <div
+                    className="relative h-16 overflow-hidden"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, #6a5340 0%, #b7a48c 34%, #e3d5c2 100%)",
+                    }}
+                  >
+                    <HarvestSpill show={stage === 3} reduced={reduced} />
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-5 flex items-center gap-2">
+            <div className="mt-5 grid grid-cols-4 gap-1.5">
               {STAGES.map((item, index) => (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => chooseStage(index)}
                   aria-pressed={stage === index}
-                  className={`h-11 flex-1 rounded-full border text-sm transition-colors ${
+                  className={`h-11 rounded-full border px-1 text-[11px] leading-tight transition-colors sm:text-sm ${
                     stage === index
                       ? "border-[#1c1812] bg-[#1c1812] text-[#f4efe4]"
                       : "border-[#1c1812]/25 bg-transparent text-[#1c1812] hover:border-[#1c1812]"
@@ -258,9 +320,7 @@ export function WormBinStory() {
               </p>
             </div>
 
-            <h3 className="catalog-display text-2xl">
-              What a busy worm bed does
-            </h3>
+            <h3 className="catalog-display text-2xl">What a busy worm bed does</h3>
             <ul className="mt-6 max-w-xl space-y-6">
               {BENEFITS.map((benefit) => (
                 <li key={benefit.id}>
@@ -280,96 +340,12 @@ export function WormBinStory() {
 
 function WormGraphic({ delay }: { delay: number }) {
   return (
-    <svg
-      viewBox="0 0 88 22"
-      className="worm-wiggle h-4 w-16"
+    <img
+      src="/images/worms/bin-art/bin-worm.png"
+      alt=""
+      className="worm-wiggle h-16 w-16 max-w-none object-contain"
       style={{ animationDelay: `${delay}s` }}
-      aria-hidden
-    >
-      <path
-        d="M4 12 C 16 3, 26 21, 40 12 S 64 3, 84 12"
-        stroke="#7a2e28"
-        strokeWidth="7"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M4 12 C 16 3, 26 21, 40 12 S 64 3, 84 12"
-        stroke="#d06a56"
-        strokeWidth="7"
-        strokeLinecap="round"
-        strokeDasharray="4 6"
-        fill="none"
-      />
-      <circle cx="83" cy="12" r="1.2" fill="#2a1210" />
-    </svg>
-  );
-}
-
-function Sprout() {
-  return (
-    <svg viewBox="0 0 40 56" className="h-14 w-8" aria-hidden>
-      <path d="M20 54 V 24" stroke="#2f6b32" strokeWidth="2.4" fill="none" />
-      <path d="M20 30 C 8 26, 6 12, 16 10 C 14 22, 18 28, 20 30" fill="#2f6b32" />
-      <path d="M20 26 C 32 20, 34 8, 24 8 C 26 18, 22 24, 20 26" fill="#3d8a40" />
-    </svg>
-  );
-}
-
-const CRUMBS = [
-  [6, 18, 10],
-  [14, 42, 16],
-  [22, 70, 8],
-  [28, 28, 12],
-  [36, 56, 18],
-  [44, 22, 7],
-  [48, 78, 14],
-  [56, 40, 11],
-  [62, 64, 20],
-  [70, 18, 9],
-  [74, 48, 15],
-  [82, 30, 12],
-  [88, 72, 8],
-  [12, 84, 13],
-  [33, 88, 9],
-  [66, 86, 11],
-  [90, 52, 7],
-  [8, 58, 6],
-] as const;
-
-function Crumbs() {
-  return (
-    <div className="absolute inset-0" aria-hidden>
-      {CRUMBS.map(([left, top, size], index) => (
-        <span
-          key={`${left}-${top}`}
-          className="absolute rounded-full"
-          style={{
-            left: `${left}%`,
-            top: `${top}%`,
-            width: size,
-            height: Math.round(size * 0.72),
-            background: index % 3 === 0 ? "#c6a36a" : index % 3 === 1 ? "#4a3424" : "#2a1c12",
-            opacity: 0.8,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function MixBits({ show }: { show: boolean }) {
-  return (
-    <div
-      className="pointer-events-none absolute inset-x-0 top-[34%] h-24 transition-opacity duration-700"
-      style={{ opacity: show ? 1 : 0 }}
-      aria-hidden
-    >
-      <span className="absolute left-[18%] top-2 h-2 w-7 -rotate-6 rounded-full bg-[#8d6a45]" />
-      <span className="absolute left-[46%] top-8 h-2.5 w-4 rotate-12 rounded-sm bg-[#6a8a48]/80" />
-      <span className="absolute right-[22%] top-4 h-2 w-8 rotate-3 rounded-full bg-[#a36840]/80" />
-      <span className="absolute right-[40%] top-12 h-1.5 w-5 -rotate-12 rounded-full bg-[#c4b08a]" />
-    </div>
+    />
   );
 }
 
@@ -380,31 +356,129 @@ function Scraps({ faded }: { faded: boolean }) {
       style={{ opacity: faded ? 0.55 : 1 }}
       aria-hidden
     >
-      <div className="absolute left-[10%] top-[16%] h-11 w-11 rounded-full bg-[#a33b32]">
-        <span className="absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 -translate-y-2 bg-[#5d6b38]" />
-      </div>
-      <div className="absolute left-[34%] top-[8%] h-8 w-[4.5rem] -rotate-12 rounded-full bg-[#6f8f45]" />
-      <div className="absolute right-[16%] top-[20%] h-7 w-12 rotate-6 rounded-t-full border-2 border-[#f3efe6] bg-[#f7f3ea]" />
-      <div className="absolute left-[18%] top-[42%] h-5 w-16 rotate-[-8deg] rounded-full border-[5px] border-[#d4a24a] border-b-transparent" />
-      <div className="absolute right-[28%] top-[40%] h-9 w-6 rounded-sm bg-[#c45c2a]" />
-      <div className="absolute left-[48%] top-[28%] h-6 w-14 rotate-3 rounded-full bg-[#3f6b34]" />
-      <div className="absolute left-[62%] top-[14%] h-8 w-8 rotate-12 rounded-full bg-[#7a9a52]" />
-      <div className="absolute left-[26%] top-[34%] h-4 w-10 -rotate-6 rounded-full bg-[#d7b15a]" />
-      <div className="absolute right-[8%] top-[46%] h-7 w-7 rounded-full bg-[#8c3e32]" />
-      <div className="absolute bottom-[18%] left-[22%] h-3 w-8 -rotate-6 rounded-sm bg-[#c4b08a]" />
-      <div className="absolute bottom-[22%] right-[20%] h-3 w-10 rotate-12 rounded-sm bg-[#b89a72]" />
-      {faded ? (
-        <>
-          <div className="absolute bottom-[8%] left-[40%] h-2 w-6 rounded-full bg-[#6a4a32]" />
-          <div className="absolute bottom-[14%] right-[36%] h-2 w-4 rounded-full bg-[#5a3e2a]" />
-        </>
-      ) : (
-        <div className="absolute bottom-[28%] left-[58%] flex gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#3a2a22]" />
-          <span className="h-1.5 w-1.5 rounded-full bg-[#3a2a22]" />
-          <span className="h-1.5 w-1.5 rounded-full bg-[#3a2a22]" />
-        </div>
-      )}
+      <img
+        src="/images/worms/bin-art/bin-scrap-pile.png"
+        alt=""
+        className="pointer-events-none absolute left-1/2 top-0 w-[108%] max-w-none -translate-x-1/2 select-none"
+      />
     </div>
+  );
+}
+
+
+function Crumbs() {
+  const fills = ["#c6a36a", "#4a3424", "#24180f"];
+  return (
+    <div className="absolute inset-0" aria-hidden>
+      {CRUMBS.map(([left, top, size, tone]) => (
+        <svg
+          key={`${left}-${top}`}
+          viewBox="0 0 20 16"
+          className="absolute"
+          style={{ left: `${left}%`, top: `${top}%`, width: size, height: size * 0.75 }}
+          aria-hidden
+        >
+          <path
+            d={
+              tone === 1
+                ? "M2 9 C 3 3, 9 2, 14 6 C 19 10, 16 15, 9 14 C 4 13, 1 11, 2 9"
+                : "M4 8 C 6 2, 12 3, 16 7 C 18 12, 12 15, 7 13 C 3 12, 2 10, 4 8"
+            }
+            fill={fills[tone]}
+            opacity="0.85"
+          />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function BinFloor({ open }: { open: boolean }) {
+  return (
+    <div className="relative h-7" aria-hidden>
+      {HOLES.map((left) => (
+        <span
+          key={left}
+          className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700"
+          style={{
+            left: `${left}%`,
+            background: open
+              ? "radial-gradient(circle at 50% 42%, #5a4030 0 18%, #140e0b 58%, #1c140f 100%)"
+              : "radial-gradient(circle at 50% 40%, #8d6848 0 30%, #5c3e2a 72%, #4a321f 100%)",
+            boxShadow: open
+              ? "inset 0 3px 5px rgba(0,0,0,0.65), 0 0 0 2px rgba(74,48,28,0.45)"
+              : "inset 0 1px 2px rgba(0,0,0,0.35)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function HarvestSpill({ show, reduced }: { show: boolean; reduced: boolean }) {
+  return (
+    <div
+      className="absolute inset-0 transition-opacity duration-700"
+      style={{ opacity: show ? 1 : 0 }}
+      aria-hidden
+    >
+      {HOLES.map((left, hole) =>
+        [0, 0.5, 1].map((delay, index) => (
+          <span
+            key={`${left}-${delay}`}
+            className={reduced ? "absolute top-0" : "casting-fall absolute top-0"}
+            style={
+              reduced
+                ? {
+                    left: `calc(${left}% - 8px)`,
+                    transform: `translateY(${12 + index * 16}px)`,
+                    opacity: 0.85,
+                  }
+                : {
+                    left: `calc(${left}% - 8px)`,
+                    animationDelay: `${delay + hole * 0.2}s`,
+                  }
+            }
+          >
+            <CastingDrop variant={(hole + index) % 2} />
+          </span>
+        )),
+      )}
+      <div className="absolute inset-x-3 bottom-1 h-12">
+        <CastingPile />
+      </div>
+    </div>
+  );
+}
+
+function CastingDrop({ variant }: { variant: number }) {
+  return (
+    <svg viewBox="0 0 22 16" className="h-4 w-5" aria-hidden>
+      <path
+        d={
+          variant === 0
+            ? "M4 8 C 5 3, 11 2, 15 6 C 19 9, 16 14, 10 14 C 5 13, 3 11, 4 8"
+            : "M3 9 C 4 4, 9 2, 14 5 C 18 8, 17 13, 11 14 C 6 14, 2 12, 3 9"
+        }
+        fill="#1a120e"
+      />
+      <path d="M7 7 C 9 5, 12 6, 12 8" fill="#6b5038" opacity="0.55" />
+    </svg>
+  );
+}
+
+function CastingPile() {
+  return (
+    <svg viewBox="0 0 300 64" className="h-full w-full" aria-hidden>
+      <path
+        d="M16 54 C 36 28, 70 24, 96 46 C 118 18, 160 16, 184 44 C 214 14, 262 28, 286 52 C 210 66, 90 68, 16 54"
+        fill="#1a120e"
+      />
+      <path d="M40 50 C 58 36, 84 38, 98 50" fill="#3a2a1c" opacity="0.85" />
+      <path d="M150 48 C 168 32, 198 34, 214 50" fill="#4a3828" opacity="0.7" />
+      <path d="M70 46 C 74 40, 84 40, 88 47" fill="#c6a36a" opacity="0.45" />
+      <path d="M176 44 C 182 38, 194 39, 196 46" fill="#6b5038" opacity="0.8" />
+      <path d="M230 48 C 236 42, 248 44, 246 52" fill="#c6a36a" opacity="0.35" />
+    </svg>
   );
 }

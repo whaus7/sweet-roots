@@ -156,9 +156,7 @@ export default async function DetailsPage({ params }: PageProps) {
   }
 
   return (
-    <div className="flex p-5 justify-center w-full details-page">
-      <div className="w-full max-w-[1100px]">
-        {/* Flexbox layout for tiles */}
+    <div className="details-page mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
         <div className="flex gap-4 flex-col lg:flex-row">
           {/* Left column - content tiles */}
           <div className="flex-1 space-y-4">
@@ -229,7 +227,6 @@ export default async function DetailsPage({ params }: PageProps) {
             )}
           </div>
         </div>
-      </div>
     </div>
   );
 }

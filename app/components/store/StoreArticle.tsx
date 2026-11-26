@@ -1,14 +1,18 @@
+import Image from "next/image";
+
 export function StoreArticle({
   id,
   kicker,
   title,
   lede,
+  image,
   sections,
 }: {
   id: string;
   kicker: string;
   title: string;
   lede: string;
+  image?: { src: string; alt: string; width: number; height: number };
   sections: { heading: string; paragraphs: string[] }[];
 }) {
   return (
@@ -28,6 +32,15 @@ export function StoreArticle({
           {title}
         </h2>
         <p className="mt-4 text-lg leading-relaxed text-[#3c342c]">{lede}</p>
+        {image ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            className="mt-10 h-auto w-full"
+          />
+        ) : null}
         <div className="mt-12 space-y-10">
           {sections.map((section) => (
             <section key={section.heading}>
