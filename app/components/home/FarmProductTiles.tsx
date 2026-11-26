@@ -13,15 +13,15 @@ const PRODUCTS = [
     href: "/store/continuous-flow-through-worm-bins",
     title: "Continuous-flow beds",
     line: "A bed that stays in production.",
-    image: "/images/store/continuous-flow-bin.jpg",
-    alt: "Long white continuous-flow worm bin on a metal frame",
+    image: "/images/store/continuous-flow-bin-frame.jpg",
+    alt: "Drawing of a continuous-flow worm bin: steel frame with wood side panels",
   },
   {
     href: "/store/microgreens",
     title: "Microgreens",
     line: "Full trays, cut at the bench.",
-    image: "/images/microgreens/microgreen-trays-horizon.jpg",
-    alt: "Microgreen trays running toward the far end of the bench",
+    image: "/images/microgreens/microgreen-tray-closeup.jpg",
+    alt: "Close view of a tray of microgreens with round leaves and purple stems",
   },
 ] as const;
 

@@ -23,17 +23,19 @@ export function FarmHero() {
         </p>
         <h1
           id="farm-hero-title"
-          className="catalog-display mt-3 max-w-3xl text-5xl font-medium leading-tight tracking-tight sm:text-6xl"
+          className="catalog-display mt-3 max-w-5xl text-5xl font-medium leading-tight tracking-tight sm:text-6xl"
         >
-          Jord Haus Farms
+          Our Farm to Your Family's Table
         </h1>
-        <p className="catalog-display mt-4 max-w-3xl text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
-          Eat from the farm.
-        </p>
+        {/* <p className="catalog-display mt-4 max-w-3xl text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
+          Jord Haus Farms
+        </p> */}
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-white">
-          Seasonal CSA produce from the Redmond beds. The same living soil,
-          worms, and biology that run the rest of the farm. Pickup at the plot.
-          Get in touch to join the season.
+          Seasonal CSA produce from our Redmond farm using regenerative farming practices. 
+          Visit the farm and see where your food comes from. 
+          Learn about how we amend the soil, add compost, use cover crops, and more.
+          See the worms, soil, and biology that run the rest of the farm.
+          Get in touch to join this seasons CSA.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <Link
