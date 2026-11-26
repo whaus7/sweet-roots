@@ -25,7 +25,7 @@ export function FarmHero() {
           id="farm-hero-title"
           className="catalog-display mt-3 max-w-5xl text-5xl font-medium leading-tight tracking-tight sm:text-6xl"
         >
-          Our Farm to Your Family's Table
+          Our Farm to Your Family&apos;s Table
         </h1>
         {/* <p className="catalog-display mt-4 max-w-3xl text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
           Jord Haus Farms
