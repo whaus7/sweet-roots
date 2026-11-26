@@ -30,8 +30,8 @@ export function FarmHero() {
         {/* <p className="catalog-display mt-4 max-w-3xl text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
           Jord Haus Farms
         </p> */}
-        <p className="mt-5 max-w-xl text-lg leading-relaxed text-white">
-          Seasonal CSA produce from our Redmond farm using regenerative farming practices. 
+        <p className="mt-5 max-w-5xl text-xl leading-relaxed text-white">
+          Seasonal CSA produce from your local farm using regenerative farming practices. 
           Visit the farm and see where your food comes from. 
           Learn about how we amend the soil, add compost, use cover crops, and more.
           See the worms, soil, and biology that run the rest of the farm.

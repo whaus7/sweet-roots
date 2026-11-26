@@ -5,21 +5,21 @@ const PRODUCTS = [
   {
     href: "/store/composting-worms",
     title: "Composting worms",
-    line: "Live red wigglers for bins and beds.",
+    line: "Live earthworms eager to amend your soil or start your own compost bin.",
     image: "/images/store/worm-bag-coir.jpg",
     alt: "White muslin drawstring bag stamped with the JördHaus logo beside red wigglers in coco coir",
   },
   {
     href: "/store/continuous-flow-through-worm-bins",
     title: "Continuous-flow beds",
-    line: "A bed that stays in production.",
+    line: "A worm bin that stays in production with minimal maintenance.",
     image: "/images/store/continuous-flow-bin-frame.jpg",
     alt: "Drawing of a continuous-flow worm bin: steel frame with wood side panels",
   },
   {
     href: "/store/microgreens",
     title: "Microgreens",
-    line: "Full trays, cut at the bench.",
+    line: "Fresh microgreens and herbs harvested same day of delivery.",
     image: "/images/microgreens/microgreen-tray-closeup.jpg",
     alt: "Close view of a tray of microgreens with round leaves and purple stems",
   },
@@ -33,24 +33,22 @@ export function FarmProductTiles() {
           <Link
             key={product.href}
             href={product.href}
-            className="group relative block aspect-[4/3] overflow-hidden"
+            className="group flex h-full flex-col overflow-hidden"
           >
-            <Image
-              src={product.image}
-              alt={product.alt}
-              fill
-              sizes="(min-width: 640px) 30vw, 100vw"
-              className="object-cover transition duration-500 group-hover:scale-[1.03]"
-            />
-            <span
-              className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.62)_0%,rgba(0,0,0,0.28)_16%,transparent_34%)]"
-              aria-hidden
-            />
-            <span className="absolute inset-x-0 bottom-0 px-4 py-4 text-white">
+            <span className="relative block aspect-[4/3] overflow-hidden">
+              <Image
+                src={product.image}
+                alt={product.alt}
+                fill
+                sizes="(min-width: 640px) 30vw, 100vw"
+                className="object-cover transition duration-500 group-hover:scale-[1.03]"
+              />
+            </span>
+            <span className="flex flex-1 flex-col bg-[#00340c] px-4 py-4 text-white">
               <span className="catalog-display block text-2xl leading-tight">
                 {product.title}
               </span>
-              <span className="mt-1 block text-sm leading-snug text-white/85">
+              <span className="mt-1.5 block text-lg leading-snug text-white/85">
                 {product.line}
               </span>
             </span>
