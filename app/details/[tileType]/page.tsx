@@ -16,6 +16,7 @@ import Microscopy from "../../components/Microscopy";
 import PLFADonutChart from "../../components/PLFADonutChart";
 import NPKMeter from "../../components/NPKMeter";
 import { Tile } from "../../components/Tile";
+import { CatalogShell } from "@/app/components/catalog/CatalogShell";
 import { pageMeta } from "@/app/lib/site";
 
 interface PageProps {
@@ -156,25 +157,26 @@ export default async function DetailsPage({ params }: PageProps) {
   }
 
   return (
-    <div className="details-page mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-        <div className="flex gap-4 flex-col lg:flex-row">
+    <CatalogShell>
+    <div className="details-page mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div className="flex gap-8 flex-col lg:flex-row">
           {/* Left column - content tiles */}
-          <div className="flex-1 space-y-4">
-            <Tile type="what" title={`What is ${title}`}>
+          <div className="flex-1 space-y-12 sm:space-y-16">
+            <Tile type="what" title={`What is ${title}`} variant="plain">
               <div
                 className="leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: data.what }}
               />
             </Tile>
 
-            <Tile type="why" title={`Why is ${title} Important`}>
+            <Tile type="why" title={`Why is ${title} Important`} variant="plain">
               <div
                 className="leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: data.why }}
               />
             </Tile>
 
-            <Tile type="solutions" title="Solutions">
+            <Tile type="solutions" title="Solutions" variant="plain">
               <div
                 className="leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: data.solutions }}
@@ -184,16 +186,16 @@ export default async function DetailsPage({ params }: PageProps) {
 
           {/* Right column - visual tiles */}
           <div className="lg:w-90 space-y-4">
-            <Tile type="visualization" title="Visualization">
+            <Tile type="visualization" title="Visualization" variant="white">
               <div className="flex justify-center items-center">
                 {VisualComponent && <VisualComponent />}
               </div>
             </Tile>
 
             {hasImage && (
-              <Tile type="testing-tool" title="Testing Device" altStyle={true}>
+              <Tile type="testing-tool" title="Testing Device" variant="white">
                 <div className="space-y-4">
-                  <div className="text-sm text-gray-600 leading-relaxed">
+                  <div className="text-sm leading-relaxed text-[#3c342c]">
                     <b>
                       {
                         deviceDescriptions[
@@ -228,5 +230,6 @@ export default async function DetailsPage({ params }: PageProps) {
           </div>
         </div>
     </div>
+    </CatalogShell>
   );
 }

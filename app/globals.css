@@ -84,15 +84,9 @@ input[type="date"] {
 }
 
 .tileTitle {
-  border-bottom: 2px solid #bfe0ff;
+  border-bottom: 1px solid #d9d0c0;
   padding-bottom: 5px;
-}
-
-.result-widget {
-  /* background: #e6f3ff; */
-
-  padding: 15px;
-  border-radius: 10px;
+  color: #1c1812;
 }
 
 .diagram-hotspot-marker {

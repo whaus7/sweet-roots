@@ -1,6 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  Droplets,
+  Microscope,
+  Shield,
+  Sprout,
+  createLucideIcon,
+  type LucideIcon,
+} from "lucide-react";
+
+const Roots = createLucideIcon("roots", [
+  ["path", { d: "M5 7h14" }],
+  ["path", { d: "M12 7v12" }],
+  ["path", { d: "M12 10c-2.6 1.6-4.6 4.2-6 8" }],
+  ["path", { d: "M12 11c2.4 1.4 4.4 3.6 5.6 7" }],
+]);
+
+const Mushroom = createLucideIcon("mushroom", [
+  ["path", { d: "M4 13a8 6 0 0 1 16 0" }],
+  ["path", { d: "M4 13h16" }],
+  ["path", { d: "M9 13v3a3 3 0 0 0 6 0v-3" }],
+]);
+
+/** Break copy anywhere. Extra spaces and line breaks are ignored on the site. */
+function copy(text: string) {
+  return text.replace(/\s+/g, " ").trim();
+}
 
 const STAGES = [
   {
@@ -8,28 +34,46 @@ const STAGES = [
     label: "Scraps",
     kicker: "Day one",
     title: "Kitchen scraps go in the top",
-    body: "Peels, leaves, and a little bedding. The worms are already at the edges, pulling the soft pieces under.",
+    body: copy(`
+      Red wigglers love to hang out in the top layer of the bin
+      so they are perfect for a continuous flow through system.
+      Worms don't actually eat the scraps,
+      they are eating the bacteria and microbes that are rotting the scraps.
+      Since the worms are eating the bacteria and microbes, the smell of the bin is minimal.
+      It's actually pretty remarkable how little smell a worm bin produces.
+    `),
   },
   {
     id: "working",
     label: "Working",
     kicker: "The work",
     title: "They eat the pile from the inside",
-    body: "A red wiggler often takes in about half its weight in scraps a day. What leaves the other end is a cast — ground up, mixed, and seeded with the bacteria from its gut.",
+    body: copy(`
+      At optimal temperature red wiggler can take in about half its weight in scraps a day.
+      Their castings are ground up, mixed, and seeded with the bacteria from its gut.
+      The castings are added as a soil amendment to boost biology and create a rich, nutrient-dense soil for plants.
+    `),
   },
   {
     id: "gold",
     label: "Black gold",
     kicker: "The finish",
     title: "Scraps, rewritten",
-    body: "The pile is dark, crumbly, and smells like a forest floor. That handful is what goes back into the bed.",
+    body: copy(`
+      The pile is dark, crumbly, and smells like a forest floor.
+      That handful is what goes back into the bed.
+    `),
   },
   {
     id: "harvest",
     label: "Harvest",
     kicker: "The take",
     title: "It leaves through the bottom",
-    body: "Finished castings drop through the holes. The worms stay up with the food, and the bin keeps working while the black gold comes out.",
+    body: copy(`
+      Finished castings drop through the holes.
+      The worms stay up with the food,
+      and the bin keeps working while the black gold comes out.
+    `),
   },
 ] as const;
 
@@ -37,41 +81,100 @@ const BENEFITS = [
   {
     id: "plants",
     title: "Plants",
-    body: "Castings feed without the jolt of a salt fertilizer. Plants get a slow supply of nutrients, plus the growth signals researchers keep finding in vermicompost.",
+    body: copy(`
+      Castings feed without the jolt of a salt fertilizer.
+      Plants get a slow supply of nutrients,
+      plus the growth signals researchers keep finding in vermicompost.
+    `),
   },
   {
     id: "roots",
     title: "Roots",
-    body: "Worm tunnels are already-dug hallways. Roots follow the air and the moisture instead of stalling in packed ground.",
+    body: copy(`
+      Worm tunnels are already-dug hallways.
+      Roots follow the air and the moisture
+      instead of stalling in packed ground.
+    `),
   },
   {
     id: "microbiome",
     title: "Microbiome",
-    body: "A worm gut is a small brewery. Casts come out denser with living bacteria than the soil that went in.",
+    body: copy(`
+      A worm gut is a small brewery.
+      Casts come out denser with living bacteria
+      than the soil that went in.
+    `),
   },
   {
     id: "water",
     title: "Water",
-    body: "The crumbs hold rain the way a sponge does, and the tunnels let the extra drain. Roots can drink without sitting in a puddle.",
+    body: copy(`
+      The crumbs hold rain the way a sponge does,
+      and the tunnels let the extra drain.
+      Roots can drink without sitting in a puddle.
+    `),
   },
   {
     id: "disease",
     title: "Disease",
-    body: "The microbes in a casting take up space some root diseases need, so those diseases have a harder time taking hold. It is a living effect in the soil, not a spray.",
+    body: copy(`
+      The microbes in a casting take up space some root diseases need,
+      so those diseases have a harder time taking hold.
+      It is a living effect in the soil, not a spray.
+    `),
   },
   {
     id: "fungi",
     title: "Fungi",
-    body: "Worms shred scraps into pieces fungi can actually colonize. In a bed you don't till, mycorrhizae stay threaded through the tunnels the worms keep open.",
+    body: copy(`
+      Worms shred scraps into pieces fungi can actually colonize.
+      In a bed you don't till,
+      mycorrhizae stay threaded through the tunnels the worms keep open.
+    `),
   },
 ] as const;
 
+const BENEFIT_ICONS: Record<(typeof BENEFITS)[number]["id"], LucideIcon> = {
+  plants: Sprout,
+  roots: Roots,
+  microbiome: Microscope,
+  water: Droplets,
+  disease: Shield,
+  fungi: Mushroom,
+};
+
+// Each worm: [left, top, rotation] for scraps, working, black gold, harvest.
 const WORMS = [
-  { scraps: ["18%", "22%", -14], working: ["28%", "46%", 16], gold: ["20%", "64%", -8], harvest: ["12%", "1%", -12] },
-  { scraps: ["58%", "30%", 10], working: ["62%", "58%", -18], gold: ["48%", "72%", 12], harvest: ["42%", "0%", 8] },
-  { scraps: ["34%", "48%", -6], working: ["18%", "70%", 8], gold: ["70%", "58%", -16], harvest: ["64%", "3%", -6] },
-  { scraps: ["72%", "18%", 20], working: ["44%", "36%", -10], gold: ["30%", "80%", 6], harvest: ["78%", "1%", 14] },
-  { scraps: ["46%", "64%", 4], working: ["74%", "78%", 14], gold: ["58%", "48%", -4], harvest: ["28%", "4%", 6] },
+  {
+    scraps: ["18%", "22%", -14],
+    working: ["28%", "46%", 16],
+    gold: ["20%", "64%", -8],
+    harvest: ["12%", "1%", -12],
+  },
+  {
+    scraps: ["58%", "30%", 10],
+    working: ["62%", "58%", -18],
+    gold: ["48%", "72%", 12],
+    harvest: ["42%", "0%", 8],
+  },
+  {
+    scraps: ["34%", "48%", -6],
+    working: ["18%", "70%", 8],
+    gold: ["70%", "58%", -16],
+    harvest: ["64%", "3%", -6],
+  },
+  {
+    scraps: ["72%", "18%", 20],
+    working: ["44%", "36%", -10],
+    gold: ["30%", "80%", 6],
+    harvest: ["78%", "1%", 14],
+  },
+  {
+    scraps: ["46%", "64%", 4],
+    working: ["74%", "78%", 14],
+    gold: ["58%", "48%", -4],
+    harvest: ["28%", "4%", 6],
+  },
 ] as const;
 
 const HOLES = [16, 38, 62, 84] as const;
@@ -130,8 +233,6 @@ export function WormBinStory() {
     return () => window.clearInterval(id);
   }, [reduced, paused]);
 
-  const scene = STAGES[stage];
-
   function chooseStage(next: number) {
     setStage(next);
     setPaused(true);
@@ -173,11 +274,11 @@ export function WormBinStory() {
             id="worm-bin-story"
             className="catalog-display mt-3 text-4xl leading-tight sm:text-5xl"
           >
-            From scraps to black gold
+            Turn kitchen waste into soil rich in biodiversity
           </h2>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#3c342c]">
-            A thriving worm population does more than empty the scrap bowl. It
-            rebuilds the soil the plants are standing in.
+            A thriving worm population does more than compost sustainably. It
+            rebuilds the soil biology with microbes that create nutrients for plants.
           </p>
         </header>
 
@@ -278,8 +379,37 @@ export function WormBinStory() {
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="mt-5 grid grid-cols-4 gap-1.5">
+          <div>
+            <div className="grid">
+              {STAGES.map((item, index) => {
+                const active = stage === index;
+                return (
+                  <div
+                    key={item.id}
+                    className={
+                      active
+                        ? "col-start-1 row-start-1"
+                        : "invisible col-start-1 row-start-1"
+                    }
+                    aria-hidden={active ? undefined : true}
+                  >
+                    <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#5c5348]">
+                      {item.kicker}
+                    </p>
+                    <h3 className="catalog-display mt-2 text-3xl leading-tight sm:text-4xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#3c342c]">
+                      {item.body}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 grid max-w-xl grid-cols-4 gap-1.5">
               {STAGES.map((item, index) => (
                 <button
                   key={item.id}
@@ -306,33 +436,34 @@ export function WormBinStory() {
               </button>
             )}
           </div>
-
-          <div>
-            <div className="min-h-[16.5rem] sm:min-h-[14.5rem]">
-              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#5c5348]">
-                {scene.kicker}
-              </p>
-              <h3 className="catalog-display mt-2 text-3xl leading-tight sm:text-4xl">
-                {scene.title}
-              </h3>
-              <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#3c342c]">
-                {scene.body}
-              </p>
-            </div>
-
-            <h3 className="catalog-display text-2xl">What a busy worm bed does</h3>
-            <ul className="mt-6 max-w-xl space-y-6">
-              {BENEFITS.map((benefit) => (
-                <li key={benefit.id}>
-                  <h4 className="catalog-display text-xl">{benefit.title}</h4>
-                  <p className="mt-1 text-base leading-relaxed text-[#3c342c]">
-                    {benefit.body}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
+
+        <section
+          aria-labelledby="worm-bed-does"
+          className="mt-16 border-t border-[#d9d0c0] pt-14 sm:mt-20 sm:pt-16"
+        >
+          <h3 id="worm-bed-does" className="catalog-display text-3xl">
+            What a busy worm bed does
+          </h3>
+          <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {BENEFITS.map((benefit) => {
+              const Icon = BENEFIT_ICONS[benefit.id];
+              return (
+                <li key={benefit.id} className="flex gap-4">
+                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f4efe4] text-[#00340c]">
+                    <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+                  </span>
+                  <div>
+                    <h4 className="catalog-display text-xl">{benefit.title}</h4>
+                    <p className="mt-1 text-base leading-relaxed text-[#3c342c]">
+                      {benefit.body}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       </div>
     </section>
   );
